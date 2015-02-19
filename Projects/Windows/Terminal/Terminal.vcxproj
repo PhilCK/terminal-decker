@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2BF79182-5DB9-4D73-981A-C9A0C8249649}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Terminal</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(AWE_DIR)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(AWE_DIR)build\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>awesomium.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\TextConsole.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Application.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Input.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Device.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\RendererDev.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Shader.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Texture.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\VertexFormat.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Window.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Logging.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Param.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Timer.cpp" />
+    <ClCompile Include="..\..\..\Code\Caffeine\Math\Math.cpp" />
+    <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c" />
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\image_DXT.c" />
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\image_helper.c" />
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\SOIL.c" />
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Application\TextConsole.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Application.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\ApplicationFwd.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Input.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Model.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Device.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\RendererDev.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\RendererFwd.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Shader.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Texture.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\VertexBuffer.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\VertexFormat.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Window.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Platform.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Logging.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\NonCopyable.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Param.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\StringHelpers.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Timer.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\UnitTest.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\UtilitiesFwd.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\DebugVector.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Math.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Matrix.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Quaternion.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Transform.hpp" />
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Vector.hpp" />
+    <ClInclude Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\image_DXT.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\image_helper.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\SOIL.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.mm" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,43 @@
+
+Debug Lines
+-----------
+Used for rendering debug lines.
+
+
+[VERTEXSHADER]
+
+#version 150 core
+
+// Vertex Format
+in vec3 inPosition;
+
+// WVP matrix.
+uniform mat4 wvpMat;
+uniform vec4 color = vec4(0, 1, 0, 1);
+
+// Output Format
+out vec4 vsColor;
+
+void main()
+{
+	gl_Position = wvpMat * vec4(inPosition, 1.0);
+	vsColor = color;
+}
+
+[/VERTEXSHADER]
+
+
+[PIXELSHADER]
+
+#version 150
+
+in vec4 vsColor;
+
+out vec4 outColor;
+
+void main()
+{
+	outColor = vsColor;
+}
+
+[/PIXELSHADER]

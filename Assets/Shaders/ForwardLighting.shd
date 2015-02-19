@@ -1,0 +1,111 @@
+
+Forward Lighting
+----------------
+Very limited forward lighting shader.
+
+Only supports 1 directional light and only a diffuse texture.
+
+
+[VERTEXSHADER]
+
+#version 150 core
+
+// Vertex Format
+in vec3 inPosition;
+in vec2 inTexC;
+in vec3 inNormal;
+
+uniform mat4 worldMat;
+uniform mat4 viewMat;
+uniform mat4 projMat;
+uniform vec3 eyePos;
+
+out vec4 worldPosition;
+out vec4 clipPosition;
+out vec3 normal;
+out vec2 texC;
+out vec3 eye;
+
+void main()
+{
+    mat4 wvpMat = projMat * viewMat * worldMat;
+
+    worldPosition = worldMat * vec4(inPosition, 1.0);
+    clipPosition  = wvpMat * vec4(inPosition, 1.0);
+
+    gl_Position = clipPosition;
+
+    texC = inTexC;
+    eye  = eyePos;
+
+    normal = normalize(mat3(worldMat) * inNormal);
+}
+
+
+[/VERTEXSHADER]
+
+
+[PIXELSHADER]
+
+#version 150 core
+
+in vec4 worldPosition;
+in vec4 clipPosition;
+in vec3 normal;
+in vec2 texC;
+in vec3 eye;
+
+uniform sampler2D diffuseTex;
+
+out vec4 outputColor;
+
+struct Material {
+    float Ka, Kd, Ks, A;
+};
+
+vec4 PhongLighting(Material M, vec4 lightColor, vec3 N, vec3 L, vec3 V, vec3 R)
+{
+    vec4 ambientLight = vec4(0.5, 0.5, 0.5, 0.5);
+
+    vec4 Ia = M.Ka * ambientLight;
+    vec4 Id = M.Kd * vec4(clamp(dot(N,L), 0.0, 1.0));
+    vec4 Is = M.Ks * pow( vec4(clamp(dot(R,V), 0.0, 1.0)), vec4(M.A, M.A, M.A, M.A) );
+ 
+    return Ia + (Id + Is) * lightColor;
+}
+
+
+/*
+vec4 BlinnPhongLighting(Material m, vec4 lightColor, vec3 N, vec3 L, vec3 H)
+{
+    vec4 ambientLight = vec4(1.0, 1.0, 1.0, 1.0);
+
+    vec4 Ia = M.Ka * ambientLight;
+    vec4 Id = M.Kd * clamp(dot(N,L), 0.0, 1.0);
+    vec4 Is = M.Ks * pow(clamp(dot(N,H), 0.0, 1.0), M.A);
+
+    return Ia + (Id + Is) * lightColor;
+}
+*/
+
+void main()
+{
+    //calculate lighting vectors - renormalize vectors
+    //input.n = normalize( input.n );
+    vec3 V = normalize(eye - vec3(worldPosition));
+    //DONOT USE -light.dir since the reflection returns a ray from the surface
+    vec3 R = reflect(normalize(vec3(-1,-1,1)), normal);
+ 
+    Material material;
+    material.Ka = 0.1;
+    material.Kd = 0.5;
+    material.Ks = 0.5;
+    material.A  = 1;
+
+    //calculate lighting
+	vec4 texColor = texture(diffuseTex, texC);
+	//vec4 texColor = vec4(0.5, 0.5, 0.5, 1.0);
+    outputColor = texColor * PhongLighting(material, vec4(0.8, 0.8, 0.8, 1), normal, normalize(-vec3(-1,-1,1)), V, R );
+}
+
+[/PIXELSHADER]

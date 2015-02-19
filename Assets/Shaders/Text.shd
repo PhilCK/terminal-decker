@@ -1,0 +1,53 @@
+
+Text Shader
+-----------
+
+
+[VERTEXSHADER]
+
+#version 150 core
+
+// Vertex Format
+in vec2 inPosition;
+in vec2 inTexC;
+
+uniform vec2 uniScreenScale;
+uniform vec2 uniCoordOffset;
+uniform vec2 uniCharPosition;
+uniform vec2 uniCharScale;
+
+
+out vec2 texC;
+
+void main()
+{
+	float newX = inPosition.x * uniScreenScale.x * uniCharScale.x;// + (uniCoordOffset.x);// + (uniCharPosition.x * uniScreenScale.x);
+	float newY = inPosition.y * uniScreenScale.y * uniCharScale.y;// + (uniCoordOffset.y);// + (uniCharPosition.y * uniScreenScale.y);
+
+	gl_Position = vec4(newX, newY, 0.0, 1.0);
+	texC = inTexC;
+}
+
+[/VERTEXSHADER]
+
+
+
+[PIXELSHADER]
+
+#version 150
+
+// Input
+in vec2 texC;
+
+uniform sampler2D uniFontMap;
+
+// Output
+out vec4 outColor;
+
+void main()
+{
+    outColor = texture(uniFontMap, texC);
+    //outColor = vec4(1.0,1.0,1.0,1.0);
+}
+
+[/PIXELSHADER]

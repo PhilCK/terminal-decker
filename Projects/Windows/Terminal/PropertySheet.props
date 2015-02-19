@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <RootDir>..\..\..\</RootDir>
+    <CodeDir>$(RootDir)Code\</CodeDir>
+    <AppCodeDir>$(CodeDir)Application\</AppCodeDir>
+    <BinDir>$(RootDir)Bin\</BinDir>
+    <AssetDir>$(RootDir)Assets\</AssetDir>
+    <IncludeDir>$(RootDir)Includes\</IncludeDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(BinDir)$(Configuration)\</OutDir>
+    <IncludePath>$(AppCodeDir);$(CodeDir);$(IncludeDir)Glew/Include/;$(IncludeDir)Dirent/Include/;$(IncludeDir)SDL2/Include/;$(IncludeDir)Soil/Include/;$(IncludeDir);$(IncludeDir)TinyXML2/Include/;$(IncludePath)</IncludePath>
+    <LibraryPath>$(IncludeDir)SDL2/Lib/Win32/;$(IncludeDir)Glew/Lib/Win32/;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>sdl2.lib;sdl2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /C $(IncludeDir)SDL2\Lib\Win32\SDL2.dll  $(OutDir)
+xcopy /y /C $(IncludeDir)Glew\Lib\Win32\glew32.dll $(OutDir)
+xcopy $(AssetDir)*.* $(OutDir) /Y /I /E /D /C</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="RootDir">
+      <Value>$(RootDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CodeDir">
+      <Value>$(CodeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="AppCodeDir">
+      <Value>$(AppCodeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BinDir">
+      <Value>$(BinDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="AssetDir">
+      <Value>$(AssetDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="IncludeDir">
+      <Value>$(IncludeDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

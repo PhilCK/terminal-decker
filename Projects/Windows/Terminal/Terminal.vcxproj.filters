@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{af257bbb-be85-400b-947e-5f5109948210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine">
+      <UniqueIdentifier>{b99712ff-b10e-43bb-8cc9-44959ee1465b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{514e47b5-599e-4e79-b3e5-5b85501e760c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Dirnet">
+      <UniqueIdentifier>{9741657d-2358-4a90-b4f8-73e72d58b9f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\SOIL">
+      <UniqueIdentifier>{f19eb722-8e5e-44e2-8005-30185422a6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\tinyxml2">
+      <UniqueIdentifier>{f869b027-eadd-45dc-8c38-0ceb8cc027a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Application">
+      <UniqueIdentifier>{7ba4dafd-e2e0-4791-9fac-5fe94bb0fed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Application\Renderer">
+      <UniqueIdentifier>{df542bcb-f54d-40c2-b8ee-976793cea15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Math">
+      <UniqueIdentifier>{bb71b95e-494e-451c-a0f2-02273e2c1a29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Systems">
+      <UniqueIdentifier>{2de0e92b-f7f8-40a7-852b-56ec5da7aee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Common">
+      <UniqueIdentifier>{bdbaaef7-bea9-452f-a160-9d427e290c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caffeine\Common\Utilities">
+      <UniqueIdentifier>{7ca639ec-b61c-49d0-9cb6-73bfb1966ebf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c">
+      <Filter>Includes\Dirnet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\image_DXT.c">
+      <Filter>Includes\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\image_helper.c">
+      <Filter>Includes\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\SOIL.c">
+      <Filter>Includes\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Includes\Soil\Include\SOIL\stb_image_aug.c">
+      <Filter>Includes\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.cpp">
+      <Filter>Includes\tinyxml2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Application.cpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Input.cpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer.cpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Window.cpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.cpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Logging.cpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Param.cpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Timer.cpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Shader.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Texture.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\VertexFormat.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Math\Math.cpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\VertexBuffer.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Device.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\RendererDev.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\TextConsole.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.h">
+      <Filter>Includes\Dirnet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stbi_DDS_aug.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stbi_DDS_aug_c.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\image_DXT.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\image_helper.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\SOIL.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\Soil\Include\SOIL\stb_image_aug.h">
+      <Filter>Includes\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.h">
+      <Filter>Includes\tinyxml2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Application.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\ApplicationFwd.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Input.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Model.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Window.hpp">
+      <Filter>Caffeine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Logging.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\NonCopyable.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Param.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\StringHelpers.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\Timer.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\UnitTest.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Utilities\UtilitiesFwd.hpp">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Shader.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Texture.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\VertexFormat.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Common\Platform.hpp">
+      <Filter>Caffeine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\DebugVector.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Math.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Matrix.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Quaternion.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Transform.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Math\Vector.hpp">
+      <Filter>Caffeine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\RendererFwd.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\VertexBuffer.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Device.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\RendererDev.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp">
+      <Filter>Caffeine\Application\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\TextConsole.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Code\Caffeine\Common\Utilities\Directories.mm">
+      <Filter>Caffeine\Common\Utilities</Filter>
+    </None>
+  </ItemGroup>
+</Project>
