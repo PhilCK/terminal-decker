@@ -7,23 +7,13 @@
 #include <array>
 
 
-std::tuple<ConsoleFont, std::vector<ConsoleChar>> ConvertFontToConsole(FontData::FontDataInfo fontData)
-{
-  ConsoleFont consoleFont = {fontData.maxWidth, fontData.maxHeight };
-
-  std::vector<ConsoleChar> consoleChars;
-  consoleChars.reserve(256);
-
-  for(const auto &consoleChar : fontData.characters)
-  {
-     
-  }
-}
+//std::tuple<ConsoleFont, std::vector<ConsoleChar>> ConvertFontToConsole(FontData::FontDataInfo fontData)
+//{
+//  return std::
+//}
 
 
-TextConsoleView::TextConsoleView(const ConsoleFont font, const std::vector<ConsoleChar> &fontCharacters)
-: m_fontDetails(font)
-, m_fontCharacters(fontCharacters)
+TextConsoleView::TextConsoleView()
 {
   const std::string filename = CaffUtil::GetPathDir() + "Shaders/Text.shd";
   const std::string textShader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
@@ -43,13 +33,13 @@ TextConsoleView::TextConsoleView(const ConsoleFont font, const std::vector<Conso
   m_textShader.setShaderRaw("uniNumberOfCharsHeight", sizeof(float), &numCharHeight);
     
   std::vector<GLfloat> point = {{
-    -1.f, -1.f, 0.f, 0.f,
-    +1.f, -1.f, 1.f, 0.f,
-    -1.f, +1.f, 0.f, 1.f,
+    -1.f, -1.f, 0.f, 1.f,
+    +1.f, -1.f, 1.f, 1.f,
+    -1.f, +1.f, 0.f, 0.f,
 
-    +1.f, -1.f, 1.f, 0.f,
-    +1.f, +1.f, 1.f, 1.f,
-    -1.f, +1.f, 0.f, 1.f,
+    +1.f, -1.f, 1.f, 1.f,
+    +1.f, +1.f, 1.f, 0.f,
+    -1.f, +1.f, 0.f, 0.f,
   }};
 
   m_vertexBuffer.loadVertexBuffer(point);
@@ -81,7 +71,7 @@ TextConsoleView::TextConsoleView(const ConsoleFont font, const std::vector<Conso
 
 }
 
-void TextConsoleView::renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer)
+void TextConsoleView::renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer, FontData::FontDataInfo fontData)
 {
   CaffApp::Dev::Renderer::Reset();
 
@@ -99,6 +89,24 @@ void TextConsoleView::renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBu
 
   m_textShader.setShader2f("uniCharPosition", position);
   m_textShader.setTexture("uniFontMap", m_texture);
+
+  auto currChar = ((fontData.characters.begin()))->second;
+
+  std::array<float, 2> texMapScale = {{
+    1.f / 512.f,
+    1.f / 512.f,
+  }};
+
+  m_textShader.setShader2f("uniTextureMapScale", texMapScale);
+
+  std::array<float, 4> charStart = {{
+    currChar.x * texMapScale.at(0),
+    currChar.y * texMapScale.at(1),
+    (currChar.x * texMapScale.at(0)) + (currChar.width * texMapScale.at(0)),
+    (currChar.y * texMapScale.at(1)) + (currChar.height * texMapScale.at(1)),
+  }};
+
+  m_textShader.setShader4f("uniTextureCharDetails", charStart);
 
   CaffApp::Dev::Renderer::Draw(frameBuffer, m_textShader, m_vertexFormat, m_vertexBuffer);
   //glDisable(GL_DEPTH_TEST);

@@ -20,8 +20,6 @@
 #include <Application/TextConsoleView.hpp>
 #include <Application/TextDataParse.hpp>
 
-#include <Awesomium/WebCore.h>
-
 namespace
 {
   CaffApp::Model          model;
@@ -57,9 +55,6 @@ public:
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
   {
-    std::string filename = "moop";
-    auto foo = FontData::ParseData(filename);
-
     // Logging
     CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
     CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);
@@ -106,6 +101,8 @@ public:
 
     m_caffApp.getRenderer().setViewPort(864 * 2, 486 * 2);
 
+    //std::string filename = "moop";
+    //auto fontData = ConvertFontToConsole(FontData::ParseData(filename));
     textConsole.reset(new TextConsoleView());
 
   }
@@ -113,6 +110,9 @@ public:
 
   void start()
   {
+    std::string filename = "moop";
+    auto fontData = FontData::ParseData(filename);
+
     while(!m_caffApp.shouldQuit())
     {
       m_caffApp.startFrame();
@@ -147,7 +147,7 @@ public:
         }
 
         {
-          textConsole->renderTextConsole(caffAppFrameBuffer);
+          textConsole->renderTextConsole(caffAppFrameBuffer, fontData);
         }
 
         // Draw post

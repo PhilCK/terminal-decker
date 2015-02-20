@@ -16,6 +16,8 @@ uniform vec2 uniCoordOffset;
 uniform vec2 uniCharPosition;
 uniform vec2 uniCharScale;
 
+uniform vec2 uniTextureMapScale;
+uniform vec4 uniTextureCharDetails; 
 
 out vec2 texC;
 
@@ -24,8 +26,27 @@ void main()
 	float newX = inPosition.x * uniScreenScale.x * uniCharScale.x;// + (uniCoordOffset.x);// + (uniCharPosition.x * uniScreenScale.x);
 	float newY = inPosition.y * uniScreenScale.y * uniCharScale.y;// + (uniCoordOffset.y);// + (uniCharPosition.y * uniScreenScale.y);
 
-	gl_Position = vec4(newX, newY, 0.0, 1.0);
 	texC = inTexC;
+
+	if(texC.x == 0)
+	{
+		texC.x = uniTextureCharDetails.x;
+	}
+	else
+	{
+		texC.x = uniTextureCharDetails.z;
+	}
+
+	if(texC.y == 0)
+	{
+		texC.y = uniTextureCharDetails.y;
+	}
+	else
+	{
+		texC.y = uniTextureCharDetails.w;
+	}
+
+	gl_Position = vec4(newX, newY, 0.0, 1.0);
 }
 
 [/VERTEXSHADER]
