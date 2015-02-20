@@ -37,6 +37,9 @@
     <Filter Include="Caffeine\Common\Utilities">
       <UniqueIdentifier>{7ca639ec-b61c-49d0-9cb6-73bfb1966ebf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Console">
+      <UniqueIdentifier>{61aab985-ba26-4aca-8942-f6a03af74312}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c">
@@ -114,8 +117,11 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\TextConsole.cpp">
-      <Filter>Application</Filter>
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleView.cpp">
+      <Filter>Application\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\TextDataParse.cpp">
+      <Filter>Application\Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,8 +239,11 @@
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\TextConsole.hpp">
-      <Filter>Application</Filter>
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleView.hpp">
+      <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\TextDataParse.hpp">
+      <Filter>Application\Console</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

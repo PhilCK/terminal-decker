@@ -82,7 +82,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp" />
-    <ClCompile Include="..\..\..\Code\Application\TextConsole.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleView.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\TextDataParse.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Application.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Input.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp" />
@@ -111,7 +114,12 @@
     <ClCompile Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Code\Application\TextConsole.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleView.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\TextDataParse.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Application.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\ApplicationFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Input.hpp" />

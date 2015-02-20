@@ -109,7 +109,10 @@ inline std::string ToUpper(const std::string &str)
 }
 
 
-int StringToInt(const std::string &str);
+inline int StringToInt(const std::string &str)
+{
+  return std::stoi(str);
+}
 
 
 } // namespace

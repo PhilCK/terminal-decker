@@ -6,8 +6,6 @@
 #include <Caffeine/Math/Vector.hpp>
 #include <Caffeine/Common/Utilities/Directories.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
-#include <glm/glm.hpp>
-#include <glm/GTC/matrix_transform.hpp>
 
 #include <fstream>
 #include <streambuf> 
@@ -19,7 +17,8 @@
 #include <Caffeine/Application/Renderer/Device.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
 
-#include <Application/TextConsole.hpp>
+#include <Application/TextConsoleView.hpp>
+#include <Application/TextDataParse.hpp>
 
 #include <Awesomium/WebCore.h>
 
@@ -36,14 +35,13 @@ namespace
   CaffApp::Dev::VertexBuffer  caffAppPostVertexBuffer;
   CaffApp::Dev::FrameBuffer   caffAppFrameBuffer;
   
-  std::unique_ptr<TextConsole> textConsole;
+  std::unique_ptr<TextConsoleView> textConsole;
 
   std::vector<float> fullscreenVerts = {{
     -1.f, -1.f, 0.f, 0.f,
     +3.f, -1.f, 2.f, 0.f,
     -1.f, +3.f, 0.f, 2.f,
   }};
-
 }
 
 
@@ -59,10 +57,12 @@ public:
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
   {
+    std::string filename = "moop";
+    auto foo = FontData::ParseData(filename);
+
     // Logging
     CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
     CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);
-
 
     model.loadModel(CaffUtil::GetPathDir() + "Models/unit_cube.obj");
 
@@ -106,7 +106,7 @@ public:
 
     m_caffApp.getRenderer().setViewPort(864 * 2, 486 * 2);
 
-    textConsole.reset(new TextConsole());
+    textConsole.reset(new TextConsoleView());
 
   }
 
@@ -119,7 +119,6 @@ public:
 
       const float32_t deltaTime = m_caffApp.getDeltaTime();
       
-
       // Render
       {
         auto &renderer = m_caffApp.getRenderer();
