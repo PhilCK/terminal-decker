@@ -44,12 +44,12 @@ public:
 	
 private:
 
-	std::unique_ptr<Window>		m_window;
+	std::unique_ptr<Window>		    m_window;
 	std::unique_ptr<Dev::Device>	m_renderer;
-	std::unique_ptr<Input>		m_input;
-	Utilities::Timer          m_gameTimer;
-	float                     m_deltaTime   = 0.f;
-	bool                      m_shouldQuit  = false;
+	std::unique_ptr<Input>		    m_input;
+	Utilities::Timer              m_gameTimer;
+	float                         m_deltaTime   = 0.f;
+	bool                          m_shouldQuit  = false;
 	
 }; // class
 

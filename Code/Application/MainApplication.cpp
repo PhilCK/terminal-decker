@@ -55,10 +55,6 @@ public:
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
   {
-    // Logging
-    CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
-    CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);
-
     model.loadModel(CaffUtil::GetPathDir() + "Models/unit_cube.obj");
 
     // Nooo Renderer stuff
@@ -143,7 +139,9 @@ public:
           caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
           caffAppShader.setTexture("diffuseTex",  caffAppTexture);
 
-          //CaffApp::Dev::Renderer::Draw(caffAppFrameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+          CaffApp::Dev::Renderer::Draw(caffAppFrameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+
+          caffAppFrameBuffer.clear(false, true);
         }
 
         {
@@ -182,6 +180,10 @@ private:
 
 int main(int argc, char **argv)
 {
+  // Logging
+  CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
+  CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);
+
   Terminal::Application app;
   app.start();
 
