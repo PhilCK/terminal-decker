@@ -66,31 +66,33 @@ TextConsoleView::TextConsoleView()
     scale.at(1) * (+486.f * 0.5f),
   }};
 
-
   m_textShader.setShader2f("uniCoordOffset", coordOffset);
-
 }
 
 void TextConsoleView::renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer, FontData::FontDataInfo fontData)
 {
   CaffApp::Dev::Renderer::Reset();
 
+  auto currChar = ((fontData.characters.begin()))->second;
+
   std::array<float, 2> size = {{
     30.f,
     30.f,
   }};
 
+
   m_textShader.setShader2f("uniCharScale", size);
 
+  const float scaleX = (30.f) * (static_cast<float>(currChar.width) / static_cast<float>(fontData.maxWidth));
+  const float scaleY = (30.f) * (static_cast<float>(currChar.height) / static_cast<float>(fontData.maxHeight));
+
   std::array<float, 2> position = {{
-    30.f,
-    30.f,
+    scaleX,
+    scaleY,
   }};
 
-  m_textShader.setShader2f("uniCharPosition", position);
+  m_textShader.setShader2f("uniCharScale", position);
   m_textShader.setTexture("uniFontMap", m_texture);
-
-  auto currChar = ((fontData.characters.begin()))->second;
 
   std::array<float, 2> texMapScale = {{
     1.f / 512.f,
