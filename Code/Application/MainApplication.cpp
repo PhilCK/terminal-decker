@@ -97,9 +97,9 @@ public:
 
     m_caffApp.getRenderer().setViewPort(864, 486);
 
-    //std::string filename = "moop";
-    //auto fontData = ConvertFontToConsole(FontData::ParseData(filename));
-    textConsole.reset(new TextConsoleView());
+    std::string filename = "moop";
+    auto fontData = ConvertFontToConsole(FontData::ParseData(filename));
+    textConsole.reset(new TextConsoleView(fontData));
 
   }
 
@@ -145,7 +145,7 @@ public:
         }
 
         {
-          textConsole->renderTextConsole(caffAppFrameBuffer, fontData);
+          textConsole->renderTextConsole(caffAppFrameBuffer, fontData, "moop");
         }
 
         // Draw post

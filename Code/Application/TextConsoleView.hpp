@@ -25,14 +25,16 @@ struct ConsoleFont
 };
 
 
-//std::tuple<ConsoleFont, std::vector<ConsoleChar>> ConvertFontToConsole(FontData::FontDataInfo fontData);
+using FontDesc = std::tuple<ConsoleFont, std::vector<ConsoleChar>>;
+
+FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData);
 
 
 class TextConsoleView
 {
 public:
 
-  explicit        TextConsoleView();
+  explicit        TextConsoleView(const FontDesc fontDesc);
 
   void            addTextToScreenBuffer();
   void            addTextToInputBuffer();
@@ -40,7 +42,7 @@ public:
   void            getScreenBuffer(const uint32_t linesFromBottom);
   void            getInputBuffer();
 
-  void            renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer, FontData::FontDataInfo fontData);
+  void            renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer, FontData::FontDataInfo fontData, const std::string &str);
 
 private:
 
@@ -54,6 +56,8 @@ private:
 
   ConsoleFont                   m_fontDetails;
   std::vector<ConsoleChar>      m_fontCharacters;
+
+  float                         m_fontAdvance = 0;;
   
 
 }; // class

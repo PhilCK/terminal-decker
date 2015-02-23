@@ -17,14 +17,14 @@ uniform vec2 uniCharPosition;
 uniform vec2 uniCharScale;
 
 uniform vec2 uniTextureMapScale;
-uniform vec4 uniTextureCharDetails; 
+uniform vec4 uniTextureCharDetails;
 
 out vec2 texC;
 
 void main()
 {
-	float newX = inPosition.x * uniScreenScale.x * uniCharScale.x;
-	float newY = inPosition.y * uniScreenScale.y * uniCharScale.y;
+	float newX = inPosition.x * uniScreenScale.x * uniCharScale.x + uniCharPosition.x;
+	float newY = inPosition.y * uniScreenScale.y * uniCharScale.y + uniCharPosition.y;
 
 	texC = inTexC;
 
