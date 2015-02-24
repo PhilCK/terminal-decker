@@ -1,4 +1,4 @@
-
+﻿
 #include <Caffeine/Application/Application.hpp>
 #include <Caffeine/Application/Model.hpp>
 #include <Caffeine/Application/Renderer.hpp>
@@ -144,10 +144,12 @@ public:
           CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
 
           caffAppFrameBuffer.clear(false, true);
+
         }
 
         {
-          textConsole->renderTextConsole(fontData, "Moop Moop Moopy doop");
+          textConsole->m_frameBuffer.clear();
+          textConsole->renderTextConsole(fontData, "void HelloWorld() const { std::cout << \"Hello\" << std::endl; } // Hello World!!");
         }
 
         // Draw post

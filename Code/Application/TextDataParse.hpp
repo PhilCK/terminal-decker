@@ -27,6 +27,10 @@ struct FontDataInfo
 {
   uint32_t      maxWidth;
   uint32_t      maxHeight;
+  uint32_t      baseline;
+  uint32_t      scaleWidth;
+  uint32_t      scaleHeight;
+  uint32_t      lineHeight;
 
   // TODO: Kill this!!! Yuk
   std::unordered_map<uint16_t, CharDataInfo> characters;

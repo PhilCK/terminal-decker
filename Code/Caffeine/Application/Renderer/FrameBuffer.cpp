@@ -69,7 +69,7 @@ void FrameBuffer::unbind() const
 void FrameBuffer::clear(const bool color, const bool depth)
 {
   glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-  glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
   GLenum flags = 0;
   if(color) { flags |= GL_COLOR_BUFFER_BIT; }

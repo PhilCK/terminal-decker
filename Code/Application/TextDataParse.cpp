@@ -22,15 +22,27 @@ FontDataInfo ParseData(const std::string &filename)
 	while(std::getline(fontDetails, line))
 	{
 		const std::vector<std::string> tokens = CaffUtil::SplitStringBySpaces(line);
-			
-		enum TokenID { CHAR = 0, ID, X, Y, WIDTH, HEIGHT, XOFFSET, YOFFSET, XADVANCE };
-			
-		if(!tokens.empty() && tokens.at(CHAR) == "char")
+	  
+    enum LineType { TYPE_ID = 0, };
+
+    auto GetValue = [](const std::string &str) -> uint16_t
+    {
+      return CaffUtil::StringToInt(str.substr(str.find("=") + 1, str.length()));
+    };
+
+    if(!tokens.empty() && tokens.at(TYPE_ID) == "common")
+    {
+      enum TokenID {COMMON = 0, LINEHEIGHT, BASELINE, SCALEWIDTH, SCALEHEIGHT, };
+
+      font.lineHeight   = GetValue(tokens.at(LINEHEIGHT));
+      font.baseline     = GetValue(tokens.at(BASELINE));
+      font.scaleWidth   = GetValue(tokens.at(SCALEWIDTH));
+      font.scaleHeight  = GetValue(tokens.at(SCALEHEIGHT));
+    }
+
+		if(!tokens.empty() && tokens.at(TYPE_ID) == "char")
 		{
-			auto GetValue = [](const std::string &str) -> uint16_t
-			{
-				return CaffUtil::StringToInt(str.substr(str.find("=") + 1, str.length()));
-			};
+      enum TokenID { CHAR = 0, ID, X, Y, WIDTH, HEIGHT, XOFFSET, YOFFSET, XADVANCE };
 				
 			CharDataInfo charInfo;
 			charInfo.x			= GetValue(tokens.at(X));

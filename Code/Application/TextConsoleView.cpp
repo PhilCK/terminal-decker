@@ -28,11 +28,11 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
 
 
   // Size of Screen.
-  cols = 105;
+  cols = 80;
   rows = 40;
 
-  sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(fontData.maxWidth)) * 0.25f;
-  sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(fontData.maxHeight)) * 0.25f;
+  sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 2.f));
+  sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 2.f));
 
   m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
 
@@ -86,6 +86,8 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
 
 void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const std::string &str)
 {
+  const float scaleConst = 0.5f;
+
   auto convertToNormalized = [&](const float screenX, const float screenY) -> std::array<float, 2>
   {
     const float scaleX = +2.f / sizeOfWidth;   // 2 because screen is between 1 and -1;
@@ -110,7 +112,7 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
     const float finalScaleX = scaleX / 2.f;
     const float finalScaleY = scaleY / 2.f;
 
-    const std::array<float, 2> resultArray {{finalScaleX, finalScaleY}};
+    const std::array<float, 2> resultArray {{finalScaleX * scaleConst, finalScaleY * scaleConst}};
 
     return resultArray;
   };
@@ -118,14 +120,17 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
   m_frameBuffer.clear(false, true);
   CaffApp::Dev::Renderer::Reset();
 
-  float posOffset = 78;
+  float posOffset = 78.f * scaleConst;
   float posOffsetY = 0;
 
   m_textShader.setTexture("uniFontMap", m_texture);
 
-  const float texSize = 512.f * 2.f;
-   std::array<float, 2> texMapScale = {{1.f / texSize, 1.f / texSize}};
-   m_textShader.setShader2f("uniTextureMapScale", texMapScale);
+  std::array<float, 2> texMapScale = {{1.f / fontData.scaleWidth, 1.f / fontData.scaleHeight}};
+  m_textShader.setShader2f("uniTextureMapScale", texMapScale);
+
+   
+  glEnable (GL_BLEND);
+  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   for(const auto &i : str)
   {
@@ -146,7 +151,7 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
 
     //posOffset += (fontData.maxWidth) / 2.f;
     //posOffset += (currChar.width) / 2.f;
-    posOffsetY = 84.f + (currChar.height / 2) + (currChar.yOffset);
+    posOffsetY = (fontData.baseline + (static_cast<float>(currChar.height) / 2.f) + static_cast<float>(currChar.yOffset))  * scaleConst;
 
     //m_textShader.setShader2f("uniCharPosition", convertToNormalized(864.f, 486.f));
     m_textShader.setShader2f("uniCharPosition", convertToNormalized(posOffset, 90.f + posOffsetY));
@@ -158,9 +163,7 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
 
     m_textShader.setShader2f("uniCoordOffset", offsetData);
 
-    posOffset += 78;
-    //posOffset += fontData.maxWidth;//currChar.xAdvance;//(fontData.maxWidth) / 2;
-    //posOffset += (currChar.width) / 2;
+    posOffset += 78 * scaleConst;
 
     CaffApp::Dev::Renderer::Draw(m_frameBuffer, m_textShader, m_vertexFormat, m_vertexBuffer);
 
