@@ -98,7 +98,9 @@ public:
     m_caffApp.getRenderer().setViewPort(864, 486);
 
     std::string filename = "moop";
-    auto fontData = ConvertFontToConsole(FontData::ParseData(filename));
+    auto fontData = FontData::ParseData(filename);
+
+    auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
     textConsole.reset(new TextConsoleView(fontData));
 
   }
@@ -133,19 +135,19 @@ public:
 
         // Draw geometry
         {
-          caffAppFrameBuffer.clear(true, true);
+          textConsole->m_frameBuffer.clear(true, true);
 
           CaffApp::Dev::Renderer::Reset();
           caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
           caffAppShader.setTexture("diffuseTex",  caffAppTexture);
 
-          CaffApp::Dev::Renderer::Draw(caffAppFrameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+          CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
 
           caffAppFrameBuffer.clear(false, true);
         }
 
         {
-          textConsole->renderTextConsole(caffAppFrameBuffer, fontData, "moop");
+          textConsole->renderTextConsole(fontData, "Moop Moop Moopy doop");
         }
 
         // Draw post
@@ -153,7 +155,7 @@ public:
           CaffApp::Dev::Renderer::Reset();
           glDisable(GL_DEPTH_TEST);
 
-          caffAppPostShader.setTexture("texFramebuffer", caffAppFrameBuffer);
+          caffAppPostShader.setTexture("texFramebuffer", textConsole->m_frameBuffer);
 
           CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
         }

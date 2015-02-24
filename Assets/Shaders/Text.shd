@@ -23,8 +23,8 @@ out vec2 texC;
 
 void main()
 {
-	float newX = inPosition.x * uniScreenScale.x * uniCharScale.x + uniCharPosition.x;
-	float newY = inPosition.y * uniScreenScale.y * uniCharScale.y + uniCharPosition.y;
+	float newX = (inPosition.x * uniScreenScale.x * uniCharScale.x) + (uniCharPosition.x);
+	float newY = (inPosition.y * uniScreenScale.y * uniCharScale.y) + (uniCharPosition.y);
 
 	texC = inTexC;
 

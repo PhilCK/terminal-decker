@@ -7,7 +7,7 @@ FontDataInfo ParseData(const std::string &filename)
 {
   FontDataInfo font;
 
-	std::ifstream fontDetails(CaffUtil::GetPathDir() + "Data/dev_font.txt");
+	std::ifstream fontDetails(CaffUtil::GetPathDir() + "Data/courier_new_font.txt");
 
   if(!fontDetails.is_open())
   {

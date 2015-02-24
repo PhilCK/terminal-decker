@@ -8,6 +8,7 @@
 #include <Caffeine/Application/Renderer/VertexBuffer.hpp>
 #include <Caffeine/Application/Renderer/VertexFormat.hpp>
 #include <Caffeine/Application/Renderer/Texture.hpp>
+#include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <string>
 #include <vector>
 
@@ -34,7 +35,7 @@ class TextConsoleView
 {
 public:
 
-  explicit        TextConsoleView(const FontDesc fontDesc);
+  explicit        TextConsoleView(FontData::FontDataInfo fontData);
 
   void            addTextToScreenBuffer();
   void            addTextToInputBuffer();
@@ -42,7 +43,7 @@ public:
   void            getScreenBuffer(const uint32_t linesFromBottom);
   void            getInputBuffer();
 
-  void            renderTextConsole(const CaffApp::Dev::FrameBuffer &frameBuffer, FontData::FontDataInfo fontData, const std::string &str);
+  void            renderTextConsole(FontData::FontDataInfo fontData, const std::string &str);
 
 private:
 
@@ -57,7 +58,15 @@ private:
   ConsoleFont                   m_fontDetails;
   std::vector<ConsoleChar>      m_fontCharacters;
 
-  float                         m_fontAdvance = 0;;
+  float                         m_fontAdvance = 0;
+
+  
+  float sizeOfWidth, sizeOfHeight;
+  uint32_t cols, rows;
+
+  public:
+
+  CaffApp::Dev::FrameBuffer     m_frameBuffer;
   
 
 }; // class
