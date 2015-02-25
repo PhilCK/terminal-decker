@@ -20,16 +20,65 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
 
 TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
 {
-  const std::string filename = CaffUtil::GetPathDir() + "Shaders/Text.shd";
-  const std::string textShader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
+  // Text Shader
+  {
+    const std::string filename = CaffUtil::GetPathDir() + "Shaders/Text.shd";
+    const std::string textShader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
 
-  m_textShader.loadShader(textShader);
-  assert(m_textShader.isValid());
-
+    m_textShader.loadShader(textShader);
+    assert(m_textShader.isValid());
+  }
 
   // Size of Screen.
   cols = 80;
   rows = 40;
+
+  // Simple Shader
+  {
+    const std::string filename = CaffUtil::GetPathDir() + "Shaders/SimpleShader.shd";
+    const std::string shader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
+
+    m_simpleShader.loadShader(shader);
+    assert(m_textShader.isValid());
+  }
+
+  // Console VF
+  {
+    std::vector<CaffApp::Dev::AttributeFormatDesc> vertFmtDesc = {{
+      CaffApp::Dev::AttributeFormatDesc{"inPosition", CaffApp::Dev::AttrType::FLOAT2},
+    }};
+
+    vertFmtDesc.begin()->name = "inPosition";
+
+    m_consoleGridVF.loadFormat(vertFmtDesc);
+    assert(m_consoleGridVF.hasFormatedLoaded());
+  }
+
+  // Generate VBO a collection of points each point is a character.
+  {
+    std::vector<float> pointsVBO;
+    const float sizeOfVert = 2.f; // x,y
+    pointsVBO.reserve(cols * rows * sizeOfVert);
+
+    for(uint32_t r = 0; r < rows; ++r)
+    {
+      for(uint32_t c = 0; c < cols; ++c)
+      {
+        const float xUnits = 1.f / static_cast<float>(cols);
+        const float x = (xUnits * c);
+        pointsVBO.emplace_back(x);
+        //pointsVBO.push_back(0.f);
+
+        const float yUnits = 1.f / static_cast<float>(rows);
+        const float y = (yUnits * r);
+        pointsVBO.emplace_back(y);
+        //pointsVBO.push_back(0.f);
+      }
+    }
+
+    m_consoleGridVBO.loadVertexBuffer(pointsVBO, false);
+    assert(m_consoleGridVBO.isValid());
+  }
 
   sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 2.f));
   sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 2.f));
@@ -165,8 +214,18 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
 
     posOffset += 78 * scaleConst;
 
-    CaffApp::Dev::Renderer::Draw(m_frameBuffer, m_textShader, m_vertexFormat, m_vertexBuffer);
+    //CaffApp::Dev::Renderer::Draw(m_frameBuffer, m_textShader, m_vertexFormat, m_vertexBuffer);
 
+    // Simple shader.
+    {
+      CaffApp::Dev::Renderer::Reset();
+      glPointSize(50.f);
+
+      m_frameBuffer.bind();
+      m_simpleShader.bind();
+      m_consoleGridVBO.bind(m_consoleGridVF, m_simpleShader);
+      
+      glDrawArrays(GL_POINTS, 0, 3200);
+    }
   }
-
 }

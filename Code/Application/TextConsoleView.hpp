@@ -64,6 +64,10 @@ private:
   float sizeOfWidth, sizeOfHeight;
   uint32_t cols, rows;
 
+  CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
+  CaffApp::Dev::VertexFormat    m_consoleGridVF;
+  CaffApp::Dev::Shader          m_simpleShader;
+
   public:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
