@@ -57,7 +57,7 @@ void VertexBuffer::bind(const VertexFormat &vertexFormat, const Shader &shader) 
     }
   }
 
-  GL_ERROR("Failed applying shader details");
+  GL_ERROR("Failed applying vertex buffer.");
 }
 
 

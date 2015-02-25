@@ -50,7 +50,7 @@ class Application
 public:
 
   explicit Application()
-  : m_caffApp("Terminal", 864 * 2, 486 * 2, false)
+  : m_caffApp("Terminal", 864, 486, false)
   , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 3.f, 864.f, 486.f, 0.1f, 1000.f))
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
@@ -95,7 +95,7 @@ public:
     caffAppShader.setShaderRaw("projMat",   sizeof(float) * 16, &m_projectionMatrix._11);
     caffAppShader.setShaderRaw("worldMat",  sizeof(float) * 16, &m_worldMatrix._11);
 
-    m_caffApp.getRenderer().setViewPort(864 * 2, 486 * 2);
+    m_caffApp.getRenderer().setViewPort(864, 486);
 
     std::string filename = "moop";
     auto fontData = FontData::ParseData(filename);

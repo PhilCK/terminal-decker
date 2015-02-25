@@ -10,25 +10,80 @@ Text Shader
 // Vertex Format
 in vec2 inPosition;
 
+uniform vec2 uniSize;
+
+// Output
+out VertexData
+{
+	vec4 position;
+	vec2 size;
+} vertexOut;
+
 void main()
 {
-	gl_Position = vec4(inPosition, 0.0, 1.0);
+	vertexOut.position = vec4(inPosition, 0.0, 1.0);
+	vertexOut.size = uniSize;
 }
 
 [/VERTEXSHADER]
 
+
+[GEOMETRYSHADER]
+
+#version 150
+
+layout (points) in;
+layout (triangle_strip, max_vertices = 4) out;
+
+// Input
+in VertexData {
+	vec4 position;
+	vec2 size;
+} vertexIn[];
+
+out vec2 tempColor;
+
+
+void main()
+{
+	// Generate billboard.
+	for(int i = 0; i < 4; i++)
+	{
+		float row = floor(i / 2.0);
+		float col = mod(i, 2.0);
+
+		vec4 offset = vec4((1 - (col * 2)) * vertexIn[0].size.x,
+						   (1 - (row * 2)) * vertexIn[0].size.y,
+						   0.0,
+						   0.0);
+
+		vec4 position = vertexIn[0].position + offset;
+
+		gl_Position = position;
+
+		tempColor = vec2(position.x, position.y);
+
+		EmitVertex();
+	}
+
+	EndPrimitive();
+}
+
+[/GEOMETRYSHADER]
 
 
 [PIXELSHADER]
 
 #version 150
 
+in vec2 tempColor;
+
 // Output
 out vec4 outColor;
 
 void main()
 {
-    outColor = vec4(1.0,0.0,1.0,1.0);
+    outColor = vec4(tempColor.x,tempColor.y,1.0,1.0);
 }
 
 [/PIXELSHADER]
