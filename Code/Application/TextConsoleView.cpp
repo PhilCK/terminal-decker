@@ -87,7 +87,7 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
 
       for(uint32_t i = 0; i < size; ++i)
       {
-        dummyData += 0.001f;
+        dummyData = CaffMath::RandFloatRange(0.f, 1.f);
         m_textureLookupData.push_back(dummyData);
       }
 
@@ -184,6 +184,19 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
 
     return resultArray;
   };
+
+  // Generate Texture Lookups
+  {
+    std::vector<float> updateData;
+
+    for(uint32_t i = 0; i < 100; ++i)
+    {
+      const float dummyData = CaffMath::RandFloatRange(0.f, 1.f);
+    }
+
+    m_textureLookup.loadTexture(m_textureLookupData);
+    assert(m_textureLookup.isValid());
+  }
 
   
   // Simple shader.

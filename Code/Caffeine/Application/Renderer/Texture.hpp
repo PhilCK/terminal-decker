@@ -23,6 +23,7 @@ public:
 
   void              loadTexture(const std::string &filename);
   void              loadTexture(const std::vector<float> &data);
+  void              updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY);
 
   inline bool       isValid() { return m_textureID > 0; }
 
