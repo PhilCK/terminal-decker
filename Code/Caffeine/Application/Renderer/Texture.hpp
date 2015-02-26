@@ -4,6 +4,7 @@
 
 #include <Caffeine/Common/Platform.hpp>
 #include <string>
+#include <vector>
 
 
 namespace Caffeine {
@@ -17,9 +18,11 @@ public:
 
   explicit          Texture() {}
   explicit          Texture(const std::string &filename);
+  explicit          Texture(const std::vector<float> &data);
                     ~Texture();
 
   void              loadTexture(const std::string &filename);
+  void              loadTexture(const std::vector<float> &data);
 
   inline bool       isValid() { return m_textureID > 0; }
 

@@ -46,9 +46,8 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
   {
     std::vector<CaffApp::Dev::AttributeFormatDesc> vertFmtDesc = {{
       CaffApp::Dev::AttributeFormatDesc{"inPosition", CaffApp::Dev::AttrType::FLOAT2},
+      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT2},
     }};
-
-    vertFmtDesc.begin()->name = "inPosition";
 
     m_consoleGridVF.loadFormat(vertFmtDesc);
     assert(m_consoleGridVF.hasFormatedLoaded());
@@ -64,12 +63,36 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
     {
       for(uint32_t c = 0; c < cols; ++c)
       {
+        // inPosition
         const float xUnits = 2.f / static_cast<float>(cols);
         pointsVBO.emplace_back((xUnits * c) - 1.f + (xUnits * 0.5f)); // unit - startpoint + half unit.
 
         const float yUnits = 2.f / static_cast<float>(rows);
         pointsVBO.emplace_back((yUnits * r) - 1.f + (yUnits * 0.5f)); // unit - startpoint + half unit.
+        
+        // inID
+        const float uvUnitsX = 1.f / static_cast<float>(cols);
+        const float uvUnitsY = 1.f / static_cast<float>(rows);
+
+        pointsVBO.push_back(uvUnitsX * static_cast<float>(c));
+        pointsVBO.push_back(uvUnitsY * static_cast<float>(r));
       }
+    }
+
+    // Generate Texture Lookups
+    {
+      const uint32_t size = (128 * 128) * 4;
+      m_textureLookupData.reserve(size);
+      float dummyData = 0.f;
+
+      for(uint32_t i = 0; i < size; ++i)
+      {
+        dummyData += 0.001f;
+        m_textureLookupData.push_back(dummyData);
+      }
+
+      m_textureLookup.loadTexture(m_textureLookupData);
+      assert(m_textureLookup.isValid());
     }
 
     m_consoleGridVBO.loadVertexBuffer(pointsVBO, false);
@@ -171,7 +194,8 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
     std::array<float, 2> uniSize = {{0.01f, 0.02f}};
 
     m_simpleShader.setShader2f("uniSize", uniSize);
-      
+    m_simpleShader.setTexture("dataLookup", m_textureLookup);
+    
     m_frameBuffer.bind();
     m_simpleShader.bind();
     m_consoleGridVBO.bind(m_consoleGridVF, m_simpleShader);

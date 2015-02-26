@@ -9,6 +9,7 @@ Text Shader
 
 // Vertex Format
 in vec2 inPosition;
+in vec2 inID;
 
 uniform vec2 uniSize;
 
@@ -17,12 +18,14 @@ out VertexData
 {
 	vec4 position;
 	vec2 size;
+	vec2 inID;
 } vertexOut;
 
 void main()
 {
 	vertexOut.position = vec4(inPosition, 0.0, 1.0);
 	vertexOut.size = uniSize;
+	vertexOut.inID = inID;
 }
 
 [/VERTEXSHADER]
@@ -39,9 +42,11 @@ layout (triangle_strip, max_vertices = 4) out;
 in VertexData {
 	vec4 position;
 	vec2 size;
+	vec2 inID;
 } vertexIn[];
 
 out vec2 tempColor;
+out vec2 inID;
 
 
 void main()
@@ -62,6 +67,7 @@ void main()
 		gl_Position = position;
 
 		tempColor = vec2(position.x, position.y);
+		inID = vertexIn[0].inID;
 
 		EmitVertex();
 	}
@@ -77,13 +83,20 @@ void main()
 #version 150
 
 in vec2 tempColor;
+in vec2 inID;
+
+// Uniforms
+uniform sampler2D dataLookup;
 
 // Output
 out vec4 outColor;
 
 void main()
 {
-    outColor = vec4(tempColor.x,tempColor.y,1.0,1.0);
+	outColor = texture(dataLookup, inID);
+	outColor.w = 1.0;
+
+    //outColor = vec4(tempColor.x,tempColor.y,1.0,1.0);
 }
 
 [/PIXELSHADER]

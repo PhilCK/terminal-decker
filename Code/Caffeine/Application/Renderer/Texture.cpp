@@ -1,6 +1,7 @@
 
 #include <Caffeine/Application/Renderer/Texture.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
+#include <Caffeine/Math/Math.hpp>
 #include <SOIL/SOIL.h>
 
 
@@ -12,6 +13,12 @@ namespace Dev {
 Texture::Texture(const std::string &filename)
 {
   loadTexture(filename);
+}
+
+
+Texture::Texture(const std::vector<float> &data)
+{
+  loadTexture(data);
 }
 
 
@@ -34,6 +41,23 @@ void Texture::loadTexture(const std::string &filename)
   glBindTexture(GL_TEXTURE_2D, m_textureID);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
   SOIL_free_image_data(image);
+
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  GL_ERROR("Adding texture.");
+}
+
+
+void Texture::loadTexture(const std::vector<float> &data)
+{
+  const uint32_t size = CaffMath::SquareRoot(data.size() / 4);
+
+  m_width  = size;
+  m_height = size;
+
+  glGenTextures(1, &m_textureID);
+  glBindTexture(GL_TEXTURE_2D, m_textureID);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
   glBindTexture(GL_TEXTURE_2D, 0);
 

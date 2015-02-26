@@ -71,6 +71,8 @@ private:
   public:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
+  std::vector<float>            m_textureLookupData;
+  CaffApp::Dev::Texture         m_textureLookup;
   
 
 }; // class
