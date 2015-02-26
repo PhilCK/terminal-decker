@@ -1,5 +1,5 @@
 
-#include <Application/TextConsoleView.hpp>
+#include <Application/Console/TextConsoleView.hpp>
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
 #include <Caffeine/Common/Utilities/Directories.hpp>
@@ -18,7 +18,8 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
 }
 
 
-TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
+TextConsoleView::TextConsoleView(const TextConsoleModel &model, FontData::FontDataInfo fontData)
+: m_model(model)
 {
   // Text Shader
   {

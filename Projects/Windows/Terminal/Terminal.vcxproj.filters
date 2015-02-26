@@ -117,16 +117,16 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\TextConsoleView.cpp">
+    <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleController.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\TextDataParse.cpp">
+    <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleModel.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\TextConsoleController.cpp">
+    <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleView.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\TextConsoleModel.cpp">
+    <ClCompile Include="..\..\..\Code\Application\Console\TextDataParse.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
   </ItemGroup>
@@ -245,16 +245,19 @@
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\TextConsoleView.hpp">
+    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleController.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\TextDataParse.hpp">
+    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleFwd.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\TextConsoleController.hpp">
+    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleModel.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\TextConsoleModel.hpp">
+    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleView.hpp">
+      <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Console\TextDataParse.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
   </ItemGroup>

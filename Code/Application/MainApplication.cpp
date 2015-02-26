@@ -17,8 +17,10 @@
 #include <Caffeine/Application/Renderer/Device.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
 
-#include <Application/TextConsoleView.hpp>
-#include <Application/TextDataParse.hpp>
+#include <Application/Console/TextConsoleModel.hpp>
+#include <Application/Console/TextConsoleView.hpp>
+#include <Application/Console/TextConsoleController.hpp>
+#include <Application/Console/TextDataParse.hpp>
 
 namespace
 {
@@ -33,7 +35,9 @@ namespace
   CaffApp::Dev::VertexBuffer  caffAppPostVertexBuffer;
   CaffApp::Dev::FrameBuffer   caffAppFrameBuffer;
   
-  std::unique_ptr<TextConsoleView> textConsole;
+  std::unique_ptr<TextConsoleModel> textConsoleModel;
+  std::unique_ptr<TextConsoleController> textConsoleController;
+  std::unique_ptr<TextConsoleView> textConsoleView;
 
   std::vector<float> fullscreenVerts = {{
     -1.f, -1.f, 0.f, 0.f,
@@ -97,12 +101,17 @@ public:
 
     m_caffApp.getRenderer().setViewPort(864, 486);
 
-    std::string filename = "moop";
-    auto fontData = FontData::ParseData(filename);
+    // Text MVC
+    {
+      std::string filename = "moop";
+      auto fontData = FontData::ParseData(filename);
 
-    auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
-    textConsole.reset(new TextConsoleView(fontData));
+      //auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
 
+      textConsoleModel.reset(new TextConsoleModel(80, 40));
+      textConsoleView.reset(new TextConsoleView(*textConsoleModel, fontData));
+      textConsoleController.reset(new TextConsoleController(*textConsoleModel));
+    }
   }
 
 
@@ -135,7 +144,7 @@ public:
 
         // Draw geometry
         {
-          textConsole->m_frameBuffer.clear(true, true);
+          textConsoleView->m_frameBuffer.clear(true, true);
 
           CaffApp::Dev::Renderer::Reset();
           caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
@@ -148,8 +157,8 @@ public:
         }
 
         {
-          textConsole->m_frameBuffer.clear();
-          textConsole->renderTextConsole(fontData, "void HelloWorld() const { std::cout << \"Hello\" << std::endl; } // Hello World!!");
+          textConsoleView->m_frameBuffer.clear();
+          textConsoleView->renderTextConsole(fontData, "void HelloWorld() const { std::cout << \"Hello\" << std::endl; } // Hello World!!");
         }
 
         // Draw post
@@ -157,7 +166,7 @@ public:
           CaffApp::Dev::Renderer::Reset();
           glDisable(GL_DEPTH_TEST);
   
-          caffAppPostShader.setTexture("texFramebuffer", textConsole->m_frameBuffer);
+          caffAppPostShader.setTexture("texFramebuffer", textConsoleView->m_frameBuffer);
 
           CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
         }

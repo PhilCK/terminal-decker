@@ -1,7 +1,8 @@
 #ifndef TEXT_CONSOLE_VIEW_INCLUDED_4EC8389D_ADC1_41F8_9279_54A8581E26F1
 #define TEXT_CONSOLE_VIEW_INCLUDED_4EC8389D_ADC1_41F8_9279_54A8581E26F1
 
-#include <Application/TextDataParse.hpp>
+#include <Application/Console/TextConsoleFwd.hpp>
+#include <Application/Console/TextDataParse.hpp>
 #include <Caffeine/Common/Platform.hpp>
 #include <Caffeine/Application/Renderer/RendererFwd.hpp>
 #include <Caffeine/Application/Renderer/Shader.hpp>
@@ -35,7 +36,7 @@ class TextConsoleView
 {
 public:
 
-  explicit        TextConsoleView(FontData::FontDataInfo fontData);
+  explicit        TextConsoleView(const TextConsoleModel &model, FontData::FontDataInfo fontData);
 
   void            addTextToScreenBuffer();
   void            addTextToInputBuffer();
@@ -61,6 +62,8 @@ private:
   float                         m_fontAdvance = 0;
 
   
+  const TextConsoleModel        &m_model;
+
   float sizeOfWidth, sizeOfHeight;
   uint32_t cols, rows;
 
