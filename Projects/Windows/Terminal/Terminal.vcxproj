@@ -82,6 +82,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleController.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleModel.cpp" />
     <ClCompile Include="..\..\..\Code\Application\TextConsoleView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -114,6 +116,8 @@
     <ClCompile Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleController.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleModel.hpp" />
     <ClInclude Include="..\..\..\Code\Application\TextConsoleView.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>

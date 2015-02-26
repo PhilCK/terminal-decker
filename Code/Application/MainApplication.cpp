@@ -141,7 +141,7 @@ public:
           caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
           caffAppShader.setTexture("diffuseTex",  caffAppTexture);
 
-          CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+          //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
 
           caffAppFrameBuffer.clear(false, true);
 

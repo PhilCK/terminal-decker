@@ -43,7 +43,7 @@ public:
   void            getScreenBuffer(const uint32_t linesFromBottom);
   void            getInputBuffer();
 
-  void            renderTextConsole(FontData::FontDataInfo fontData, const std::string &str);
+  void            renderTextConsole(FontData::FontDataInfo &fontData, const std::string &str);
 
 private:
 
@@ -72,6 +72,8 @@ private:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
   std::vector<float>            m_textureLookupData;
+  std::vector<float>            m_dataOne;
+  std::vector<float>            m_dataTwo;
   CaffApp::Dev::Texture         m_textureLookup;
   
 

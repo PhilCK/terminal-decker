@@ -123,6 +123,12 @@
     <ClCompile Include="..\..\..\Code\Application\TextDataParse.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleController.cpp">
+      <Filter>Application\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\TextConsoleModel.cpp">
+      <Filter>Application\Console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.h">
@@ -243,6 +249,12 @@
       <Filter>Application\Console</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\TextDataParse.hpp">
+      <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleController.hpp">
+      <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\TextConsoleModel.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
   </ItemGroup>

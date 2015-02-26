@@ -81,7 +81,7 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
 
     // Generate Texture Lookups
     {
-      const uint32_t size = (128 * 128) * 4;
+      const uint32_t size = (80 * 40 * 4);
       m_textureLookupData.reserve(size);
       float dummyData = 0.f;
 
@@ -99,8 +99,25 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
     assert(m_consoleGridVBO.isValid());
   }
 
-  sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 2.f));
-  sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 2.f));
+  // Test Create some info to upload
+  {
+    const uint32_t size = (80 * 40 * 4);
+    
+    for(uint32_t i = 0; i < size; ++i)
+    {
+      const float dummyData = CaffMath::RandFloatRange(0.f, 1.f);
+      m_dataOne.push_back(dummyData);
+    }
+    
+    for(uint32_t i = 0; i < size; ++i)
+    {
+      const float dummyData = CaffMath::RandFloatRange(0.f, 1.f);
+      m_dataTwo.push_back(dummyData);
+    }
+  }
+
+  sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 2.f)) / 4;
+  sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 2.f)) / 4;
 
   m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
 
@@ -152,7 +169,7 @@ TextConsoleView::TextConsoleView(FontData::FontDataInfo fontData)
   m_textShader.setShader2f("uniCoordOffset", coordOffset);
 }
 
-void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const std::string &str)
+void TextConsoleView::renderTextConsole(FontData::FontDataInfo &fontData, const std::string &str)
 {
   const float scaleConst = 0.5f;
 
@@ -185,17 +202,32 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
     return resultArray;
   };
 
-  // Generate Texture Lookups
+  // Update Texture Lookups
   {
-    std::vector<float> updateData;
+    //std::vector<float> updateData;
+    //const uint32_t sizeOfData = (80 * 40 * 4);
+    //updateData.reserve(sizeOfData);
 
-    for(uint32_t i = 0; i < 100; ++i)
+    //for(uint32_t i = 0; i < sizeOfData; ++i)
+    //{
+    //  const float dummyData = CaffMath::RandFloatRange(0.f, 1.f);
+    //  updateData.push_back(dummyData);
+    //}
+
+    //m_textureLookup.updateSubset(updateData, 0, 0);
+    //assert(m_textureLookup.isValid());
+
+    static int i = 0;
+    i++;
+    
+    if(i % 2)
     {
-      const float dummyData = CaffMath::RandFloatRange(0.f, 1.f);
+      //m_textureLookup.updateSubset(m_dataTwo, 0, 0);
     }
-
-    m_textureLookup.loadTexture(m_textureLookupData);
-    assert(m_textureLookup.isValid());
+    else
+    {
+      //m_textureLookup.updateSubset(m_dataOne, 0, 0);
+    }
   }
 
   
@@ -204,7 +236,7 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
     CaffApp::Dev::Renderer::Reset();
     glPointSize(2.f);
 
-    std::array<float, 2> uniSize = {{0.01f, 0.02f}};
+    std::array<float, 2> uniSize = {{0.02f, 0.03f}};
 
     m_simpleShader.setShader2f("uniSize", uniSize);
     m_simpleShader.setTexture("dataLookup", m_textureLookup);
@@ -247,11 +279,11 @@ void TextConsoleView::renderTextConsole(FontData::FontDataInfo fontData, const s
 
     m_textShader.setShader4f("uniTextureCharDetails", charStart);
 
-    //posOffset += (fontData.maxWidth) / 2.f;
-    //posOffset += (currChar.width) / 2.f;
+    posOffset += (fontData.maxWidth) / 2.f;
+    posOffset += (currChar.width) / 2.f;
     posOffsetY = (fontData.baseline + (static_cast<float>(currChar.height) / 2.f) + static_cast<float>(currChar.yOffset))  * scaleConst;
 
-    //m_textShader.setShader2f("uniCharPosition", convertToNormalized(864.f, 486.f));
+    m_textShader.setShader2f("uniCharPosition", convertToNormalized(864.f, 486.f));
     m_textShader.setShader2f("uniCharPosition", convertToNormalized(posOffset, 90.f + posOffsetY));
     
     std::array<float, 2> offsetData = {{
