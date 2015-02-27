@@ -26,12 +26,12 @@ public:
   void                loadShader(const std::string &combinedShader);
   void                loadShader(const std::string &vertShader, const std::string &pixelShader, const std::string &geometryShader = "");
 
-  inline void         setShader1f(const std::string &name, float data)                          { setShaderRaw(name, sizeof(float), &data);         }
-  inline void         setShader2f(const std::string &name, std::array<float,2> &data)           { setShaderRaw(name, sizeof(float) * 2, &data[0]);  }
-  inline void         setShader3f(const std::string &name, std::array<float,3> &data)           { setShaderRaw(name, sizeof(float) * 3, &data[0]);  }
-  inline void         setShader4f(const std::string &name, std::array<float,4> &data)           { setShaderRaw(name, sizeof(float) * 4, &data[0]);  }
-  inline void         setShaderMatrix33f(const std::string &name, std::array<float,9> &data)    { setShaderRaw(name, sizeof(float) * 9, &data[0]);  }
-  inline void         setShaderMatrix44f(const std::string &name, std::array<float,16> &data)   { setShaderRaw(name, sizeof(float) * 16, &data[0]); }
+  inline void         setShader1f(const std::string &name, float data)                                { setShaderRaw(name, sizeof(float), &data);         }
+  inline void         setShader2f(const std::string &name, const std::array<float,2> &data)           { setShaderRaw(name, sizeof(float) * 2, &data[0]);  }
+  inline void         setShader3f(const std::string &name, const std::array<float,3> &data)           { setShaderRaw(name, sizeof(float) * 3, &data[0]);  }
+  inline void         setShader4f(const std::string &name, const std::array<float,4> &data)           { setShaderRaw(name, sizeof(float) * 4, &data[0]);  }
+  inline void         setShaderMatrix33f(const std::string &name, const std::array<float,9> &data)    { setShaderRaw(name, sizeof(float) * 9, &data[0]);  }
+  inline void         setShaderMatrix44f(const std::string &name, const std::array<float,16> &data)   { setShaderRaw(name, sizeof(float) * 16, &data[0]); }
   void                setShaderRaw(const std::string &name, const std::size_t bytesOfData, const void* data);
   void                setTexture(const std::string &name, const Texture &texture);
   void                setTexture(const std::string &name, const FrameBuffer &texture);

@@ -9,11 +9,12 @@ namespace
 }
 
 
-TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows)
+TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows, FontData::FontDataInfo fontData)
 : m_cols(cols)
 , m_rows(rows)
+, m_fontData(fontData)
 {
-  prepareData();
+  m_characterProperties.resize(m_cols * m_rows * CHAR_PROP_SIZE);
 }
 
 
@@ -22,6 +23,12 @@ const std::vector<float>& TextConsoleModel::getPropertyData() const
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
   return m_characterProperties;
+}
+
+
+uint32_t TextConsoleModel::getSizeOfProperty() const
+{
+  return static_cast<uint32_t>(CHAR_PROP_SIZE);
 }
 
 
@@ -46,14 +53,25 @@ void TextConsoleModel::prepareData()
     std::lock_guard<std::mutex> lockModel(m_modelMutex);
     m_characterProperties.clear();
 
-    const uint32_t sizeOfData = (m_cols * m_rows) * CHAR_PROP_SIZE;
+    const std::string testStr = "void HelloWorld() const { std::cout << \"Hello\" << std::endl; }";
 
-    const float randVal = CaffMath::RandFloatRange(0.1f, 1.0f);
-
-    for(uint32_t i = 0; i < sizeOfData; ++i)
+    for(const auto &c : testStr)
     {
-      const float data = randVal + 0.1f;
-      m_characterProperties.push_back(data);
+      const auto &character = m_fontData.characters[c];
+
+      // Get UV Data.
+      const float u = static_cast<float>(character.x) / static_cast<float>(m_fontData.scaleWidth);
+      const float v = static_cast<float>(character.y) / static_cast<float>(m_fontData.scaleHeight);
+
+      m_characterProperties.push_back(u);
+      m_characterProperties.push_back(v);
+
+      // Get Height and Width
+      const float w = static_cast<float>(character.width) / static_cast<float>(m_fontData.scaleWidth);
+      const float h = static_cast<float>(character.height) / static_cast<float>(m_fontData.scaleHeight);
+
+      m_characterProperties.push_back(w);
+      m_characterProperties.push_back(h);
     }
   }
 }

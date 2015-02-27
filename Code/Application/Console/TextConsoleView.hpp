@@ -36,7 +36,7 @@ class TextConsoleView
 {
 public:
 
-  explicit        TextConsoleView(const TextConsoleModel &model, FontData::FontDataInfo fontData);
+  explicit        TextConsoleView(const TextConsoleModel &model);
 
   void            renderTextConsole();
 
@@ -48,6 +48,7 @@ private:
   CaffApp::Dev::VertexFormat    m_consoleGridVF;
   CaffApp::Dev::Shader          m_simpleShader;
   CaffApp::Dev::Texture         m_textureLookup;
+  CaffApp::Dev::Texture         m_fontLookup;
 
   public:
 

@@ -108,8 +108,8 @@ public:
 
       //auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
 
-      textConsoleModel.reset(new TextConsoleModel(80, 40));
-      textConsoleView.reset(new TextConsoleView(*textConsoleModel, fontData));
+      textConsoleModel.reset(new TextConsoleModel(80, 40, fontData));
+      textConsoleView.reset(new TextConsoleView(*textConsoleModel));
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
   }

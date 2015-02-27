@@ -25,6 +25,9 @@ FrameBuffer::~FrameBuffer()
 
 void FrameBuffer::loadBuffer(const uint32_t width, const uint32_t height)
 {
+  m_width  = width;
+  m_height = height;
+
   setViewPort(width, height);
 
   glGenFramebuffers(1, &m_frameBuffer);
@@ -81,7 +84,7 @@ void FrameBuffer::clear(const bool color, const bool depth)
 
 void FrameBuffer::setViewPort(const uint32_t width, const uint32_t height)
 {
-  m_viewPortWidth = static_cast<GLsizei>(width);
+  m_viewPortWidth  = static_cast<GLsizei>(width);
   m_viewPortHeight = static_cast<GLsizei>(height);
 }
 

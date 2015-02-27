@@ -24,6 +24,9 @@ public:
   void                  loadBuffer(const uint32_t width, const uint32_t height);
   inline bool           isValid() const { return m_frameBuffer > 0; }
 
+  inline uint32_t       getWidth() const  { return m_width; }
+  inline uint32_t       getHeight() const { return m_height; }
+
   void                  bind() const;
   void                  unbind() const;
   void                  clear(const bool color = true, const bool depth = true);
@@ -33,6 +36,8 @@ public:
 
 private:
 
+  uint32_t              m_width             = 0;
+  uint32_t              m_height            = 0;
   GLsizei               m_viewPortWidth     = 0;
   GLsizei               m_viewPortHeight    = 0;
   GLuint                m_frameBuffer       = 0;
