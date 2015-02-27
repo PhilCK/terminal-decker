@@ -157,8 +157,10 @@ public:
         }
 
         {
+          textConsoleModel->prepareData();
+
           textConsoleView->m_frameBuffer.clear();
-          textConsoleView->renderTextConsole(fontData, "void HelloWorld() const { std::cout << \"Hello\" << std::endl; } // Hello World!!");
+          textConsoleView->renderTextConsole();
         }
 
         // Draw post

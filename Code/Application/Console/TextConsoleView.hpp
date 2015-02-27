@@ -38,46 +38,21 @@ public:
 
   explicit        TextConsoleView(const TextConsoleModel &model, FontData::FontDataInfo fontData);
 
-  void            addTextToScreenBuffer();
-  void            addTextToInputBuffer();
-  
-  void            getScreenBuffer(const uint32_t linesFromBottom);
-  void            getInputBuffer();
-
-  void            renderTextConsole(FontData::FontDataInfo &fontData, const std::string &str);
+  void            renderTextConsole();
 
 private:
-
-  CaffApp::Dev::Shader          m_textShader;
-  CaffApp::Dev::VertexBuffer    m_vertexBuffer;
-  CaffApp::Dev::VertexFormat    m_vertexFormat;
-  CaffApp::Dev::Texture         m_texture;
-  std::vector<std::string>      m_screenBuffer;
-  std::vector<std::string>      m_inputHistory; // better container?
-  std::string                   m_inputBuffer;
-
-  ConsoleFont                   m_fontDetails;
-  std::vector<ConsoleChar>      m_fontCharacters;
-
-  float                         m_fontAdvance = 0;
-
   
   const TextConsoleModel        &m_model;
-
-  float sizeOfWidth, sizeOfHeight;
-  uint32_t cols, rows;
 
   CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
   CaffApp::Dev::VertexFormat    m_consoleGridVF;
   CaffApp::Dev::Shader          m_simpleShader;
+  CaffApp::Dev::Texture         m_textureLookup;
 
   public:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
-  std::vector<float>            m_textureLookupData;
-  std::vector<float>            m_dataOne;
-  std::vector<float>            m_dataTwo;
-  CaffApp::Dev::Texture         m_textureLookup;
+
   
 
 }; // class

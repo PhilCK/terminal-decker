@@ -1,5 +1,7 @@
 
 #include <Application/Console/TextConsoleModel.hpp>
+#include <Caffeine/Math/Math.hpp>
+
 
 namespace
 {
@@ -8,8 +10,10 @@ namespace
 
 
 TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows)
+: m_cols(cols)
+, m_rows(rows)
 {
-  
+  prepareData();
 }
 
 
@@ -44,11 +48,12 @@ void TextConsoleModel::prepareData()
 
     const uint32_t sizeOfData = (m_cols * m_rows) * CHAR_PROP_SIZE;
 
+    const float randVal = CaffMath::RandFloatRange(0.1f, 1.0f);
+
     for(uint32_t i = 0; i < sizeOfData; ++i)
     {
-      const float temp = 1.f / static_cast<float>(sizeOfData);
-
-      m_characterProperties.push_back(temp * static_cast<float>(i));
+      const float data = randVal + 0.1f;
+      m_characterProperties.push_back(data);
     }
   }
 }

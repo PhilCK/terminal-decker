@@ -30,8 +30,8 @@ private:
 
 private:
 
-  uint32_t                    m_cols;
-  uint32_t                    m_rows;
+  uint32_t                    m_cols      = 0;
+  uint32_t                    m_rows      = 0;
 
   mutable std::mutex          m_controllerMutex;
   mutable std::mutex          m_modelMutex;
