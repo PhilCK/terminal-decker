@@ -48,6 +48,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
     assert(m_consoleGridVF.hasFormatedLoaded());
   }
 
+
   // Generate VBO a collection of points each point is a character.
   {
     std::vector<float> pointsVBO;
@@ -66,11 +67,8 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
         pointsVBO.emplace_back((yUnits * r) - 1.f + (yUnits * 0.5f)); // unit - startpoint + half unit.
         
         // inID
-        const float uvUnitsX = 1.f / static_cast<float>(cols);
-        const float uvUnitsY = 1.f / static_cast<float>(rows);
-
-        pointsVBO.push_back(uvUnitsX * static_cast<float>(c));
-        pointsVBO.push_back(uvUnitsY * static_cast<float>(r));
+        pointsVBO.push_back(static_cast<float>(c));
+        pointsVBO.push_back(static_cast<float>(r));
       }
     }
 
@@ -106,10 +104,9 @@ void TextConsoleView::renderTextConsole()
   
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
-  glPointSize(2.f);
 
   m_simpleShader.setTexture("dataLookup", m_textureLookup);
-  m_simpleShader.setTexture("fontTexture", m_fontLookup);
+  m_simpleShader.setTexture("fontLookup", m_fontLookup);
   
   m_frameBuffer.bind();
   m_simpleShader.bind();

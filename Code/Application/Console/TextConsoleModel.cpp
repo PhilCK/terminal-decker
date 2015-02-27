@@ -51,9 +51,13 @@ void TextConsoleModel::prepareData()
   // Build data
   {
     std::lock_guard<std::mutex> lockModel(m_modelMutex);
-    m_characterProperties.clear();
+    //m_characterProperties.clear();
 
-    const std::string testStr = "void HelloWorld() const { std::cout << \"Hello\" << std::endl; }";
+    //const std::string testStr = "void HelloWorld() const { std::cout << \"Hello\" << std::endl; }, id HelloWorld() const { std::cout << \"Hello\" << std::endl; }, id HelloWorld() const { std::cout << \"Hello\" << std::endl; }";
+
+    const std::string testStr = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+    int i = 0;
 
     for(const auto &c : testStr)
     {
@@ -63,15 +67,17 @@ void TextConsoleModel::prepareData()
       const float u = static_cast<float>(character.x) / static_cast<float>(m_fontData.scaleWidth);
       const float v = static_cast<float>(character.y) / static_cast<float>(m_fontData.scaleHeight);
 
-      m_characterProperties.push_back(u);
-      m_characterProperties.push_back(v);
+      m_characterProperties.at(i) = (u);
+      m_characterProperties.at(i) = (v);
 
       // Get Height and Width
       const float w = static_cast<float>(character.width) / static_cast<float>(m_fontData.scaleWidth);
       const float h = static_cast<float>(character.height) / static_cast<float>(m_fontData.scaleHeight);
 
-      m_characterProperties.push_back(w);
-      m_characterProperties.push_back(h);
+      m_characterProperties.at(i) = (w);
+      m_characterProperties.at(i) = (h);
+
+      ++i;
     }
   }
 }

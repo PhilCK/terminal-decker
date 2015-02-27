@@ -54,7 +54,7 @@ class Application
 public:
 
   explicit Application()
-  : m_caffApp("Terminal", 864, 486, false)
+  : m_caffApp("Terminal", 864* 2, 486* 2, false)
   , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 3.f, 864.f, 486.f, 0.1f, 1000.f))
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
@@ -93,13 +93,13 @@ public:
     caffAppVertexBuffer.loadVertexBuffer(model.getMesh(0).getGLVertexBuffer());
     caffAppPostVertexBuffer.loadVertexBuffer(fullscreenVerts);
 
-    caffAppFrameBuffer.loadBuffer(864.f, 486.f);
+    caffAppFrameBuffer.loadBuffer(864.f* 2, 486.f* 2);
 
 
     caffAppShader.setShaderRaw("projMat",   sizeof(float) * 16, &m_projectionMatrix._11);
     caffAppShader.setShaderRaw("worldMat",  sizeof(float) * 16, &m_worldMatrix._11);
 
-    m_caffApp.getRenderer().setViewPort(864, 486);
+    m_caffApp.getRenderer().setViewPort(864* 2, 486* 2);
 
     // Text MVC
     {
@@ -130,31 +130,31 @@ public:
       {
         auto &renderer = m_caffApp.getRenderer();
 
-        static float spin = 0.f;
-        spin += deltaTime;
-        
-        const float x = CaffMath::Sin(spin) * 2.f;
-        const float z = CaffMath::Cos(spin) * 2.f;
-        const float y = CaffMath::Sin(spin) * 2.f;
+        //static float spin = 0.f;
+        //spin += deltaTime;
+        //
+        //const float x = CaffMath::Sin(spin) * 2.f;
+        //const float z = CaffMath::Cos(spin) * 2.f;
+        //const float y = CaffMath::Sin(spin) * 2.f;
 
-        CaffMath::Vector3 eye   = CaffMath::Vector3Init(x, 2.f, z);
-        CaffMath::Vector3 look  = CaffMath::Vector3Init(0.f, 0.f, 0.f);
-        CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
-        CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
+        //CaffMath::Vector3 eye   = CaffMath::Vector3Init(x, 2.f, z);
+        //CaffMath::Vector3 look  = CaffMath::Vector3Init(0.f, 0.f, 0.f);
+        //CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
+        //CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
 
-        // Draw geometry
-        {
-          textConsoleView->m_frameBuffer.clear(true, true);
+        //// Draw geometry
+        //{
+        //  textConsoleView->m_frameBuffer.clear(true, true);
 
-          CaffApp::Dev::Renderer::Reset();
-          caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
-          caffAppShader.setTexture("diffuseTex",  caffAppTexture);
+        //  CaffApp::Dev::Renderer::Reset();
+        //  caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
+        //  caffAppShader.setTexture("diffuseTex",  caffAppTexture);
 
-          //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+        //  //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
 
-          caffAppFrameBuffer.clear(false, true);
+        //  caffAppFrameBuffer.clear(false, true);
 
-        }
+        //}
 
         {
           textConsoleModel->prepareData();
@@ -166,6 +166,8 @@ public:
         // Draw post
         {
           CaffApp::Dev::Renderer::Reset();
+          m_caffApp.getRenderer().setViewPort(864 * 2, 486* 2);
+
           glDisable(GL_DEPTH_TEST);
   
           caffAppPostShader.setTexture("texFramebuffer", textConsoleView->m_frameBuffer);
