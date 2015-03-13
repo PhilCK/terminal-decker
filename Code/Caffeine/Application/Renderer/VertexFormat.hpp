@@ -11,14 +11,14 @@ namespace Caffeine {
 namespace Application {
 namespace Dev {
 
-
-enum class AttrType { FLOAT, FLOAT2, FLOAT3, FLOAT4, };
+// TODO support for int/uint types needs finish test.
+enum class AttrType { FLOAT, FLOAT2, FLOAT3, FLOAT4, INT, UINT, };
 
 
 struct AttributeFormatDesc
 {
   std::string name;
-  AttrType type;
+  AttrType    type;
 };
 
 
@@ -27,7 +27,7 @@ struct Attribute
   std::string name;
   std::size_t size;
   std::size_t pointer;
-  GLsizei type;
+  GLenum      type;
 };
 
 

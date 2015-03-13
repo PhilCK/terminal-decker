@@ -26,6 +26,7 @@ Texture::Texture(const std::vector<uint8_t> &data, const TextureD dimention, con
   loadTexture(data, dimention, format);
 }
 
+
 namespace
 {
   void GenerateTexture(GLuint &textureID, const CaffApp::Dev::Format format, const CaffApp::Dev::TextureD dimention, const uint32_t width, const uint32_t height, void *data)
@@ -33,7 +34,7 @@ namespace
     using namespace CaffApp::Dev;
 
     const auto externalFormat = format == Format::DEV ? GL_RGBA32F : GL_RGBA ;
-    const auto internalFormat = GL_BGRA;
+    const auto internalFormat = GL_RGBA;
     const auto formatType     = format == Format::R8G8B8 ? GL_UNSIGNED_BYTE : GL_FLOAT;
     const auto glDimention    = dimention == TextureD::ONE_D ? GL_TEXTURE_1D : GL_TEXTURE_2D;
 
@@ -66,7 +67,7 @@ namespace
     using namespace CaffApp::Dev;
 
     const auto externalFormat = format == Format::DEV ? GL_RGBA32F : GL_RGBA ;
-    const auto internalFormat = GL_BGRA;
+    const auto internalFormat = GL_RGBA;
     const auto formatType     = format == Format::R8G8B8 ? GL_UNSIGNED_BYTE : GL_FLOAT;
     const auto glDimention    = dimention == TextureD::ONE_D ? GL_TEXTURE_1D : GL_TEXTURE_2D;
 
@@ -144,7 +145,7 @@ void Texture::loadTexture(const std::vector<float> &data, const TextureD dimenti
 
   if(!m_textureID)
   {
-    m_format = format;
+    m_format    = format;
     m_dimention = dimention;
 
     switch(m_dimention)

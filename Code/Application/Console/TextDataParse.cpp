@@ -25,7 +25,7 @@ FontDataInfo ParseData(const std::string &filename)
 	  
     enum LineType { TYPE_ID = 0, };
 
-    auto GetValue = [](const std::string &str) -> uint16_t
+    auto GetValue = [](const std::string &str) -> int32_t
     {
       return CaffUtil::StringToInt(str.substr(str.find("=") + 1, str.length()));
     };

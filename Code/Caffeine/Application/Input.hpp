@@ -132,7 +132,6 @@ public:
 	std::function<void (const KeyID, const KeyState)>   onKeyChangeEvent;
 	std::function<void (const std::string &)>           onTextStreamEvent;
 	
-
 private:
 
   friend class CaffApp::Application;
@@ -142,7 +141,6 @@ private:
   void                update();
   void                clear();
   void                pumpSystemEvent(const void * sysEventData);
-
 
 private:
 

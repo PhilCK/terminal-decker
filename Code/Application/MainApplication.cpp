@@ -16,6 +16,7 @@
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <Caffeine/Application/Renderer/Device.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
+#include <Caffeine/Application/Input.hpp>
 
 #include <Application/Console/TextConsoleModel.hpp>
 #include <Application/Console/TextConsoleView.hpp>
@@ -116,6 +117,14 @@ public:
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
 
+    textConsoleController->addStringToBuffer("yY");
+    textConsoleController->addStringToInput("");
+
+    auto &input = m_caffApp.getInput();
+    
+    input.onKeyChangeEvent  = std::bind(&Application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
+    input.onTextStreamEvent = std::bind(&Application::onTextStream, this, std::placeholders::_1);
+    input.setTextStream(true);
   }
 
 
@@ -183,6 +192,31 @@ public:
       }
       
       m_caffApp.endFrame();
+    }
+  }
+
+
+  void onTextStream(const std::string &str)
+  {
+    textConsoleController->addStringToInput(str);
+  }
+
+
+  void onKeyChange(const CaffApp::KeyID id, const CaffApp::KeyState state)
+  {
+    if(state == CaffApp::KeyState::UP)
+    {
+      if(id == CaffApp::KeyID::KB_BACKSPACE)
+      {
+        textConsoleController->backspaceInput();
+      }
+
+      if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
+      {
+        textConsoleController->addStringToBuffer("\n" + textConsoleModel->getInput());
+        textConsoleController->clearInput();
+        textConsoleController->addStringToInput(">> ");
+      }
     }
   }
 

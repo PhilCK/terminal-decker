@@ -8,7 +8,7 @@ Text Shader
 #version 150 core
 
 // Vertex Format
-in float inID;
+in int inID;
 
 // Output
 out VertexData
@@ -18,7 +18,7 @@ out VertexData
 
 void main()
 {
-	vertexOut.inID = int(inID);
+	vertexOut.inID = inID;
 }
 
 [/VERTEXSHADER]
@@ -37,7 +37,6 @@ in VertexData {
 } vertexIn[];
 
 out vec2 texC;
-out vec3 textColor;
 
 uniform sampler1D 	dataLookup;
 uniform vec2 		bufferResolution;
@@ -57,11 +56,11 @@ void main()
 		vec4 dataChunk2 = texelFetch(dataLookup, vertexIn[0].inID + 1, 0);
 		vec4 dataChunk3 = texelFetch(dataLookup, vertexIn[0].inID + 2, 0);
 
-		vec2 uvCoords 		= vec2(dataChunk1.x, dataChunk1.y);
-		vec2 charSize 		= vec2(dataChunk1.z, dataChunk1.w);
-		vec2 offset   		= vec2(dataChunk2.x, -dataChunk2.y);
-		vec2 charAdvance 	= vec2(dataChunk2.z, -dataChunk2.w);
-		vec3 color 			= vec3(dataChunk3.x, dataChunk3.y, dataChunk3.z);
+		vec2 uvCoords 		= vec2(dataChunk1.z, dataChunk1.y);
+		vec2 charSize 		= vec2(dataChunk1.x, dataChunk1.w);
+		vec2 offset   		= vec2(dataChunk2.z, -dataChunk2.y);
+		vec2 charAdvance 	= vec2(dataChunk2.x, -dataChunk2.w);
+		vec3 color 			= vec3(dataChunk3.z, dataChunk3.y, dataChunk3.x);
 
 		float scale = 0.75;
 

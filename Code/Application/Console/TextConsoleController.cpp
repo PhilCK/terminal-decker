@@ -18,3 +18,15 @@ void TextConsoleController::addStringToInput(const std::string &str)
 {
   m_model.addStringToInput(str);
 }
+
+
+void TextConsoleController::backspaceInput()
+{
+  m_model.backspaceInput();
+}
+
+
+void TextConsoleController::clearInput()
+{
+  m_model.clearInput();
+}

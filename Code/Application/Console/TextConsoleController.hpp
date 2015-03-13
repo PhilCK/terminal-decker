@@ -14,6 +14,8 @@ public:
 
   void                addStringToBuffer(const std::string &str);
   void                addStringToInput(const std::string &str);
+  void                backspaceInput();
+  void                clearInput();
 
 private:
 

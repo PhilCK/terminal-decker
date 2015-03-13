@@ -24,30 +24,36 @@ public:
   inline bool                 requriesUpdate() const { return !m_pendingBuffer.empty() || !m_pendingInput.empty(); }
   void                        prepareData();
 
+  inline std::string          getInput() const  { return m_input;  }
+  inline std::string          getBuffer() const { return m_buffer; } 
+
 private:
 
   friend class TextConsoleController;
 
   void                        addStringToBuffer(const std::string &str);
+  void                        clearBuffer();
   void                        addStringToInput(const std::string &str);
+  void                        clearInput();
+  void                        backspaceInput();
 
 private:
 
-  uint32_t                    m_cols      = 0;
-  uint32_t                    m_rows      = 0;
-
-  mutable std::mutex          m_controllerMutex;
-  mutable std::mutex          m_modelMutex;
-
-  std::vector<std::string>    m_buffer;
-  std::vector<std::string>    m_input;
-  std::vector<float>          m_characterProperties;
-  uint32_t                    m_numberOfCharsInData = 0;
-
-  std::vector<std::string>    m_pendingBuffer;
-  std::vector<std::string>    m_pendingInput;
-
   FontData::FontDataInfo      m_fontData;
+
+  std::vector<float>          m_characterProperties;
+  
+  std::string                 m_buffer;
+  std::string                 m_pendingBuffer;
+  std::string                 m_input;
+  std::string                 m_pendingInput;
+
+  mutable std::mutex          m_controllerMutex;  // Controller Setters
+  mutable std::mutex          m_modelMutex;       // Model Getters
+  
+  uint32_t                    m_cols                = 0;
+  uint32_t                    m_rows                = 0;
+  uint32_t                    m_numberOfCharsInData = 0;
 
 }; // class
 

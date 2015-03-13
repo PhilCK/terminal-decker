@@ -50,7 +50,7 @@ void VertexBuffer::bind(const VertexFormat &vertexFormat, const Shader &shader) 
       if(index != NOT_USED)
       {
         glEnableVertexAttribArray(index);
-        glVertexAttribPointer(index, attrib.size, GL_FLOAT, GL_FALSE, vertexFormat.getStride(), (void*)attrib.pointer);
+        glVertexAttribPointer(index, attrib.size, attrib.type, GL_FALSE, vertexFormat.getStride(), (void*)attrib.pointer);
 
         GL_ERROR("Failed applying vertex format '" + attrib.name + "'");
       }

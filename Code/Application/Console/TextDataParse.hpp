@@ -14,23 +14,23 @@ namespace FontData
 
 struct CharDataInfo
 {
-  uint32_t    x;
-  uint32_t    y;
-  uint32_t    width;
-  uint32_t    height;
-  uint32_t    xOffset;
-  uint32_t    yOffset;
-  uint32_t    xAdvance;
+  int32_t    x;
+  int32_t    y;
+  int32_t    width;
+  int32_t    height;
+  int32_t    xOffset;
+  int32_t    yOffset;
+  int32_t    xAdvance;
 };
 
 struct FontDataInfo
 {
-  uint32_t      maxWidth;
-  uint32_t      maxHeight;
-  uint32_t      baseline;
-  uint32_t      scaleWidth;
-  uint32_t      scaleHeight;
-  uint32_t      lineHeight;
+  int32_t      maxWidth;
+  int32_t      maxHeight;
+  int32_t      baseline;
+  int32_t      scaleWidth;
+  int32_t      scaleHeight;
+  int32_t      lineHeight;
 
   // TODO: Kill this!!! Yuk
   std::unordered_map<uint16_t, CharDataInfo> characters;
