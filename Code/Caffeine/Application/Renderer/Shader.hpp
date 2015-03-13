@@ -66,6 +66,7 @@ private:
   struct PendingTexture
   {
     GLuint    textureID;
+    GLenum    target;
     uint32_t  index;
   };
 

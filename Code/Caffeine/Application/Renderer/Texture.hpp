@@ -11,32 +11,53 @@ namespace Caffeine {
 namespace Application {
 namespace Dev {
 
+enum class TextureD
+{
+  ONE_D,
+  TWO_D,
+};
+
+enum class Format
+{
+  R8G8B8,
+  R32G32B32,
+  DEV,
+};
 
 class Texture
 {
 public:
 
-  explicit          Texture() {}
-  explicit          Texture(const std::string &filename);
-  explicit          Texture(const std::vector<float> &data);
-                    ~Texture();
+  explicit            Texture() {}
+  explicit            Texture(const std::string &filename);
+  explicit            Texture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32);
+  explicit            Texture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8);
+                      ~Texture();
 
-  void              loadTexture(const std::string &filename);
-  void              loadTexture(const std::vector<float> &data);
-  void              updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY);
+  void                loadTexture(const std::string &filename);
+  void                loadTexture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32);
+  void                loadTexture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8);
 
-  inline bool       isValid() { return m_textureID > 0; }
+  void                updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY);
+  void                updateSubset(const std::vector<uint8_t> &data, const uint32_t offsetX, const uint32_t offsetY);
 
-  inline GLuint     getTextureID() const { return m_textureID; }
+  inline bool         isValid() { return m_textureID > 0; }
+  
+  inline uint32_t     getWidth()  { return m_width;  }
+  inline uint32_t     getHeight() { return m_height; }
+
+  inline TextureD     getDimention() const    { return m_dimention; } // TODO: Should this return GLenum, DX isn't a thing for us.
+  inline Format       getFormat() const       { return m_format;    } // TODO: Should this return GLenum, DX isn't a thing for us.
+  inline GLuint       getTextureID() const    { return m_textureID; }
 
 private:
 
-
-  uint32_t          m_width       = 0;
-  uint32_t          m_height      = 0;
-  uint32_t          m_flags       = 0;
-  GLuint            m_textureID   = 0;
-  GLuint            m_target      = 0;
+  uint32_t            m_width       = 0;
+  uint32_t            m_height      = 0;
+  uint32_t            m_flags       = 0;
+  GLuint              m_textureID   = 0;
+  Format              m_format      = Format::R32G32B32;
+  TextureD            m_dimention   = TextureD::TWO_D;
 
 }; // class
 

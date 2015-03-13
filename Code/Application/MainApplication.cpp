@@ -44,6 +44,10 @@ namespace
     +3.f, -1.f, 2.f, 0.f,
     -1.f, +3.f, 0.f, 2.f,
   }};
+
+  const uint32_t width = 864;
+  const uint32_t height = 486;
+
 }
 
 
@@ -54,8 +58,8 @@ class Application
 public:
 
   explicit Application()
-  : m_caffApp("Terminal", 864* 2, 486* 2, false)
-  , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 3.f, 864.f, 486.f, 0.1f, 1000.f))
+  : m_caffApp("Terminal", width, height, false)
+  , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 3.f, static_cast<float>(width), static_cast<float>(height), 0.1f, 1000.f))
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
   {
@@ -93,13 +97,12 @@ public:
     caffAppVertexBuffer.loadVertexBuffer(model.getMesh(0).getGLVertexBuffer());
     caffAppPostVertexBuffer.loadVertexBuffer(fullscreenVerts);
 
-    caffAppFrameBuffer.loadBuffer(864.f* 2, 486.f* 2);
-
+    caffAppFrameBuffer.loadBuffer(width, height);
 
     caffAppShader.setShaderRaw("projMat",   sizeof(float) * 16, &m_projectionMatrix._11);
     caffAppShader.setShaderRaw("worldMat",  sizeof(float) * 16, &m_worldMatrix._11);
 
-    m_caffApp.getRenderer().setViewPort(864* 2, 486* 2);
+    m_caffApp.getRenderer().setViewPort(width, height);
 
     // Text MVC
     {
@@ -112,13 +115,14 @@ public:
       textConsoleView.reset(new TextConsoleView(*textConsoleModel));
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
+
   }
 
 
   void start()
   {
     std::string filename = "moop";
-    auto fontData = FontData::ParseData(filename);
+    auto fontData = FontData::ParseData(filename);    
 
     while(!m_caffApp.shouldQuit())
     {
@@ -166,7 +170,7 @@ public:
         // Draw post
         {
           CaffApp::Dev::Renderer::Reset();
-          m_caffApp.getRenderer().setViewPort(864 * 2, 486* 2);
+          m_caffApp.getRenderer().setViewPort(width, height);
 
           glDisable(GL_DEPTH_TEST);
   
@@ -192,7 +196,6 @@ private:
 };
 
 } // namespace
-
 
 
 int main(int argc, char **argv)

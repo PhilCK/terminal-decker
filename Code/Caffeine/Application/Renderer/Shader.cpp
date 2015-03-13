@@ -112,7 +112,7 @@ void Shader::loadShader(const std::string &combinedShader)
 
 void Shader::loadShader(const std::string &vertShader, const std::string &pixelShader, const std::string &geometryShader)
 { 
-  auto compileShader = [](const std::string &shaderCode, const GLenum shaderType) -> GLuint
+  auto compileShader = [](const std::string &shaderCode, const GLenum shaderType, const std::string &shaderName) -> GLuint
   {
     if(shaderCode.empty())
     {
@@ -143,25 +143,61 @@ void Shader::loadShader(const std::string &vertShader, const std::string &pixelS
 		  GLint isCompiled;
 		  glGetShaderiv(shaderID, GL_COMPILE_STATUS, &isCompiled);
 
+      auto findLine = [](const std::string &log, const std::string &shader, const std::string &logTag) -> std::string
+      {
+        const auto position = log.find(":", logTag.size());
+        
+        if(position != std::string::npos)
+        {
+          const std::size_t colNo = std::stoi(log.substr(logTag.size(), position - logTag.size()));
+          
+
+
+          const auto secondPosition = log.find(":", position + 1);
+
+          if(secondPosition != std::string::npos)
+          {
+            const std::size_t sizeOfNumber = secondPosition - position - 1;
+            const std::size_t rowNo = std::stoi(log.substr(position + 1, sizeOfNumber));
+
+            std::size_t currSearchPos = 0;
+
+            for(std::size_t i = 1; i < rowNo; ++i)
+            {
+              currSearchPos = shader.find('\n', currSearchPos);
+              currSearchPos++;
+            }
+
+            const std::string shaderSnip = shader.substr(currSearchPos, CaffMath::Min((uint32_t)10, shader.size() - currSearchPos));
+            return "CODE: " + shaderSnip;
+          }
+        }
+
+        return "";
+
+      };
+
       if(isCompiled == GL_FALSE)
       {
-        CaffUtil::LogError("Error(s) compiling vert shader.");
+        CaffUtil::LogError("Error(s) compiling " + shaderName + " shader.");
         CaffUtil::LogError(logStr);
+        CaffUtil::LogError(findLine(logStr, shaderCode, "ERROR:"));
         return 0;
       }
       else
       {
         CaffUtil::LogWarning("Warning(s) compiling shader.");
         CaffUtil::LogWarning(logStr);
+        CaffUtil::LogWarning(findLine(logStr, shaderCode, "WARNING:"));
       }
 		}
 
     return shaderID;
   };
 
-  m_vertexID    = compileShader(vertShader, GL_VERTEX_SHADER);
-  m_geometryID  = compileShader(geometryShader, GL_GEOMETRY_SHADER);
-  m_fragmentID  = compileShader(pixelShader, GL_FRAGMENT_SHADER);
+  m_vertexID    = compileShader(vertShader, GL_VERTEX_SHADER, "vertex");
+  m_geometryID  = compileShader(geometryShader, GL_GEOMETRY_SHADER, "gometry");
+  m_fragmentID  = compileShader(pixelShader, GL_FRAGMENT_SHADER, "fragment");
 
   // Link the shader
   if(m_vertexID && m_fragmentID)
@@ -314,7 +350,8 @@ void Shader::setTexture(const std::string &name, const Texture &texture)
 
   if(it != m_samplers.end())
   {
-    m_pendingTextureData.emplace_back(PendingTexture{texture.getTextureID(), it->index});
+    const GLenum target = texture.getDimention() == TextureD::ONE_D ? GL_TEXTURE_1D : GL_TEXTURE_2D;
+    m_pendingTextureData.emplace_back(PendingTexture{texture.getTextureID(), target, it->index});
   }
 }
 
@@ -325,7 +362,8 @@ void Shader::setTexture(const std::string &name, const FrameBuffer &texture)
 
   if(it != m_samplers.end())
   {
-    m_pendingTextureData.emplace_back(PendingTexture{texture.getTextureID(), it->index});
+    const GLenum target = GL_TEXTURE_2D;
+    m_pendingTextureData.emplace_back(PendingTexture{texture.getTextureID(), target, it->index});
   }
 }
 
@@ -366,7 +404,6 @@ void Shader::bind() const
     
     m_pendingUpload.clear();
     m_pendingUploadData.clear();
-
   } // Constants
 
   // Textures
@@ -375,15 +412,20 @@ void Shader::bind() const
 
     for(std::size_t i = 0; i < numberOfTextures; ++i)
     {
-      glActiveTexture(GL_TEXTURE0 + m_pendingTextureData.at(i).index);
-      glBindTexture(GL_TEXTURE_2D, m_pendingTextureData.at(i).textureID);
+      const auto &texture = m_pendingTextureData.at(i);
 
-  	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glActiveTexture(GL_TEXTURE0 + texture.index);
+      GL_ERROR("Error glActiveTexture.");
 
-		  GL_ERROR("Failed binding tex.");
+      glBindTexture(texture.target, texture.textureID);
+      GL_ERROR("Error binding tex.");
+
+  	  glTexParameteri(texture.target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		  glTexParameteri(texture.target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		  glTexParameteri(texture.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		  glTexParameteri(texture.target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		  GL_ERROR("Error setting texParaeteri.");
     }
 
     m_pendingTextureData.clear();

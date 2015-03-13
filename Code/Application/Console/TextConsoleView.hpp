@@ -46,7 +46,7 @@ private:
 
   CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
   CaffApp::Dev::VertexFormat    m_consoleGridVF;
-  CaffApp::Dev::Shader          m_simpleShader;
+  CaffApp::Dev::Shader          m_textShader;
   CaffApp::Dev::Texture         m_textureLookup;
   CaffApp::Dev::Texture         m_fontLookup;
 

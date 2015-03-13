@@ -1,4 +1,4 @@
-
+﻿
 #include <Application/Console/TextConsoleView.hpp>
 #include <Application/Console/TextConsoleModel.hpp>
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
@@ -18,85 +18,73 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
   return desc;
 }
 
-
 TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 : m_model(model)
-, m_textureLookup(m_model.getPropertyData())
-, m_fontLookup(CaffUtil::GetPathDir() + "Textures/courier_new_font.png")
+, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::ONE_D, CaffApp::Dev::Format::DEV)
+, m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
 
 {
   const uint32_t cols = m_model.getColumns();
   const uint32_t rows = m_model.getRows();
 
-  // Simple Shader
+  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 1.f)) / 4;
+  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 1.f)) / 4;
+
+  m_frameBuffer.loadBuffer(864.f, 486.f);
+  //m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
+
+
+  // Text Shader
   {
-    const std::string filename = CaffUtil::GetPathDir() + "Shaders/SimpleShader.shd";
+    const std::string filename = CaffUtil::GetPathDir() + "Shaders/ConsoleTextShader.shd";
     const std::string shader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
 
-    m_simpleShader.loadShader(shader);
-    assert(m_simpleShader.isValid());
+    m_textShader.loadShader(shader);
+    assert(m_textShader.isValid());
   }
 
   // Console VF
   {
-    const std::vector<CaffApp::Dev::AttributeFormatDesc> vertFmtDesc = {{
-      CaffApp::Dev::AttributeFormatDesc{"inPosition", CaffApp::Dev::AttrType::FLOAT2},
-      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT2},
-    }};
+    const std::vector<CaffApp::Dev::AttributeFormatDesc> vertFmtDesc = {
+      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT},
+    };
 
     m_consoleGridVF.loadFormat(vertFmtDesc);
     assert(m_consoleGridVF.hasFormatedLoaded());
   }
 
-
   // Generate VBO a collection of points each point is a character.
   {
+    const uint32_t size = cols * rows;
+
     std::vector<float> pointsVBO;
-    const float sizeOfVert = 2.f; // x,y
-    pointsVBO.reserve(cols * rows * sizeOfVert);
+    pointsVBO.reserve(size);
 
-    for(uint32_t r = 0; r < rows; ++r)
+    for(uint32_t i = 0; i < size; ++i)
     {
-      for(uint32_t c = 0; c < cols; ++c)
-      {
-        // inPosition
-        const float xUnits = 2.f / static_cast<float>(cols);
-        pointsVBO.emplace_back((xUnits * c) - 1.f + (xUnits * 0.5f)); // unit - startpoint + half unit.
-
-        const float yUnits = 2.f / static_cast<float>(rows);
-        pointsVBO.emplace_back((yUnits * r) - 1.f + (yUnits * 0.5f)); // unit - startpoint + half unit.
-        
-        // inID
-        pointsVBO.push_back(static_cast<float>(c));
-        pointsVBO.push_back(static_cast<float>(r));
-      }
-    }
-
-    // Did textures load?
-    {
-      assert(m_textureLookup.isValid());
-      assert(m_fontLookup.isValid());
+      pointsVBO.push_back(m_model.getSizeOfProperty() * i);
     }
 
     m_consoleGridVBO.loadVertexBuffer(pointsVBO, false);
     assert(m_consoleGridVBO.isValid());
   }
 
-  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 2.f)) / 4;
-  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 2.f)) / 4;
-
-  m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
-
-  // Set size of quads.
+  // Did textures load?
   {
-    const std::array<float, 2> uniSize = {{
-      static_cast<float>(m_model.getColumns())  / static_cast<float>(m_frameBuffer.getWidth()),
-      static_cast<float>(m_model.getRows())     / static_cast<float>(m_frameBuffer.getHeight()),
-    }};
-  
-    m_simpleShader.setShader2f("uniSize", uniSize); 
+    assert(m_textureLookup.isValid());
+    assert(m_fontLookup.isValid());
+  }
+
+  // Load some constants
+  {
+    const std::array<float, 2> screenSize = {{ m_frameBuffer.getWidth(), m_frameBuffer.getHeight() }};
+    m_textShader.setShader2f("bufferResolution", screenSize);
+
+    const std::array<float, 2> fontLookupSize = {{ m_fontLookup.getWidth(), m_fontLookup.getHeight() }};
+    m_textShader.setShader2f("textureResolution", fontLookupSize);
   }
 }
+
 
 void TextConsoleView::renderTextConsole()
 {
@@ -105,12 +93,15 @@ void TextConsoleView::renderTextConsole()
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
 
-  m_simpleShader.setTexture("dataLookup", m_textureLookup);
-  m_simpleShader.setTexture("fontLookup", m_fontLookup);
-  
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  m_textShader.setTexture("fontLookup", m_fontLookup);
+  m_textShader.setTexture("dataLookup", m_textureLookup);
+
   m_frameBuffer.bind();
-  m_simpleShader.bind();
-  m_consoleGridVBO.bind(m_consoleGridVF, m_simpleShader);
+  m_textShader.bind();
+  m_consoleGridVBO.bind(m_consoleGridVF, m_textShader);
   
-  glDrawArrays(GL_POINTS, 0, 3200);
+  glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(m_model.getNumberOfCharactersInData()));
 }

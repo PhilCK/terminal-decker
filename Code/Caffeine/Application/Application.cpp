@@ -93,6 +93,7 @@ void Application::endFrame()
 	// Swap buffer.
 	SDL_GL_SwapWindow(m_window->getSDLWindow());
 	SDL_ERROR("Application::endFrame()");
+
 }
 
 

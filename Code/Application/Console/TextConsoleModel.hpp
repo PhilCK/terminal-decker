@@ -18,6 +18,7 @@ public:
   inline uint32_t             getRows() const       { return m_rows; }
  
   const std::vector<float>&   getPropertyData() const;
+  inline uint32_t             getNumberOfCharactersInData() const { return m_numberOfCharsInData; }
   uint32_t                    getSizeOfProperty() const;
 
   inline bool                 requriesUpdate() const { return !m_pendingBuffer.empty() || !m_pendingInput.empty(); }
@@ -41,6 +42,7 @@ private:
   std::vector<std::string>    m_buffer;
   std::vector<std::string>    m_input;
   std::vector<float>          m_characterProperties;
+  uint32_t                    m_numberOfCharsInData = 0;
 
   std::vector<std::string>    m_pendingBuffer;
   std::vector<std::string>    m_pendingInput;
