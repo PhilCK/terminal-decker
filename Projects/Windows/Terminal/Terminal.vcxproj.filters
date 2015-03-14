@@ -40,6 +40,9 @@
     <Filter Include="Application\Console">
       <UniqueIdentifier>{61aab985-ba26-4aca-8942-f6a03af74312}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Lib">
+      <UniqueIdentifier>{45c18338-53a6-4879-8bd7-a73be9fc134d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\Console\TextDataParse.cpp">
       <Filter>Application\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Lib\UTF8String.cpp">
+      <Filter>Application\Lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Console\TextDataParse.hpp">
       <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Lib\UTF8String.hpp">
+      <Filter>Application\Lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

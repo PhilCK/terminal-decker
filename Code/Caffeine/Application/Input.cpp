@@ -150,6 +150,11 @@ void Input::pumpSystemEvent(const void * sysEventData)
       const SDL_Keycode key = sdlEvent->key.keysym.sym;
       updateKey((KeyID)key, KeyState::DOWN);
 
+      if(key == SDLK_PASTE)
+      {
+        std::cout << "Mop" << std::endl;
+      }
+
       break;
     }
     
@@ -169,6 +174,15 @@ void Input::pumpSystemEvent(const void * sysEventData)
         onTextStreamEvent(streamTxt);
       }
 
+      break;
+    }
+
+    case(SDLK_PASTE):
+    case(SDL_TEXTINPUTEVENT_TEXT_SIZE):
+    case(SDL_TEXTEDITING):
+    case(SDL_SCANCODE_PASTE):
+    {
+    
       break;
     }
 
