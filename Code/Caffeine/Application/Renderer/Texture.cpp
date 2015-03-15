@@ -135,40 +135,42 @@ void Texture::loadTexture(const std::string &filename)
 }
 
 
-void Texture::loadTexture(const std::vector<float> &data, const TextureD dimention, const Format format)
+namespace
 {
-  if(m_textureID && dimention != m_dimention)
+  void SetTextureDimentionFromDataSize(const TextureD dimention, const std::size_t dataSize, uint32_t &outWidth, uint32_t &outHeight)
   {
-    CaffUtil::LogError("The dimention of the texture cannot be changed after it has been set.");
-    return;
-  }
+    assert(CaffMath::IsPOW2(dataSize)); // only pow2 square textures.
 
-  if(!m_textureID)
-  {
-    m_format    = format;
-    m_dimention = dimention;
-
-    switch(m_dimention)
+    switch(dimention)
     {
     case(TextureD::ONE_D):
-       m_width = data.size();
-       m_height = 1;
+       outWidth = dataSize;
+       outHeight = 1;
        break;
     case(TextureD::TWO_D):
-      assert(CaffMath::IsPOW2(data.size())); // only pow2 square textures.
-      m_width = CaffMath::SquareRoot(data.size() / 4);
-      m_height = m_width;
+      outWidth = CaffMath::SquareRoot(dataSize / 4);
+      outHeight = outWidth;
       break;
     default:
       assert(false); // Shouldn't have happened.
     }
+  }
+}
 
-    GenerateTexture(m_textureID, m_format, m_dimention, m_width, m_height, (void*)data.data());
-  }
-  else
+
+void Texture::loadTexture(const std::vector<float> &data, const TextureD dimention, const Format format)
+{
+  if(m_textureID)
   {
-    UpdateTexture(m_textureID, m_format, m_dimention, 0, 0, m_width, m_height, (void*)data.data());
+    CaffUtil::LogError("Texture already loaded.");
+    return;
   }
+
+  m_format    = format;
+  m_dimention = dimention;
+
+  SetTextureDimentionFromDataSize(m_dimention, data.size(), m_width, m_height);
+  GenerateTexture(m_textureID, m_format, m_dimention, m_width, m_height, (void*)data.data());
 
   GL_ERROR("Failed loading texture");
 }
@@ -176,41 +178,8 @@ void Texture::loadTexture(const std::vector<float> &data, const TextureD dimenti
 
 void Texture::loadTexture(const std::vector<uint8_t> &data, const TextureD dimention, const Format format)
 {
-  assert(CaffMath::IsPOW2(data.size())); // POW2 textures only.
-
-  if(m_textureID && dimention != m_dimention)
-  {
-    CaffUtil::LogError("The dimention of the texture cannot be changed after it has been set.");
-    return;
-  }
-
-  if(!m_textureID)
-  {
-    m_format = format;
-    m_dimention = dimention;
-
-    switch(m_dimention)
-    {
-    case(TextureD::ONE_D):
-       m_width = data.size();
-       m_height = 1;
-       break;
-    case(TextureD::TWO_D):
-      m_width = CaffMath::SquareRoot(data.size() / 4);
-      m_height = m_width;
-      break;
-    default:
-      assert(false); // Shouldn't have happened.
-    }
-
-    GenerateTexture(m_textureID, m_format, m_dimention, m_width, m_height, (void*)data.data());
-  }
-  else
-  {
-    UpdateTexture(m_textureID, m_format, m_dimention, 0, 0, m_width, m_height, (void*)data.data());
-  }
-
-  GL_ERROR("Failed loading texture");
+  const std::vector<float> floatData(data.begin(), data.end());
+  loadTexture(floatData, dimention, format);
 }
 
 
@@ -222,20 +191,7 @@ void Texture::updateSubset(const std::vector<float> &data, const uint32_t offset
   uint32_t sizeX = 0;
   uint32_t sizeY = 0;
 
-  switch(m_dimention)
-  {
-  case(TextureD::ONE_D):
-    sizeX = data.size();
-    sizeY = 1;
-    break;
-  case(TextureD::TWO_D):
-    sizeX = CaffMath::SquareRoot(data.size() / 4);
-    sizeY = sizeX;
-    break;
-  default:
-    assert(false); // Shouldn't have got here.
-  }
-  
+  SetTextureDimentionFromDataSize(m_dimention, data.size(), sizeX, sizeY);
   UpdateTexture(m_textureID, m_format, m_dimention, offsetX, offsetY, sizeX, sizeY, (void*)data.data());
 
   GL_ERROR("Updating texture.")
@@ -243,17 +199,8 @@ void Texture::updateSubset(const std::vector<float> &data, const uint32_t offset
 
 void Texture::updateSubset(const std::vector<uint8_t> &data, const uint32_t offsetX, const uint32_t offsetY)
 {
-  // TODO: like above.
-  assert(m_textureID);
-
-  const uint32_t size = CaffMath::SquareRoot(data.size() / 4);
-
-  glBindTexture(GL_TEXTURE_2D, m_textureID);
-  glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, size, size, GL_BGRA, GL_FLOAT, data.data());
-
-  glBindTexture(GL_TEXTURE_2D, 0);
-
-  GL_ERROR("Updating texture.")
+  const std::vector<float> floatData(data.begin(), data.end());
+  updateSubset(floatData, offsetX, offsetY);
 }
 
 

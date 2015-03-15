@@ -88,13 +88,15 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
 void TextConsoleView::renderTextConsole()
 {
-  m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
-  
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
-
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/
+
+  m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
+
+
 
   m_textShader.setTexture("fontLookup", m_fontLookup);
   m_textShader.setTexture("dataLookup", m_textureLookup);

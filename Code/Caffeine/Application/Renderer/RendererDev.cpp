@@ -31,9 +31,9 @@ void Reset()
   glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glFrontFace(GL_CCW);
-	//glEnable(GL_CULL_FACE);
-  glDisable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+  //glDisable(GL_CULL_FACE);
 	glUseProgram(NO_SHADER);
 	
   GL_ERROR("Reseting")
