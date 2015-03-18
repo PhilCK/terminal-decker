@@ -350,8 +350,8 @@ void Shader::setTexture(const std::string &name, const Texture &texture)
 
   if(it != m_samplers.end())
   {
-    const GLenum target = texture.getDimention() == TextureD::ONE_D ? GL_TEXTURE_1D : GL_TEXTURE_2D;
-    m_pendingTextureData.emplace_back(PendingTexture{texture.getTextureID(), target, it->index});
+    const GLenum target = texture.getGLDimention();
+    m_pendingTextureData.emplace_back(PendingTexture{texture.getGLTextureID(), target, it->index});
   }
 }
 

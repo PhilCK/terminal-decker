@@ -25,7 +25,14 @@ public:
   void                        prepareData();
 
   inline std::string          getInput() const  { return m_input;  }
-  inline std::string          getBuffer() const { return m_buffer; } 
+  inline std::string          getBuffer() const { return m_buffer; }
+
+  void                        getCursorX();
+  void                        getCursorY();
+  void                        setCursor(const uint32_t x, const uint32_t y);
+  void                        setCharacter(const uint32_t x, const uint32_t y);
+  void                        blitScreen(const std::vector<int> markup);
+  void                        addLineToScreen(const std::vector<int> markup);
 
 private:
 

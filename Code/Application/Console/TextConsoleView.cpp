@@ -20,7 +20,7 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
 
 TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 : m_model(model)
-, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::ONE_D, CaffApp::Dev::Format::DEV)
+, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  m_model.getPropertyData().size() / m_model.getSizeOfProperty())
 , m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
 
 {
@@ -33,7 +33,6 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
   m_frameBuffer.loadBuffer(864.f, 486.f);
   //m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
 
-
   // Text Shader
   {
     const std::string filename = CaffUtil::GetPathDir() + "Shaders/ConsoleTextShader.shd";
@@ -42,6 +41,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
     m_textShader.loadShader(shader);
     assert(m_textShader.isValid());
   }
+
 
   // Console VF
   {
@@ -62,7 +62,8 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
     for(uint32_t i = 0; i < size; ++i)
     {
-      pointsVBO.push_back(m_model.getSizeOfProperty() * i);
+      //pointsVBO.push_back(m_model.getSizeOfProperty() * i);
+      pointsVBO.push_back(i);
     }
 
     m_consoleGridVBO.loadVertexBuffer(pointsVBO, false);
@@ -95,8 +96,6 @@ void TextConsoleView::renderTextConsole()
   glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/
 
   m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
-
-
 
   m_textShader.setTexture("fontLookup", m_fontLookup);
   m_textShader.setTexture("dataLookup", m_textureLookup);

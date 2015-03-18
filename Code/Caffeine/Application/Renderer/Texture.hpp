@@ -30,13 +30,13 @@ public:
 
   explicit            Texture() {}
   explicit            Texture(const std::string &filename);
-  explicit            Texture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32);
-  explicit            Texture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8);
+  explicit            Texture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32, const uint32_t width = 0, const uint32_t height = 0);
+  explicit            Texture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8, const uint32_t width = 0, const uint32_t height = 0);
                       ~Texture();
 
   void                loadTexture(const std::string &filename);
-  void                loadTexture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32);
-  void                loadTexture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8);
+  void                loadTexture(const std::vector<float> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R32G32B32, const uint32_t width = 0, const uint32_t height = 0);
+  void                loadTexture(const std::vector<uint8_t> &data, const TextureD dimention = TextureD::TWO_D, const Format format = Format::R8G8B8, const uint32_t width = 0, const uint32_t height = 0);
 
   void                updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY);
   void                updateSubset(const std::vector<uint8_t> &data, const uint32_t offsetX, const uint32_t offsetY);
@@ -48,7 +48,10 @@ public:
 
   inline TextureD     getDimention() const    { return m_dimention; } // TODO: Should this return GLenum, DX isn't a thing for us.
   inline Format       getFormat() const       { return m_format;    } // TODO: Should this return GLenum, DX isn't a thing for us.
-  inline GLuint       getTextureID() const    { return m_textureID; }
+
+  // GL Helpers for prototyping.
+  inline GLuint       getGLTextureID() const    { return m_textureID; }
+  GLenum              getGLDimention() const; // We might use a different one internally.
 
 private:
 
