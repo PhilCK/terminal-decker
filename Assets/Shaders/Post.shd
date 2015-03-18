@@ -4,11 +4,12 @@
 [VERTEXSHADER]
 
 #version 150
+
 in vec2 position;
 in vec2 texcoord;
-out vec2 Texcoord;
+out vec2 texC;
 void main() {
-    Texcoord = texcoord;
+    texC = texcoord;
     gl_Position = vec4(position, 0.0, 1.0);
 }
 
@@ -18,11 +19,24 @@ void main() {
 [PIXELSHADER]
 
 #version 150
-in vec2 Texcoord;
-out vec4 outColor;
+// Input
+in vec2 texC;
+
+// Uni
+uniform vec2 screenSize;
+uniform float frameTime;
 uniform sampler2D texFramebuffer;
-void main() {
-    outColor = texture(texFramebuffer, Texcoord);
+
+// Output
+out vec4 outColor;
+
+void main()
+{
+	float x = fract(texC.t * 70.0);
+    float f = smoothstep(0.4, 0.5, x) - smoothstep(0.6, 0.7, x);
+
+    outColor = texture(texFramebuffer, texC);
+    outColor.w = f + 0.1;
 }
 
 [/PIXELSHADER]

@@ -4,6 +4,9 @@
 #include <Caffeine/Application/Renderer/Shader.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
 
+
+
+
 namespace Caffeine {
 namespace Application {
 namespace Dev {
@@ -52,7 +55,7 @@ void VertexBuffer::bind(const VertexFormat &vertexFormat, const Shader &shader) 
         glEnableVertexAttribArray(index);
         glVertexAttribPointer(index, attrib.size, attrib.type, GL_FALSE, vertexFormat.getStride(), (void*)attrib.pointer);
 
-        GL_ERROR("Failed applying vertex format '" + attrib.name + "'");
+        GL_ERROR("Failed applying vertex format '" + attrib.name + "'")
       }
     }
   }

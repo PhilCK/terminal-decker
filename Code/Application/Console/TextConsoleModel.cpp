@@ -118,9 +118,9 @@ void TextConsoleModel::prepareData()
         m_characterProperties.at(i++) = xPosition;
         m_characterProperties.at(i++) = yPosition;
 
-        m_characterProperties.at(i++) = 1.f;
-        m_characterProperties.at(i++) = 0.f;
-        m_characterProperties.at(i++) = 1.f;
+        m_characterProperties.at(i++) = 0.1f;
+        m_characterProperties.at(i++) = 1.0f;
+        m_characterProperties.at(i++) = 0.0f;
 
         m_characterProperties.at(i++) = 0.f; // padding
         m_characterProperties.at(i++) = 0.f; // padding

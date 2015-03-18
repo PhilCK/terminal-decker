@@ -138,6 +138,8 @@ namespace
     assert(CaffMath::IsPOW2(texWidth));
     assert(CaffMath::IsPOW2(texHeight));
 
+    glFinish(); // Remove this if crashes persist. Would like to remove anyway.
+
     glBindTexture(glDimention, textureID);
 
     switch(glDimention)

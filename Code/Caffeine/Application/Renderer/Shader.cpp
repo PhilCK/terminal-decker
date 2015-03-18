@@ -147,9 +147,10 @@ void Shader::loadShader(const std::string &vertShader, const std::string &pixelS
       {
         const auto position = log.find(":", logTag.size());
         
-        if(position != std::string::npos)
+        //if(position != std::string::npos)
+        if(false)
         {
-          const std::size_t colNo = std::stoi(log.substr(logTag.size(), position - logTag.size()));
+          const std::size_t colNo = std::stoi(log.substr(logTag.size(), position - (logTag.size()) - 1));
           
           const auto secondPosition = log.find(":", position + 1);
 

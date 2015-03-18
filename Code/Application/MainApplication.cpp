@@ -169,6 +169,7 @@ public:
 
         //}
 
+
         {
           textConsoleModel->prepareData();
 
@@ -180,9 +181,15 @@ public:
         {
           CaffApp::Dev::Renderer::Reset();
           m_caffApp.getRenderer().setViewPort(width, height);
+          
+
+          static float frameTime = 0;
+          frameTime += deltaTime;
 
           glDisable(GL_DEPTH_TEST);
-  
+          
+          caffAppPostShader.setShader1f("frameTime", frameTime);
+          caffAppPostShader.setShader2f("screenSize", {{ width, height }});
           caffAppPostShader.setTexture("texFramebuffer", textConsoleView->m_frameBuffer);
 
           CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
