@@ -88,7 +88,7 @@ namespace
   {
     using namespace CaffApp::Dev;
 
-    const auto externalFormat = format == Format::DEV ? GL_RGBA32F : GL_RGBA ;
+    const auto externalFormat = format == Format::DEV ? GL_RGBA32F : GL_RGBA;
     const auto internalFormat = GL_RGBA;
     const auto formatType     = format == Format::R8G8B8 ? GL_UNSIGNED_BYTE : GL_FLOAT;
     const auto glDimention    = GetDimentionTarget(dimention);
@@ -137,8 +137,6 @@ namespace
    
     assert(CaffMath::IsPOW2(texWidth));
     assert(CaffMath::IsPOW2(texHeight));
-
-    glFinish(); // Remove this if crashes persist. Would like to remove anyway.
 
     glBindTexture(glDimention, textureID);
 

@@ -20,7 +20,7 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
 
 TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 : m_model(model)
-, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  m_model.getPropertyData().size() / m_model.getSizeOfProperty())
+, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  4096)
 , m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
 
 {

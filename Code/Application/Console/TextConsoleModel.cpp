@@ -14,7 +14,7 @@ TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows, Fon
 , m_rows(rows)
 , m_fontData(fontData)
 {
-  m_characterProperties.resize(64 * 64 * 4, 128);
+  m_characterProperties.resize((4096 * 4) * 4, 128);
 }
 
 
