@@ -22,6 +22,8 @@ namespace
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &debugMaxTexSize);
     glGetIntegerv(GL_MAX_TEXTURE_BUFFER_SIZE, &debugMaxTexBufferSize);
 
+    GL_ERROR("Error while getting debug info.")
+
     debugInfo = true;
   }
 
@@ -237,6 +239,7 @@ void Texture::loadTexture(const std::vector<float> &data, const TextureD dimenti
 
   GL_ERROR("Failed loading texture");
 }
+
 
 
 void Texture::loadTexture(const std::vector<uint8_t> &data, const TextureD dimention, const Format format, const uint32_t width, const uint32_t height)

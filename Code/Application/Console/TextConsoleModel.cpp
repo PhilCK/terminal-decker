@@ -31,6 +31,7 @@ uint32_t TextConsoleModel::getSizeOfProperty() const
   return static_cast<uint32_t>(CHAR_PROP_SIZE / 4);
 }
 
+
 void TextConsoleModel::prepareData()
 {
   std::string pendingBuffer;
@@ -46,7 +47,6 @@ void TextConsoleModel::prepareData()
     pendingInput.swap(m_pendingInput);
     m_pendingInput.clear();
   }
-
 
   // Build data
   {
@@ -123,6 +123,10 @@ void TextConsoleModel::prepareData()
         m_characterProperties.at(i++) = 1.f;
 
         m_characterProperties.at(i++) = 0.f; // padding
+        m_characterProperties.at(i++) = 0.f; // padding
+        m_characterProperties.at(i++) = 0.f; // padding
+        m_characterProperties.at(i++) = 0.f; // padding
+        m_characterProperties.at(i++) = 0.f; // padding
 
         xPosition += (static_cast<float>(character.xAdvance)) + 1;// / static_cast<float>(m_fontData.scaleWidth));
       }
@@ -155,12 +159,14 @@ void TextConsoleModel::clearBuffer()
   m_pendingBuffer.clear();
 }
 
+
 void TextConsoleModel::addStringToInput(const std::string &str)
 {
   std::lock_guard<std::mutex> lockController(m_controllerMutex);
 
   m_pendingInput.append(str);
 }
+
 
 void TextConsoleModel::clearInput()
 {
@@ -170,6 +176,7 @@ void TextConsoleModel::clearInput()
   m_input.clear();
   m_pendingInput.clear();
 }
+
 
 void TextConsoleModel::backspaceInput()
 {

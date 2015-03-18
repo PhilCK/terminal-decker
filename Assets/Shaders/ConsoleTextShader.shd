@@ -39,7 +39,7 @@ in VertexData {
 out vec2 texC;
 out vec3 textColor;
 
-uniform sampler1D 	dataLookup;
+uniform sampler2D 	dataLookup;
 uniform vec2 		bufferResolution;
 uniform vec2 		textureResolution;
 
@@ -53,9 +53,9 @@ void main()
 		float col = mod(i, 2.0);
 
 		// Get data for this character
-		vec4 dataChunk1 = texelFetch(dataLookup, vertexIn[0].inID, 0);
-		vec4 dataChunk2 = texelFetch(dataLookup, vertexIn[0].inID + 1, 0);
-		vec4 dataChunk3 = texelFetch(dataLookup, vertexIn[0].inID + 2, 0);
+		vec4 dataChunk1 = texelFetch(dataLookup, ivec2(0, vertexIn[0].inID), 0);
+		vec4 dataChunk2 = texelFetch(dataLookup, ivec2(1, vertexIn[0].inID), 0);
+		vec4 dataChunk3 = texelFetch(dataLookup, ivec2(2, vertexIn[0].inID), 0);
 
 		vec2 uvCoords 		= vec2(dataChunk1.x, dataChunk1.y);
 		vec2 charSize 		= vec2(dataChunk1.z, dataChunk1.w);

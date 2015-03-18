@@ -40,7 +40,7 @@ public:
 
   void            renderTextConsole();
 
-private:
+//private:
   
   const TextConsoleModel        &m_model;
 
