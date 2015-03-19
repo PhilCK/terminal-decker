@@ -134,7 +134,7 @@ void TextConsoleModel::prepareData()
 
     GenerateTextureInfo(m_buffer);
 
-    yPosition = 1200;
+    yPosition = static_cast<float>(getRows() - 1) * m_fontData.lineHeight;
     xPosition = 0;
 
     GenerateTextureInfo(m_input);

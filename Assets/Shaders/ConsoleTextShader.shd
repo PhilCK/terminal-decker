@@ -63,7 +63,7 @@ void main()
 		vec2 charAdvance 	= vec2(dataChunk2.z, -dataChunk2.w);
 		vec3 color 			= vec3(dataChunk3.x, dataChunk3.y, dataChunk3.z);
 
-		float scale = 0.75;
+		vec2 scale = vec2(2, 2);
 
 		// Vertex Position
 		// We draw the polygon from top left - to bottom right.
@@ -78,10 +78,10 @@ void main()
 		vec2 pixelPositionOffset	= pixelPositionScaled + offset;
 
 		vec2 screenPosition 		= vec2(pixelPositionOffset.x / bufferResolution.x, pixelPositionOffset.y / bufferResolution.y);
-		vec2 screenScaledPosition 	= vec2(screenPosition * scale);
+		vec2 screenScaledPosition 	= vec2(screenPosition.x * scale.x, screenPosition.y * scale.y);
 
 		vec2 screenAdvance 			= vec2(charAdvance.x / bufferResolution.x, charAdvance.y / bufferResolution.y);
-		vec2 screenOffseted 		= vec2((screenAdvance.x * scale) + screenScaledPosition.x, (screenAdvance.y * scale) + screenScaledPosition.y);
+		vec2 screenOffseted 		= vec2((screenAdvance.x * scale.x) + screenScaledPosition.x, (screenAdvance.y * scale.y) + screenScaledPosition.y);
 
 		vec2 origin					= vec2(-1, +1);
 		vec2 finalPosition			= origin + screenOffseted;

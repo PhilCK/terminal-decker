@@ -27,11 +27,11 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
   const uint32_t cols = m_model.getColumns();
   const uint32_t rows = m_model.getRows();
 
-  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(78 / 1.f)) / 4;
-  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(78 / 1.f)) / 4;
+  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(32));
+  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(64));
 
-  m_frameBuffer.loadBuffer(864.f, 486.f);
-  //m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
+
+  m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
 
   // Text Shader
   {
@@ -41,6 +41,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
     m_textShader.loadShader(shader);
     assert(m_textShader.isValid());
   }
+
 
 
   // Console VF
@@ -86,11 +87,19 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
   }
 }
 
-
 void TextConsoleView::renderTextConsole()
 {
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
+
+  const uint32_t cols = m_model.getColumns();
+  const uint32_t rows = m_model.getRows();
+
+  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(32));
+  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(64));
+
+  m_frameBuffer.setViewPort(sizeOfWidth, sizeOfHeight);
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/

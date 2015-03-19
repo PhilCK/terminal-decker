@@ -112,13 +112,13 @@ public:
 
       //auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
 
-      textConsoleModel.reset(new TextConsoleModel(80, 40, fontData));
+      textConsoleModel.reset(new TextConsoleModel(80, 25, fontData));
       textConsoleView.reset(new TextConsoleView(*textConsoleModel));
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
 
-    textConsoleController->addStringToBuffer("yY");
-    textConsoleController->addStringToInput("");
+    textConsoleController->addStringToBuffer("TYPE MOTHERFUCKER!");
+    textConsoleController->addStringToInput(">> ");
 
     auto &input = m_caffApp.getInput();
     

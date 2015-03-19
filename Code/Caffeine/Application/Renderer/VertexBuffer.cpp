@@ -35,6 +35,7 @@ void VertexBuffer::loadVertexBuffer(const std::vector<float> &vertexData, const 
 }
 
 
+
 void VertexBuffer::bind(const VertexFormat &vertexFormat, const Shader &shader) const
 {
   glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
