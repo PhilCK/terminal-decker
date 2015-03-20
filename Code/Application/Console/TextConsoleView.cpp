@@ -18,20 +18,23 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
   return desc;
 }
 
+
 TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 : m_model(model)
 , m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  4096)
 , m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
-
 {
   const uint32_t cols = m_model.getColumns();
   const uint32_t rows = m_model.getRows();
 
-  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(32));
-  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(64));
+  // Size of framebuffer
+  {
+    const float sizeOfWidth  = static_cast<float>(cols * m_model.getMaxCharWidth());
+    const float sizeOfHeight = static_cast<float>(rows * m_model.getLineHeight());
 
-
-  m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
+    m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
+    assert(m_frameBuffer.isValid());
+  }
 
   // Text Shader
   {
@@ -42,15 +45,12 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
     assert(m_textShader.isValid());
   }
 
-
-
-  // Console VF
+  // Console VertexFormat
   {
-    const std::vector<CaffApp::Dev::AttributeFormatDesc> vertFmtDesc = {
+    m_consoleGridVF.loadFormat({
       CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT},
-    };
+    });
 
-    m_consoleGridVF.loadFormat(vertFmtDesc);
     assert(m_consoleGridVF.hasFormatedLoaded());
   }
 
@@ -63,7 +63,6 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
     for(uint32_t i = 0; i < size; ++i)
     {
-      //pointsVBO.push_back(m_model.getSizeOfProperty() * i);
       pointsVBO.push_back(i);
     }
 
@@ -71,34 +70,24 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
     assert(m_consoleGridVBO.isValid());
   }
 
+  // Load some constants
+  {
+    m_textShader.setShader2f("bufferResolution",  {{ m_frameBuffer.getWidth(), m_frameBuffer.getHeight() }});
+    m_textShader.setShader2f("textureResolution", {{ m_fontLookup.getWidth(), m_fontLookup.getHeight() }});
+  }
+
   // Did textures load?
   {
     assert(m_textureLookup.isValid());
     assert(m_fontLookup.isValid());
   }
-
-  // Load some constants
-  {
-    const std::array<float, 2> screenSize = {{ m_frameBuffer.getWidth(), m_frameBuffer.getHeight() }};
-    m_textShader.setShader2f("bufferResolution", screenSize);
-
-    const std::array<float, 2> fontLookupSize = {{ m_fontLookup.getWidth(), m_fontLookup.getHeight() }};
-    m_textShader.setShader2f("textureResolution", fontLookupSize);
-  }
 }
+
 
 void TextConsoleView::renderTextConsole()
 {
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
-
-  const uint32_t cols = m_model.getColumns();
-  const uint32_t rows = m_model.getRows();
-
-  const float sizeOfWidth  = (static_cast<float>(cols) * static_cast<float>(32));
-  const float sizeOfHeight = (static_cast<float>(rows) * static_cast<float>(64));
-
-  m_frameBuffer.setViewPort(sizeOfWidth, sizeOfHeight);
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

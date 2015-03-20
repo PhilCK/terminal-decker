@@ -36,9 +36,10 @@ class TextConsoleView
 {
 public:
 
-  explicit        TextConsoleView(const TextConsoleModel &model);
+  explicit          TextConsoleView(const TextConsoleModel &model);
 
-  void            renderTextConsole();
+  void              renderTextConsole();
+
 
 //private:
   

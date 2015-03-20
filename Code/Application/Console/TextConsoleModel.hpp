@@ -16,6 +16,9 @@ public:
 
   inline uint32_t             getColumns() const    { return m_cols; }
   inline uint32_t             getRows() const       { return m_rows; }
+  uint32_t                    getMaxCharWidth() const;
+  uint32_t                    getMaxCharHeight() const;
+  uint32_t                    getLineHeight() const;
  
   const std::vector<float>&   getPropertyData() const;
   inline uint32_t             getNumberOfCharactersInData() const { return m_numberOfCharsInData; }

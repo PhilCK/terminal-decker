@@ -18,6 +18,11 @@ TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows, Fon
 }
 
 
+uint32_t TextConsoleModel::getMaxCharWidth() const  { return m_fontData.maxWidth;   }
+uint32_t TextConsoleModel::getMaxCharHeight() const { return m_fontData.maxHeight;  }
+uint32_t TextConsoleModel::getLineHeight() const    { return m_fontData.lineHeight; }
+
+
 const std::vector<float>& TextConsoleModel::getPropertyData() const
 {
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
