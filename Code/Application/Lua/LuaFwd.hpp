@@ -1,0 +1,7 @@
+﻿#ifndef LUA_FWD_INCLUDED_BC6BBA23_C717_42F5_B27B_A5F5680EE169
+#define LUA_FWD_INCLUDED_BC6BBA23_C717_42F5_B27B_A5F5680EE169
+
+class LuaModel;
+class LuaController;
+
+#endif // include guard

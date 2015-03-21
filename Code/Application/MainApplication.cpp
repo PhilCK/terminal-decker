@@ -23,6 +23,10 @@
 #include <Application/Console/TextConsoleController.hpp>
 #include <Application/Console/TextDataParse.hpp>
 
+#include <lua.hpp>
+#include <Lua/LuaController.hpp>
+#include <Lua/LuaModel.hpp>
+
 namespace
 {
   CaffApp::Model          model;
@@ -125,6 +129,14 @@ public:
     input.onKeyChangeEvent  = std::bind(&Application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
     input.onTextStreamEvent = std::bind(&Application::onTextStream, this, std::placeholders::_1);
     input.setTextStream(true);
+
+    // Lua
+    {
+      luaModel.reset(new LuaModel());
+      luaController.reset(new LuaController(*luaModel));
+
+      luaModel->update();
+    }
   }
 
 
@@ -232,6 +244,9 @@ private:
   CaffMath::Matrix44      m_projectionMatrix;
   CaffMath::Matrix44      m_viewMatrix;
   CaffMath::Matrix44      m_worldMatrix;
+
+  std::unique_ptr<LuaController> luaController;
+  std::unique_ptr<LuaModel> luaModel;
 
 };
 
