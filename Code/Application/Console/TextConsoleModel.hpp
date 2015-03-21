@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <mutex>
+#include <deque>
 
 class TextConsoleModel
 {
@@ -24,11 +25,10 @@ public:
   inline uint32_t             getNumberOfCharactersInData() const { return m_numberOfCharsInData; }
   uint32_t                    getSizeOfProperty() const;
 
-  inline bool                 requriesUpdate() const { return !m_pendingBuffer.empty() || !m_pendingInput.empty(); }
+  inline bool                 requriesUpdate() const { return m_bufferDirty; }
   void                        prepareData();
 
   inline std::string          getInput() const  { return m_input;  }
-  inline std::string          getBuffer() const { return m_buffer; }
 
   void                        getCursorX();
   void                        getCursorY();
@@ -50,20 +50,16 @@ private:
 private:
 
   FontData::FontDataInfo      m_fontData;
-
+  std::vector<std::string>    m_bufferHistory;
   std::vector<float>          m_characterProperties;
-  
-  std::string                 m_buffer;
-  std::string                 m_pendingBuffer;
-  std::string                 m_input;
-  std::string                 m_pendingInput;
+  mutable std::mutex          m_modelMutex;
+  std::string                 m_input                 = "";
+  std::size_t                 m_currentBufferPosition = 0;
+  uint32_t                    m_cols                  = 0;
+  uint32_t                    m_rows                  = 0;
+  uint32_t                    m_numberOfCharsInData   = 0;
+  bool                        m_bufferDirty           = true;
 
-  mutable std::mutex          m_controllerMutex;  // Controller Setters
-  mutable std::mutex          m_modelMutex;       // Model Getters
-  
-  uint32_t                    m_cols                = 0;
-  uint32_t                    m_rows                = 0;
-  uint32_t                    m_numberOfCharsInData = 0;
 
 }; // class
 

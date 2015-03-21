@@ -5,6 +5,8 @@
 
 namespace
 {
+  std::size_t bufferHistorySize = 80;
+
   enum CharProperties { U_COORD = 0, V_COORD, WIDTH, HEIGHT, X_OFFSET, Y_OFFSET, X_ADVANCE, Y_ADVANCE, COLOR_R, COLOR_G, COLOR_B, PADDING, PADDING_2, PADDING_3, PADDING_4, PADDING_5, CHAR_PROP_SIZE, };
 }
 
@@ -14,7 +16,18 @@ TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows, Fon
 , m_rows(rows)
 , m_fontData(fontData)
 {
-  m_characterProperties.resize((4096 * 4) * 4, 128);
+  // Reserve enough space for our texture data
+  {
+    assert((cols * rows) < 4096);
+
+    m_characterProperties.resize((4096 * 4) * 4, 128);
+  }
+
+  // Buffer history setup
+  {
+    bufferHistorySize = rows * 2;  
+    m_bufferHistory.resize(bufferHistorySize);
+  }
 }
 
 
@@ -39,33 +52,21 @@ uint32_t TextConsoleModel::getSizeOfProperty() const
 
 void TextConsoleModel::prepareData()
 {
-  std::string pendingBuffer;
-  std::string pendingInput;
+  std::vector<std::string> outputScreen(m_bufferHistory.size());
 
   // Copy buffers
   {
-    std::lock_guard<std::mutex> lockController(m_controllerMutex);
+    std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
-    pendingBuffer.swap(m_pendingBuffer);
-    m_pendingBuffer.clear();
+    m_bufferDirty = false;
 
-    pendingInput.swap(m_pendingInput);
-    m_pendingInput.clear();
+    const auto pivot = m_currentBufferPosition % m_bufferHistory.size();
+    std::rotate_copy(m_bufferHistory.begin(), m_bufferHistory.begin() + pivot, m_bufferHistory.end(), outputScreen.begin());
   }
 
   // Build data
   {
     std::lock_guard<std::mutex> lockModel(m_modelMutex);
-    m_buffer.append(pendingBuffer);
-    m_input.append(pendingInput);
-
-    //const std::string testStr = "void HelloWorld() const { std::cout << \"Hello\" << std::endl; }, id HelloWorld() const { std::cout << \"Hello\" << std::endl; }, id HelloWorld() const { std::cout << \"Hello\" << std::endl; }";
-
-    //const std::string testStr = "\"mop\"";
-    //const std::string testStr = "void foo() \n{\n   std::cout << \"moop\"; \n}";
-    //const std::string testStr = "1234567890123456789012345678901234567890123456789012345678901234567890.";
-
-    //m_characterProperties.resize(testStr.size() * CHAR_PROP_SIZE);
 
     int i = 0;
     m_numberOfCharsInData = 0;
@@ -82,8 +83,6 @@ void TextConsoleModel::prepareData()
 
         if(lineEnd == c)
         {
-          yPosition += m_fontData.lineHeight;
-          xPosition = 0;
           continue;
         }
 
@@ -137,56 +136,73 @@ void TextConsoleModel::prepareData()
       }
     };
 
-    GenerateTextureInfo(m_buffer);
+    // BufferData
+    {
+      std::size_t i = CaffMath::Abs(outputScreen.size() - getRows() + 1);
+      for(; i < outputScreen.size(); ++i)
+      {
+        GenerateTextureInfo(outputScreen.at(i));
 
-    yPosition = static_cast<float>(getRows() - 1) * m_fontData.lineHeight;
-    xPosition = 0;
+        yPosition += m_fontData.lineHeight;
+        xPosition = 0;
+      }
+    }
 
-    GenerateTextureInfo(m_input);
+    // Input line data
+    {
+      const std::size_t rowsWithoutInput = getRows() - 1;
+      yPosition = static_cast<float>(rowsWithoutInput) * m_fontData.lineHeight;
+      xPosition = 0;
+
+      GenerateTextureInfo(m_input);
+    }
   }
 }
 
 
 void TextConsoleModel::addStringToBuffer(const std::string &str)
 {
-  std::lock_guard<std::mutex> lockController(m_controllerMutex);
+  std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
-  m_pendingBuffer.append(str);
+  m_bufferDirty = true;
+  m_bufferHistory.at(m_currentBufferPosition % bufferHistorySize) = str;
+  m_currentBufferPosition++;
 }
 
 
 void TextConsoleModel::clearBuffer()
 {
-  std::lock_guard<std::mutex> lockController(m_controllerMutex);
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
-  m_buffer.clear();
-  m_pendingBuffer.clear();
+  m_bufferDirty = true;
+  m_bufferHistory.clear();
+  m_currentBufferPosition = 0;
 }
 
 
 void TextConsoleModel::addStringToInput(const std::string &str)
 {
-  std::lock_guard<std::mutex> lockController(m_controllerMutex);
+  std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
-  m_pendingInput.append(str);
+  m_bufferDirty = true;
+  m_input.append(str);
 }
 
 
 void TextConsoleModel::clearInput()
 {
-  std::lock_guard<std::mutex> lockController(m_controllerMutex);
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
+  m_bufferDirty = true;
   m_input.clear();
-  m_pendingInput.clear();
+  m_input.clear();
 }
 
 
 void TextConsoleModel::backspaceInput()
 {
-  std::lock_guard<std::mutex> lockController(m_controllerMutex);
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
+  m_bufferDirty = true;
   m_input = m_input.substr(0, m_input.size() - 1);
 }

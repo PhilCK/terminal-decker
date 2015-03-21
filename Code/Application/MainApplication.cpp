@@ -220,7 +220,7 @@ public:
 
       if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
       {
-        textConsoleController->addStringToBuffer("\n" + textConsoleModel->getInput());
+        textConsoleController->addStringToBuffer(textConsoleModel->getInput());
         textConsoleController->clearInput();
         textConsoleController->addStringToInput(">> ");
       }
