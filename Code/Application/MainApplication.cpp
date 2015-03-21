@@ -118,7 +118,7 @@ public:
     }
 
     textConsoleController->addStringToBuffer("TYPE MOTHERFUCKER!");
-    textConsoleController->addStringToInput(">> ");
+    textConsoleController->setPrompt("[ADMIN] ");
 
     auto &input = m_caffApp.getInput();
     
@@ -222,7 +222,6 @@ public:
       {
         textConsoleController->addStringToBuffer(textConsoleModel->getInput());
         textConsoleController->clearInput();
-        textConsoleController->addStringToInput(">> ");
       }
     }
   }

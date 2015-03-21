@@ -12,11 +12,11 @@ class TextConsoleModel
 {
 public:
 
-  explicit                    TextConsoleModel(const uint32_t cols, const uint32_t rows, FontData::FontDataInfo fontData);
+  explicit                    TextConsoleModel(const uint16_t cols, const uint16_t rows, FontData::FontDataInfo fontData);
                               ~TextConsoleModel() {}
 
-  inline uint32_t             getColumns() const    { return m_cols; }
-  inline uint32_t             getRows() const       { return m_rows; }
+  inline uint32_t             getColumns() const    { return (m_charSize >> 16) & 0xFF; }
+  inline uint32_t             getRows() const       { return m_charSize & 0xFF; }
   uint32_t                    getMaxCharWidth() const;
   uint32_t                    getMaxCharHeight() const;
   uint32_t                    getLineHeight() const;
@@ -46,6 +46,7 @@ private:
   void                        addStringToInput(const std::string &str);
   void                        clearInput();
   void                        backspaceInput();
+  void                        setInputPrompt(const std::string &str);
 
 private:
 
@@ -54,12 +55,11 @@ private:
   std::vector<float>          m_characterProperties;
   mutable std::mutex          m_modelMutex;
   std::string                 m_input                 = "";
+  std::string                 m_inputPrompt           = ">> ";
   std::size_t                 m_currentBufferPosition = 0;
-  uint32_t                    m_cols                  = 0;
-  uint32_t                    m_rows                  = 0;
-  uint32_t                    m_numberOfCharsInData   = 0;
+  uint32_t                    m_charSize              = 0; // Width and Height store.
+  uint32_t                    m_numberOfCharsInData   = 0; // TODO: Remove, and figure number based on data!
   bool                        m_bufferDirty           = true;
-
 
 }; // class
 

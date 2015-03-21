@@ -80,6 +80,7 @@ namespace
       break;
     default:
       assert(false);
+      return 0; // Just for warnings.
     }
   }
 
@@ -201,7 +202,7 @@ namespace
        outHeight = 1;
        break;
     case(TextureD::TWO_D):
-      outWidth = CaffMath::SquareRoot(dataSize / 4);
+      outWidth = CaffMath::SquareRoot(static_cast<float>(dataSize / 4));
       outHeight = outWidth;
       break;
     default:

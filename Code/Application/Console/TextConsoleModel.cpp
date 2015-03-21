@@ -11,9 +11,8 @@ namespace
 }
 
 
-TextConsoleModel::TextConsoleModel(const uint32_t cols, const uint32_t rows, FontData::FontDataInfo fontData)
-: m_cols(cols)
-, m_rows(rows)
+TextConsoleModel::TextConsoleModel(const uint16_t cols, const uint16_t rows, FontData::FontDataInfo fontData)
+: m_charSize((cols << 16) | (rows))
 , m_fontData(fontData)
 {
   // Reserve enough space for our texture data
@@ -52,9 +51,14 @@ uint32_t TextConsoleModel::getSizeOfProperty() const
 
 void TextConsoleModel::prepareData()
 {
+  if(!requriesUpdate())
+  {
+    return;
+  }
+
   std::vector<std::string> outputScreen(m_bufferHistory.size());
 
-  // Copy buffers
+  // Copy data
   {
     std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
@@ -77,7 +81,6 @@ void TextConsoleModel::prepareData()
     auto GenerateTextureInfo = [&](const std::string &str)
     {
       for(const auto &c : str)
-      //for(int t = 0; t < m_characterProperties.capacity() / 4; ++t)
       {
         const char lineEnd = '\n';
 
@@ -110,7 +113,7 @@ void TextConsoleModel::prepareData()
         const float yOffset = static_cast<float>(character.yOffset);
 
         // Push data
-        m_characterProperties.at(i++) = (u); // r b 
+        m_characterProperties.at(i++) = (u); // r b
         m_characterProperties.at(i++) = (v); // g g 
       
         m_characterProperties.at(i++) = (w); // b r 
@@ -154,7 +157,7 @@ void TextConsoleModel::prepareData()
       yPosition = static_cast<float>(rowsWithoutInput) * m_fontData.lineHeight;
       xPosition = 0;
 
-      GenerateTextureInfo(m_input);
+      GenerateTextureInfo(m_inputPrompt + m_input);
     }
   }
 }
@@ -205,4 +208,13 @@ void TextConsoleModel::backspaceInput()
 
   m_bufferDirty = true;
   m_input = m_input.substr(0, m_input.size() - 1);
+}
+
+
+void TextConsoleModel::setInputPrompt(const std::string &str)
+{
+  std::lock_guard<std::mutex> lockModel(m_modelMutex);
+
+  m_bufferDirty = true;
+  m_inputPrompt = str;
 }

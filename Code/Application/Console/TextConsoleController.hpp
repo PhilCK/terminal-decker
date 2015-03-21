@@ -14,8 +14,10 @@ public:
 
   void                addStringToBuffer(const std::string &str);
   void                addStringToInput(const std::string &str);
+  void                addInputToBuffer();
   void                backspaceInput();
   void                clearInput();
+  void                setPrompt(const std::string &str);
 
 private:
 

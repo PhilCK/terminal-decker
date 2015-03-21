@@ -20,6 +20,13 @@ void TextConsoleController::addStringToInput(const std::string &str)
 }
 
 
+void TextConsoleController::addInputToBuffer()
+{
+  m_model.addStringToBuffer(m_model.getInput());
+  m_model.clearInput();
+}
+
+
 void TextConsoleController::backspaceInput()
 {
   m_model.backspaceInput();
@@ -29,4 +36,10 @@ void TextConsoleController::backspaceInput()
 void TextConsoleController::clearInput()
 {
   m_model.clearInput();
+}
+
+
+void TextConsoleController::setPrompt(const std::string &str)
+{
+  m_model.setInputPrompt(str);
 }

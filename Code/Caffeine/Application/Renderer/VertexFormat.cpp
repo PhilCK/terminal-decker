@@ -15,6 +15,9 @@ namespace
       case(CaffApp::Dev::AttrType::INT): return 1; break;
       case(CaffApp::Dev::AttrType::UINT): return 1; break;
     }
+
+    assert(false); // shouldn't have got here.
+    return 0; // For waring message.
   }
 
   GLenum glType(CaffApp::Dev::AttrType type)
@@ -28,6 +31,9 @@ namespace
       case(CaffApp::Dev::AttrType::INT): return GL_INT; break;
       case(CaffApp::Dev::AttrType::UINT): return GL_UNSIGNED_INT; break;
     }
+
+    assert(false); // shouldn't have got here.
+    return 0; // For waring message.
   }
 }
 

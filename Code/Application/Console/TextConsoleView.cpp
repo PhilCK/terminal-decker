@@ -29,8 +29,8 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
   // Size of framebuffer
   {
-    const float sizeOfWidth  = static_cast<float>(cols * m_model.getMaxCharWidth());
-    const float sizeOfHeight = static_cast<float>(rows * m_model.getLineHeight());
+    const uint32_t sizeOfWidth  = cols * m_model.getMaxCharWidth();
+    const uint32_t sizeOfHeight = rows * m_model.getLineHeight();
 
     m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
     assert(m_frameBuffer.isValid());
@@ -48,7 +48,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
   // Console VertexFormat
   {
     m_consoleGridVF.loadFormat({
-      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT},
+      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT}, // TODO: Make this an int
     });
 
     assert(m_consoleGridVF.hasFormatedLoaded());
@@ -58,7 +58,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
   {
     const uint32_t size = cols * rows;
 
-    std::vector<float> pointsVBO;
+    std::vector<float> pointsVBO; // TODO: Make this an int
     pointsVBO.reserve(size);
 
     for(uint32_t i = 0; i < size; ++i)
@@ -72,8 +72,8 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
   // Load some constants
   {
-    m_textShader.setShader2f("bufferResolution",  {{ m_frameBuffer.getWidth(), m_frameBuffer.getHeight() }});
-    m_textShader.setShader2f("textureResolution", {{ m_fontLookup.getWidth(), m_fontLookup.getHeight() }});
+    m_textShader.setShader2f("bufferResolution",  {{ static_cast<float>(m_frameBuffer.getWidth()), static_cast<float>(m_frameBuffer.getHeight()) }});
+    m_textShader.setShader2f("textureResolution", {{ static_cast<float>(m_fontLookup.getWidth()), static_cast<float>(m_fontLookup.getHeight()) }});
   }
 
   // Did textures load?
