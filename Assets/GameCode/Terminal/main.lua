@@ -1,22 +1,28 @@
--- Entry point of the game.
-
-function main()
-
-	print("Main function")
-
-end
-
-function update()
-
-	print("update")
-
-end
-
 terminal = {}
+
+-- Anything you want to load?
+function terminal.load()
+
+	print("terminal.loaded")
+
+end
+
+
+function terminal.command(command, arguments)
+
+	print("terminal.command")
+	print(command)
+
+end
+
+-- Update tick.
 function terminal.update()
 
-	print("terminal.update")
+	--print("terminal.update")
 
 end
 
-main()
+
+-- terminal.console.set_prompt("admin: ")
+-- terminal.console.add_to_buffer("foop")
+-- terminal.console.set_input(false)

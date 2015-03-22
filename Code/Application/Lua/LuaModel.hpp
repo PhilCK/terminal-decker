@@ -10,7 +10,9 @@ public:
   explicit                LuaModel();
                           ~LuaModel();
 
-  void                    update();
+  void                    onLoaded();
+  void                    onUpdate();
+  void                    onCommand();
 
 private:
 

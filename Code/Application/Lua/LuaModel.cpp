@@ -20,14 +20,19 @@ LuaModel::LuaModel()
 }
 
 
-
 LuaModel::~LuaModel()
 {
   lua_close(L);
 }
 
 
-void LuaModel::update()
+void LuaModel::onLoaded()
+{
+  luaL_dostring(L, "terminal.load()");
+}
+
+
+void LuaModel::onUpdate()
 {
   luaL_dostring(L, "terminal.update()");
 

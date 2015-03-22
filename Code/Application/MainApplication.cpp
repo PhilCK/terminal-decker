@@ -135,7 +135,7 @@ public:
       luaModel.reset(new LuaModel());
       luaController.reset(new LuaController(*luaModel));
 
-      luaModel->update();
+      luaModel->onLoaded();
     }
   }
 
@@ -209,6 +209,8 @@ public:
 
         GL_ERROR("End of frame");
       }
+
+      luaModel->onUpdate();
       
       m_caffApp.endFrame();
     }
