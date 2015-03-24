@@ -26,6 +26,7 @@ TextConsoleModel::TextConsoleModel(const uint16_t cols, const uint16_t rows, Fon
   {
     bufferHistorySize = rows * 2;  
     m_bufferHistory.resize(bufferHistorySize);
+    m_bufferHistory_.resize(bufferHistorySize);
   }
 }
 
@@ -56,7 +57,7 @@ void TextConsoleModel::prepareData()
     return;
   }
 
-  std::vector<std::string> outputScreen(m_bufferHistory.size());
+  std::vector<TerminalString> outputScreen(m_bufferHistory_.size());
 
   // Copy data
   {
@@ -64,8 +65,8 @@ void TextConsoleModel::prepareData()
 
     m_bufferDirty = false;
 
-    const auto pivot = m_currentBufferPosition % m_bufferHistory.size();
-    std::rotate_copy(m_bufferHistory.begin(), m_bufferHistory.begin() + pivot, m_bufferHistory.end(), outputScreen.begin());
+    const auto pivot = m_currentBufferPosition % m_bufferHistory_.size();
+    std::rotate_copy(m_bufferHistory_.begin(), m_bufferHistory_.begin() + pivot, m_bufferHistory_.end(), outputScreen.begin());
   }
 
   // Build data
@@ -78,7 +79,7 @@ void TextConsoleModel::prepareData()
     float xPosition = 0;
     float yPosition = 0;
 
-    auto GenerateTextureInfo = [&](const std::string &str)
+    auto GenerateTextureInfo = [&](const TerminalString &str)
     {
       for(const auto &c : str)
       {
@@ -157,7 +158,7 @@ void TextConsoleModel::prepareData()
       yPosition = static_cast<float>(rowsWithoutInput) * m_fontData.lineHeight;
       xPosition = 0;
 
-      GenerateTextureInfo(m_inputPrompt + m_input);
+      //GenerateTextureInfo(m_inputPrompt + m_input);
     }
   }
 }
@@ -168,8 +169,15 @@ void TextConsoleModel::addStringToBuffer(const std::string &str)
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
   m_bufferDirty = true;
-  m_bufferHistory.at(m_currentBufferPosition % bufferHistorySize) = str;
-  m_currentBufferPosition++;
+
+  auto &bufferStr = m_bufferHistory_.at(m_currentBufferPosition % bufferHistorySize);
+  
+  for(std::size_t i = 0; i < str.size(); ++i)
+  {
+    bufferStr.at(i) = static_cast<TerminalChar>(str.at(i));
+  }
+
+  m_currentBufferPosition += str.size();
 }
 
 
@@ -178,7 +186,7 @@ void TextConsoleModel::clearBuffer()
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
   m_bufferDirty = true;
-  m_bufferHistory.clear();
+  m_bufferHistory_.clear();
   m_currentBufferPosition = 0;
 }
 

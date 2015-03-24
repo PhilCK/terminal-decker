@@ -121,8 +121,8 @@ public:
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
 
-    textConsoleController->addStringToBuffer("TYPE MOTHERFUCKER!");
-    textConsoleController->setPrompt("[ADMIN] ");
+    textConsoleController->addStringToBuffer("- Welcome To Remote Console V1.2 - ");
+    textConsoleController->setPrompt("ReCON:> ");
 
     auto &input = m_caffApp.getInput();
     

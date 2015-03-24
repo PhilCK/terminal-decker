@@ -3,44 +3,33 @@
 
 
 #include <Caffeine/Common/Platform.hpp>
-#include <vector>
+#include <array>
+#include <iterator>
 
 
-class UTF8Char
+typedef uint32_t TerminalChar;
+
+
+class TerminalString
 {
 public:
 
-  inline uint32_t     value() const { return m_value; }
-
-private:
-
-  const uint32_t      m_value;
-
-};
-
-
-template<typename CharType>
-class UTF8String
-{
-public:
+  explicit                          TerminalString();
+                                    ~TerminalString();
   
-  explicit                  UTF8String();
-  explicit                  UTF8String(const std::string &str);
-  explicit                  UTF8String(const char* str);
-  explicit                  UTF8String(const CharType* str);
+  std::array<TerminalChar, 80>::iterator begin() { return m_string.begin(); }
+  std::array<TerminalChar, 80>::const_iterator begin() const { return m_string.begin(); }
+  std::array<TerminalChar, 80>::iterator end() { return m_string.end(); }
+  std::array<TerminalChar, 80>::const_iterator end() const { return m_string.end(); }
 
-  UTF8String<CharType>      substr(const std::size_t start, const std::size_t size) const;
-  void                      append(CharType &charType);
-  void                      append(UTF8String<CharType> &str);
+  TerminalChar&                     at(const std::size_t i);
+  const TerminalChar&               at(const std::size_t i) const;
 
-  CharType&                 at(const std::size_t i)         { return m_stringData.at(i);  }
-  const CharType&           at(const std::size_t i) const   { return m_stringData.at(i); }
-  std::size_t               size() const                    { return m_stringData.size(); }
-  inline std::size_t        length() const                  { return size();              }
+  inline std::size_t                length() { return m_string.size(); }
 
 private:
 
-  std::vector<CharType>     m_stringData;
+  std::array<TerminalChar, 80>   m_string;
 
 };
 

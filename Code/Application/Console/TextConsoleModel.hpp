@@ -2,6 +2,7 @@
 #define TEXT_CONSOLE_MODEL_INCLUDED_335C9250_E154_440B_ADDA_85DAFEDAD3D2
 
 #include <Application/Console/TextDataParse.hpp>
+#include <Application/Lib/UTF8String.hpp>
 #include <Caffeine/Common/Platform.hpp>
 #include <string>
 #include <vector>
@@ -52,6 +53,9 @@ private:
 
   FontData::FontDataInfo      m_fontData;
   std::vector<std::string>    m_bufferHistory;
+
+  std::vector<TerminalString> m_bufferHistory_;
+
   std::vector<float>          m_characterProperties;
   mutable std::mutex          m_modelMutex;
   std::string                 m_input                 = "";

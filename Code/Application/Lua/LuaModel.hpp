@@ -2,6 +2,7 @@
 #define LUA_MODEL_INCLUDED_D7BB0EBA_EE4F_4123_A8F9_9940C6CE76D
 
 #include <lua.hpp>
+#include <string>
 
 class LuaModel
 {
@@ -12,7 +13,7 @@ public:
 
   void                    onLoaded();
   void                    onUpdate();
-  void                    onCommand();
+  void                    onCommand(const std::string &cmd, const std::string &args);
 
 private:
 

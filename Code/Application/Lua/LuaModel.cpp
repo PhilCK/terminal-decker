@@ -1,6 +1,5 @@
 ﻿
 #include <Application/Lua/LuaModel.hpp>
-#include <string>
 #include <iostream>
 
 
@@ -14,9 +13,9 @@ LuaModel::LuaModel()
   L = luaL_newstate();
   luaL_openlibs(L);
 
-  const std::string entry("C:\\Users\\Gunhead\\Desktop\\TerminalGame\\Assets\\GameCode\\Terminal\\main.lua");
+  //const std::string entry("C:\\Users\\Gunhead\\Desktop\\TerminalGame\\Assets\\GameCode\\Terminal\\main.lua");
 
-  luaL_dofile(L, entry.c_str());
+  //luaL_dofile(L, entry.c_str());
 }
 
 
@@ -46,4 +45,10 @@ void LuaModel::onUpdate()
   //lua_getfield(L, -1, "update");
   //lua_pcall(L, 0, 0, 0);
 
+}
+
+
+void LuaModel::onCommand(const std::string &command, const std::string &args)
+{
+  
 }
