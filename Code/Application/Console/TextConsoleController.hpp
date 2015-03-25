@@ -4,6 +4,7 @@
 #include <Application/Console/TextConsoleFwd.hpp>
 #include <Caffeine/Common/Platform.hpp>
 #include <string>
+#include <vector>
 
 class TextConsoleController
 {
@@ -13,6 +14,8 @@ public:
                       ~TextConsoleController() {}
 
   void                addStringToBuffer(const std::string &str);
+  void                addContentToBuffer(const std::vector<uint32_t> &content);
+
   void                addStringToInput(const std::string &str);
   void                addInputToBuffer();
   void                backspaceInput();

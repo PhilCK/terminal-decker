@@ -26,6 +26,7 @@
 #include <lua.hpp>
 #include <Lua/LuaController.hpp>
 #include <Lua/LuaModel.hpp>
+#include <vector>
 
 namespace
 {
@@ -121,7 +122,12 @@ public:
       textConsoleController.reset(new TextConsoleController(*textConsoleModel));
     }
 
-    textConsoleController->addStringToBuffer("- Welcome To Remote Console V1.2 - ");
+    textConsoleController->addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});
+    textConsoleController->addStringToBuffer("     |Welcome To Remote Console V1.2|");
+    textConsoleController->addContentToBuffer({32,32,32,32,32,9560,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9563});
+    textConsoleController->addStringToBuffer("");
+    textConsoleController->addContentToBuffer({32,32,32,32,32,32,32,32,9617,9618,9619,9608, 32, 65,84,32,89,79,85,82,32,79,87,78,32,82,73,83,75,32, 9608, 9619,9618,9617});
+    textConsoleController->addStringToBuffer("");
     textConsoleController->setPrompt("ReCON:> ");
 
     auto &input = m_caffApp.getInput();

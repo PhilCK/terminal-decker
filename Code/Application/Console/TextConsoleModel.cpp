@@ -79,7 +79,7 @@ void TextConsoleModel::prepareData()
     float xPosition = 0;
     float yPosition = 0;
 
-    auto GenerateTextureInfo = [&](const TerminalString &str)
+    auto GenerateTextureInfo = [&](const std::vector<uint32_t> &str)
     {
       for(const auto &c : str)
       {
@@ -145,7 +145,9 @@ void TextConsoleModel::prepareData()
       std::size_t i = CaffMath::Abs(outputScreen.size() - getRows() + 1);
       for(; i < outputScreen.size(); ++i)
       {
-        GenerateTextureInfo(outputScreen.at(i));
+        std::vector<uint32_t> content(outputScreen.at(i).begin(), outputScreen.at(i).end());
+
+        GenerateTextureInfo(content);
 
         yPosition += m_fontData.lineHeight;
         xPosition = 0;
@@ -158,13 +160,16 @@ void TextConsoleModel::prepareData()
       yPosition = static_cast<float>(rowsWithoutInput) * m_fontData.lineHeight;
       xPosition = 0;
 
-      //GenerateTextureInfo(m_inputPrompt + m_input);
+      const std::string input = m_inputPrompt + m_input;
+      std::vector<uint32_t> content(input.begin(), input.end());
+
+      GenerateTextureInfo(content);
     }
   }
 }
 
 
-void TextConsoleModel::addStringToBuffer(const std::string &str)
+void TextConsoleModel::addStringToBuffer(const std::vector<uint32_t> &content)
 {
   std::lock_guard<std::mutex> lockModel(m_modelMutex);
 
@@ -172,12 +177,12 @@ void TextConsoleModel::addStringToBuffer(const std::string &str)
 
   auto &bufferStr = m_bufferHistory_.at(m_currentBufferPosition % bufferHistorySize);
   
-  for(std::size_t i = 0; i < str.size(); ++i)
+  for(std::size_t i = 0; i < content.size(); ++i)
   {
-    bufferStr.at(i) = static_cast<TerminalChar>(str.at(i));
+    bufferStr.at(i) = static_cast<TerminalChar>(content.at(i));
   }
 
-  m_currentBufferPosition += str.size();
+  m_currentBufferPosition += 1;
 }
 
 

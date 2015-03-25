@@ -10,7 +10,15 @@ TextConsoleController::TextConsoleController(TextConsoleModel &model)
 
 void TextConsoleController::addStringToBuffer(const std::string &str)
 {
-  m_model.addStringToBuffer(str);
+  std::vector<uint32_t> content(str.begin(), str.end());
+
+  m_model.addStringToBuffer(content);
+}
+
+
+void TextConsoleController::addContentToBuffer(const std::vector<uint32_t> &content)
+{
+  m_model.addStringToBuffer(content);
 }
 
 
@@ -22,7 +30,7 @@ void TextConsoleController::addStringToInput(const std::string &str)
 
 void TextConsoleController::addInputToBuffer()
 {
-  m_model.addStringToBuffer(m_model.getInput());
+  addStringToBuffer(m_model.getInput());
   m_model.clearInput();
 }
 

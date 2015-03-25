@@ -42,7 +42,7 @@ private:
 
   friend class TextConsoleController;
 
-  void                        addStringToBuffer(const std::string &str);
+  void                        addStringToBuffer(const std::vector<uint32_t> &content);
   void                        clearBuffer();
   void                        addStringToInput(const std::string &str);
   void                        clearInput();
