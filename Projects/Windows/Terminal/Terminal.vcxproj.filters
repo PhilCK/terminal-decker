@@ -78,9 +78,6 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp">
       <Filter>Caffeine\Application</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer.cpp">
-      <Filter>Caffeine\Application</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Window.cpp">
       <Filter>Caffeine\Application</Filter>
     </ClCompile>
@@ -107,9 +104,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp">
       <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\Caffeine\Math\Math.cpp">
-      <Filter>Caffeine\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\VertexBuffer.cpp">
       <Filter>Caffeine\Application\Renderer</Filter>
@@ -279,9 +273,6 @@
       <Filter>Caffeine\Application</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Model.hpp">
-      <Filter>Caffeine\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer.hpp">
       <Filter>Caffeine\Application</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Window.hpp">

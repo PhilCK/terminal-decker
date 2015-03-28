@@ -31,6 +31,8 @@
 namespace
 {
   CaffApp::Model          model;
+  CaffApp::Model          screen;
+  CaffApp::Dev::VertexBuffer  screenBuffer;
 
   CaffApp::Dev::Shader        caffAppShader;
   CaffApp::Dev::Shader        caffAppPostShader;
@@ -51,9 +53,10 @@ namespace
     -1.f, +3.f, 0.f, 2.f,
   }};
 
-  const uint32_t width = 864;
-  const uint32_t height = 486;
-
+  const uint32_t width = 1280;
+  const uint32_t height = 720;
+  // 1280 × 720
+  // 864 x 486
 }
 
 
@@ -65,12 +68,14 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
-  , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 3.f, static_cast<float>(width), static_cast<float>(height), 0.1f, 1000.f))
+  , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 5.f, static_cast<float>(width), static_cast<float>(height), 0.1f, 1000.f))
   , m_viewMatrix(CaffMath::Matrix44InitIdentity())
   , m_worldMatrix(CaffMath::Matrix44InitIdentity())
+  , laptopBody(CaffUtil::GetPathDir() + "Textures/laptop_body.png")
   {
-    model.loadModel(CaffUtil::GetPathDir() + "Models/unit_cube.obj");
-
+    model.loadModel(CaffUtil::GetPathDir() + "Models/laptop.obj");
+    screen.loadModel(CaffUtil::GetPathDir() + "Models/laptop_screen.obj");
+    screenBuffer.loadVertexBuffer(screen.getMesh(0).getGLVertexBuffer());
     // Nooo Renderer stuff
     {
       const std::string filename = CaffUtil::GetPathDir() + "Shaders/Fullbright.shd";
@@ -107,6 +112,8 @@ public:
 
     caffAppShader.setShaderRaw("projMat",   sizeof(float) * 16, &m_projectionMatrix._11);
     caffAppShader.setShaderRaw("worldMat",  sizeof(float) * 16, &m_worldMatrix._11);
+
+    
 
     m_caffApp.getRenderer().setViewPort(width, height);
 
@@ -159,35 +166,6 @@ public:
       
       // Render
       {
-        auto &renderer = m_caffApp.getRenderer();
-
-        //static float spin = 0.f;
-        //spin += deltaTime;
-        //
-        //const float x = CaffMath::Sin(spin) * 2.f;
-        //const float z = CaffMath::Cos(spin) * 2.f;
-        //const float y = CaffMath::Sin(spin) * 2.f;
-
-        //CaffMath::Vector3 eye   = CaffMath::Vector3Init(x, 2.f, z);
-        //CaffMath::Vector3 look  = CaffMath::Vector3Init(0.f, 0.f, 0.f);
-        //CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
-        //CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
-
-        //// Draw geometry
-        //{
-        //  textConsoleView->m_frameBuffer.clear(true, true);
-
-        //  CaffApp::Dev::Renderer::Reset();
-        //  caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
-        //  caffAppShader.setTexture("diffuseTex",  caffAppTexture);
-
-        //  //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
-
-        //  caffAppFrameBuffer.clear(false, true);
-
-        //}
-
-
         {
           textConsoleModel->prepareData();
 
@@ -200,7 +178,6 @@ public:
           CaffApp::Dev::Renderer::Reset();
           m_caffApp.getRenderer().setViewPort(width, height);
           
-
           static float frameTime = 0;
           frameTime += deltaTime;
 
@@ -210,10 +187,54 @@ public:
           caffAppPostShader.setShader2f("screenSize", {{ width, height }});
           caffAppPostShader.setTexture("texFramebuffer", textConsoleView->m_frameBuffer);
 
-          CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
+          //CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
         }
 
         GL_ERROR("End of frame");
+      }
+
+      {
+        caffAppShader.setShaderRaw("viewMat", sizeof(m_viewMatrix), &m_viewMatrix._11);
+        caffAppShader.setShaderRaw("worldMat", sizeof(m_worldMatrix), &m_worldMatrix._11);
+        caffAppShader.setShaderRaw("projMat", sizeof(m_projectionMatrix), &m_projectionMatrix._11);
+
+        //CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+      }
+
+      {
+        auto &renderer = m_caffApp.getRenderer();
+
+        static float spin = CaffMath::QuartTau();
+        //spin += deltaTime;
+        //
+        const float x = CaffMath::Sin(spin) * 2.f;
+        const float z = CaffMath::Cos(spin) * 2.f;
+        const float y = CaffMath::Sin(spin) * 2.f;
+
+        CaffMath::Vector3 eye   = CaffMath::Vector3Init(x, 2.f, z);
+        CaffMath::Vector3 look  = CaffMath::Vector3Init(0.f, 1.f, 0.f);
+        CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
+        CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
+
+        //CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+
+        //// Draw geometry
+        //{
+        //  textConsoleView->m_frameBuffer.clear(true, true);
+
+        //  CaffApp::Dev::Renderer::Reset();
+        caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
+        caffAppShader.setTexture("diffuseTex",  laptopBody);
+        CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+
+        caffAppShader.setTexture("diffuseTex", textConsoleView->m_frameBuffer);
+        CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, screenBuffer);
+
+       //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
+
+        //  caffAppFrameBuffer.clear(false, true);
+
+        //}
       }
 
       luaModel->onUpdate();
@@ -252,6 +273,7 @@ private:
   CaffMath::Matrix44      m_projectionMatrix;
   CaffMath::Matrix44      m_viewMatrix;
   CaffMath::Matrix44      m_worldMatrix;
+  CaffApp::Dev::Texture   laptopBody;
 
   std::unique_ptr<LuaController> luaController;
   std::unique_ptr<LuaModel> luaModel;

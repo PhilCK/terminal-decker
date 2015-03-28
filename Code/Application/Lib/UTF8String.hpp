@@ -17,10 +17,10 @@ public:
   explicit                          TerminalString();
                                     ~TerminalString();
   
-  std::array<TerminalChar, 80>::iterator begin() { return m_string.begin(); }
-  std::array<TerminalChar, 80>::const_iterator begin() const { return m_string.begin(); }
-  std::array<TerminalChar, 80>::iterator end() { return m_string.end(); }
-  std::array<TerminalChar, 80>::const_iterator end() const { return m_string.end(); }
+  std::array<TerminalChar, 80>::iterator begin()              { return m_string.begin(); }
+  std::array<TerminalChar, 80>::const_iterator begin() const  { return m_string.begin(); }
+  std::array<TerminalChar, 80>::iterator end()                { return m_string.end(); }
+  std::array<TerminalChar, 80>::const_iterator end() const    { return m_string.end(); }
 
   TerminalChar&                     at(const std::size_t i);
   const TerminalChar&               at(const std::size_t i) const;

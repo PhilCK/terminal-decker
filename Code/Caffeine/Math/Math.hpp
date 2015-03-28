@@ -11,7 +11,6 @@
 
 
 
-#include <Caffeine/Common/Platform.hpp>
 #include <math.h>
 #include <random>
 #include <algorithm>
@@ -30,11 +29,11 @@ inline float Pi() 		{ return 3.14159265359f; 	}
 inline float TwoPi() 	{ return 2.0f * Pi(); 		}
 inline float HalfPi()	{ return 0.5f * Pi(); 		}
 
-inline float Tau() 		{ return TwoPi(); 	}
-inline float HalfTau()	{ return Pi(); 		}
+inline float Tau() 		  { return TwoPi(); 	}
+inline float HalfTau()	{ return Pi(); 		  }
 inline float QuartTau()	{ return HalfPi(); 	}
 
-inline float E() 		{ return 2.71828f; 			}
+inline float E() 		  { return 2.71828f; 			  }
 inline float GRatio()	{ return 1.61803398875f; 	}
 inline float Root2()	{ return 1.41421356237f; 	}
 inline float Root3()	{ return 1.73205080757f; 	}
@@ -43,12 +42,12 @@ inline float Root3()	{ return 1.73205080757f; 	}
 
 #pragma mark - Trig Functions
 
-inline float Sin(const float x)  					{ return std::sin(x); 		}
-inline float ASin(const float x) 					{ return std::asin(x); 		}
-inline float Cos(const float x) 					{ return std::cos(x);		}
-inline float ACos(const float x) 					{ return std::acos(x); 		}
-inline float Tan(const float x) 					{ return std::tan(x);		}
-inline float ATan(const float x) 					{ return std::atan(x);		}
+inline float Sin(const float x)  					        { return std::sin(x); 		  }
+inline float ASin(const float x) 					        { return std::asin(x); 		  }
+inline float Cos(const float x) 					        { return std::cos(x);		    }
+inline float ACos(const float x) 					        { return std::acos(x); 		  }
+inline float Tan(const float x) 					        { return std::tan(x);		    }
+inline float ATan(const float x) 					        { return std::atan(x);		  }
 inline float ATan2(const float x, const float y) 	{ return std::atan2(x, y); 	}
 
 

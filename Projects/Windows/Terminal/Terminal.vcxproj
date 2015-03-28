@@ -92,7 +92,6 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Application.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Input.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp" />
-    <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\Device.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp" />
@@ -108,7 +107,6 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Logging.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Param.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Common\Utilities\Timer.cpp" />
-    <ClCompile Include="..\..\..\Code\Caffeine\Math\Math.cpp" />
     <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c" />
     <ClCompile Include="..\..\..\Includes\Lua\Include\lapi.c" />
     <ClCompile Include="..\..\..\Includes\Lua\Include\lauxlib.c" />
@@ -162,7 +160,6 @@
     <ClInclude Include="..\..\..\Code\Caffeine\Application\ApplicationFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Input.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Model.hpp" />
-    <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\Device.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\FrameBuffer.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp" />
