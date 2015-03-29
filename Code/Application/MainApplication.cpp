@@ -35,26 +35,6 @@
 
 namespace
 {
-  CaffApp::Dev::Shader        caffAppPostShader;
-  CaffApp::Dev::VertexFormat  caffAppPostVertexFormat;
-  CaffApp::Dev::VertexBuffer  caffAppPostVertexBuffer;
-
-  CaffApp::Dev::FrameBuffer   finalScreen;
-  
-  std::unique_ptr<TextConsoleModel> textConsoleModel;
-  std::unique_ptr<TextConsoleController> textConsoleController;
-  std::unique_ptr<TextConsoleView> textConsoleView;
-
-  std::unique_ptr<SceneController> sceneController;
-  std::unique_ptr<SceneModel> sceneModel;
-  std::unique_ptr<SceneView> sceneView;
-
-  std::vector<float> fullscreenVerts = {{
-    -1.f, -1.f, 0.f, 0.f,
-    +3.f, -1.f, 2.f, 0.f,
-    -1.f, +3.f, 0.f, 2.f,
-  }};
-
   const uint32_t width = 1280;
   const uint32_t height = 720;
   // 1280 × 720
@@ -74,21 +54,6 @@ public:
     sceneModel.reset(new SceneModel());
     sceneController.reset(new SceneController(*sceneModel));
     sceneView.reset(new SceneView(*sceneModel));
-
-    {
-      const std::string filename = CaffUtil::GetPathDir() + "Shaders/Post.shd";
-      const std::string shaderPost(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
-      caffAppPostShader.loadShader(shaderPost);
-    }
-    
-    std::vector<CaffApp::Dev::AttributeFormatDesc> vertDesc;
-
-    vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"position", CaffApp::Dev::AttrType::FLOAT2});
-    vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"texcoord", CaffApp::Dev::AttrType::FLOAT2});
-
-    caffAppPostVertexFormat.loadFormat(vertDesc);
-
-    caffAppPostVertexBuffer.loadVertexBuffer(fullscreenVerts);
 
     m_caffApp.getRenderer().setViewPort(width, height);
 
@@ -125,8 +90,6 @@ public:
 
       luaModel->onLoaded();
     }
-
-    finalScreen.loadBuffer(textConsoleView->m_frameBuffer.getWidth(), textConsoleView->m_frameBuffer.getHeight());
   }
 
 
@@ -145,26 +108,7 @@ public:
       {
         {
           textConsoleModel->prepareData();
-
-          textConsoleView->m_frameBuffer.clear();
-          textConsoleView->renderTextConsole();
-        }
-
-        // Draw post
-        {
-          CaffApp::Dev::Renderer::Reset();
-          m_caffApp.getRenderer().setViewPort(width, height);
-          
-          static float frameTime = 0;
-          frameTime += deltaTime;
-
-          glDisable(GL_DEPTH_TEST);
-          
-          caffAppPostShader.setShader1f("frameTime", frameTime);
-          caffAppPostShader.setShader2f("screenSize", {{ width, height }});
-          caffAppPostShader.setTexture("texFramebuffer", textConsoleView->m_frameBuffer);
-
-          CaffApp::Dev::Renderer::Draw(finalScreen, caffAppPostShader, caffAppPostVertexFormat, caffAppPostVertexBuffer);
+          textConsoleView->renderTextConsole(m_caffApp.getRenderer());
         }
 
         GL_ERROR("End of frame");
@@ -172,7 +116,7 @@ public:
   
       {
         auto &renderer = m_caffApp.getRenderer();
-        sceneView->draw(renderer, finalScreen);
+        sceneView->draw(renderer, textConsoleView->m_finalOutput);
       }
 
       luaModel->onUpdate();
@@ -207,10 +151,18 @@ public:
 
 private:
 
-  CaffApp::Application    m_caffApp;
+  CaffApp::Application                    m_caffApp;
 
-  std::unique_ptr<LuaController> luaController;
-  std::unique_ptr<LuaModel> luaModel;
+  std::unique_ptr<LuaController>          luaController;
+  std::unique_ptr<LuaModel>               luaModel;
+
+  std::unique_ptr<TextConsoleModel>       textConsoleModel;
+  std::unique_ptr<TextConsoleController>  textConsoleController;
+  std::unique_ptr<TextConsoleView>        textConsoleView;
+
+  std::unique_ptr<SceneController>        sceneController;
+  std::unique_ptr<SceneModel>             sceneModel;
+  std::unique_ptr<SceneView>              sceneView;
 
 };
 

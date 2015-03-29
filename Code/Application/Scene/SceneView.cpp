@@ -4,8 +4,7 @@
 #include <Caffeine/Common/Utilities/Directories.hpp>
 #include <Caffeine/Application/Model.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
-#include <fstream>
-#include <streambuf> 
+
 
 namespace
 {
@@ -29,20 +28,13 @@ namespace
 
     return model.getMesh(0).getGLVertexBuffer();
   }
-
-  inline std::string GetShaderCode(const std::string &filename)
-  {
-    const std::string shaderCode(std::istreambuf_iterator<char>(std::ifstream(CaffUtil::GetPathDir() + filename).rdbuf()), std::istreambuf_iterator<char>());
-    return shaderCode;
-  }
-
 }
 
 
 SceneView::SceneView(const SceneModel &model)
 : m_model(model)
 , m_sceneVertexFormat(GetSceneVertexFmt())
-, m_sceneShader(GetShaderCode("Shaders/Fullbright.shd"))
+, m_sceneShader(CaffApp::Dev::ShaderUtil::GetShaderCodeFromFile(CaffUtil::GetPathDir() + "Shaders/Fullbright.shd"))
 , m_laptopBuffer(GetGLBufferFromModel("Models/laptop.obj"))
 , m_screenBuffer(GetGLBufferFromModel("Models/laptop_screen.obj"))
 , m_laptopDiffuse(CaffUtil::GetPathDir() + "Textures/laptop_body.png")

@@ -4,8 +4,35 @@
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
 #include <Caffeine/Common/Utilities/Directories.hpp>
+#include <Caffeine/Application/Renderer/Device.hpp>
 #include <fstream>
 #include <array>
+
+
+namespace
+{
+  inline std::vector<float> GetFullScreenVerts()
+  {
+    std::vector<float> verts = {{
+      -1.f, -1.f, 0.f, 0.f,
+      +3.f, -1.f, 2.f, 0.f,
+      -1.f, +3.f, 0.f, 2.f,
+    }};
+
+    return verts;
+  }
+
+  inline std::vector<CaffApp::Dev::AttributeFormatDesc> GetPostVF()
+  {
+     const std::vector<CaffApp::Dev::AttributeFormatDesc> vertDesc =
+     {
+        CaffApp::Dev::AttributeFormatDesc{"position", CaffApp::Dev::AttrType::FLOAT2},
+        CaffApp::Dev::AttributeFormatDesc{"texcoord", CaffApp::Dev::AttrType::FLOAT2},
+     };
+
+     return vertDesc;
+  }
+}
 
 
 FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
@@ -23,7 +50,14 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 : m_model(model)
 , m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  4096)
 , m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
+, m_postShader(CaffApp::Dev::ShaderUtil::GetShaderCodeFromFile(CaffUtil::GetPathDir() + "Shaders/Post.shd"))
+, m_postVBO(GetFullScreenVerts())
+, m_postVF(GetPostVF())
+, m_finalOutput()
 {
+  assert(m_postShader.isValid());
+  assert(m_postVBO.isValid());
+
   const uint32_t cols = m_model.getColumns();
   const uint32_t rows = m_model.getRows();
 
@@ -34,6 +68,8 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 
     m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
     assert(m_frameBuffer.isValid());
+
+    m_finalOutput.loadBuffer(sizeOfWidth, sizeOfHeight);
   }
 
   // Text Shader
@@ -84,8 +120,10 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 }
 
 
-void TextConsoleView::renderTextConsole()
+void TextConsoleView::renderTextConsole(CaffApp::Dev::Device &renderer)
 {
+  m_frameBuffer.clear();
+
   // Simple shader.
   CaffApp::Dev::Renderer::Reset();
 
@@ -103,4 +141,23 @@ void TextConsoleView::renderTextConsole()
   m_consoleGridVBO.bind(m_consoleGridVF, m_textShader);
   
   glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(m_model.getNumberOfCharactersInData()));
+
+  // Post
+  const uint32_t width = 1280;
+  const uint32_t height = 720;
+
+  CaffApp::Dev::Renderer::Reset();
+  renderer.setViewPort(width, height);
+            
+  static float frameTime = 0;
+  frameTime += 0.1f;
+
+  glDisable(GL_DEPTH_TEST);
+          
+  m_postShader.setShader1f("frameTime", frameTime);
+  m_postShader.setShader2f("screenSize", {{ width, height }});
+  m_postShader.setTexture("texFramebuffer", m_frameBuffer);
+
+  CaffApp::Dev::Renderer::Draw(m_finalOutput, m_postShader, m_postVF, m_postVBO);
+
 }

@@ -38,7 +38,7 @@ public:
 
   explicit          TextConsoleView(const TextConsoleModel &model);
 
-  void              renderTextConsole();
+  void              renderTextConsole(CaffApp::Dev::Device &renderer);
 
 
 //private:
@@ -46,14 +46,18 @@ public:
   const TextConsoleModel        &m_model;
 
   CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
+  CaffApp::Dev::VertexBuffer    m_postVBO;
   CaffApp::Dev::VertexFormat    m_consoleGridVF;
+  CaffApp::Dev::VertexFormat    m_postVF;
   CaffApp::Dev::Shader          m_textShader;
+  CaffApp::Dev::Shader          m_postShader;
   CaffApp::Dev::Texture         m_textureLookup;
   CaffApp::Dev::Texture         m_fontLookup;
 
   public:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
+  CaffApp::Dev::FrameBuffer     m_finalOutput;
 
   
 
