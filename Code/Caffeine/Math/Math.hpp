@@ -76,8 +76,9 @@ T Min(const T x, const T y) {
 }
 
 template<typename T>
-T Clamp(const T a, const T x, const T y) {
-	return a < x ? x : (a > y ? y : a);
+T Clamp(const T a, const T lower, const T upper)
+{
+	return std::max(lower, std::min(a, upper));
 }
 
 template<typename T>

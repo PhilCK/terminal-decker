@@ -20,6 +20,7 @@ public:
   void                getHeight() const;
 
   void                bind() const;
+  void                clear(const bool color = true, const bool depth = true);
   void                setViewPort(const uint32_t width, const uint32_t height);
 
 private:

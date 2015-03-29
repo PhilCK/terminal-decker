@@ -24,7 +24,20 @@ CaffMath::Matrix44 SceneModel::getViewMatrix() const
 
 CaffMath::Matrix44 SceneModel::getModelMatrix() const
 {
-  return CaffMath::Matrix44InitIdentity();
+  return m_modelMatrix;
 }
 
 
+void SceneModel::setFOV(const float currentFOV)
+{
+  m_currentFOV = CaffMath::Clamp(currentFOV, m_minFOV, m_maxFOV);
+
+  std::cout << m_currentFOV << std::endl;
+}
+
+
+void SceneModel::setRotation(const CaffMath::Quaternion &quat)
+{
+  CaffMath::Matrix33 rot = CaffMath::QuaternionToRotationMatrix(quat);
+  m_modelMatrix = CaffMath::Matrix44InitWithRotationAndPosition(rot, CaffMath::Vector3Init(0,0,0));
+}

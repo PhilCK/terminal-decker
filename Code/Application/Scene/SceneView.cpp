@@ -60,6 +60,7 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
   {
     const CaffMath::Matrix44 viewMat  = m_model.getViewMatrix();
     const CaffMath::Matrix44 modelMat = m_model.getModelMatrix();
+    const CaffMath::Matrix44 projMat  = m_model.getProjectionMatrix();
     
         // Move
         static float spin = CaffMath::QuartTau();
@@ -74,6 +75,7 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
         CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
         CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
 
+    m_sceneShader.setShaderRaw("projMat", sizeof(projMat), &projMat._11);
     m_sceneShader.setShaderRaw("viewMat", sizeof(view), &view._11);
     m_sceneShader.setShaderRaw("worldMat", sizeof(modelMat), &modelMat._11);
   }

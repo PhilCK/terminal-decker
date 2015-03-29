@@ -82,6 +82,29 @@ inline Matrix44 Matrix44InitIdentity()
   return returnMat;
 }
 
+inline Matrix44 Matrix44InitWithRotationAndPosition(const Matrix33 &rot, const Vector3 &pos)
+{
+  Matrix44 returnMat;
+  memset(&returnMat, 0, sizeof(returnMat));
+
+  returnMat._11 = rot._11;
+  returnMat._12 = rot._12;
+  returnMat._13 = rot._13;
+  returnMat._21 = rot._21;
+  returnMat._22 = rot._22;
+  returnMat._23 = rot._23;
+  returnMat._31 = rot._31;
+  returnMat._32 = rot._32;
+  returnMat._33 = rot._33;
+
+  returnMat._41 = Vector3GetX(pos);
+  returnMat._42 = Vector3GetY(pos);
+  returnMat._43 = Vector3GetZ(pos);
+  returnMat._44 = 1.f;
+
+  return returnMat;
+}
+
 		//T const tanHalfFovy = tan(fovy / static_cast<T>(2));
 
 		//tmat4x4<T, defaultp> Result(static_cast<T>(0));

@@ -60,6 +60,20 @@ void Device::bind() const
 }
 
 
+void Device::clear(const bool color, const bool depth)
+{
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+  GLenum flags = 0;
+  if(color) { flags |= GL_COLOR_BUFFER_BIT; }
+  if(depth) { flags |= GL_DEPTH_BUFFER_BIT; }
+
+  glClear(flags);
+}
+
+
+
 void Device::setViewPort(const uint32_t width, const uint32_t height)
 {
   m_viewPortWidth = static_cast<GLsizei>(width);

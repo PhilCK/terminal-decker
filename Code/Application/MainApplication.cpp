@@ -106,11 +106,15 @@ public:
       
       // Update / Render
       {
- 
+        m_caffApp.getInput().setMouseHold(true);
+
         m_textConsoleModel.prepareData();
         m_luaModel.onUpdate();
+        m_sceneController.update(deltaTime, m_caffApp.getInput());
 
         m_textConsoleView.render(m_caffApp.getRenderer());
+
+        m_caffApp.getRenderer().clear();
         m_sceneView.draw(m_caffApp.getRenderer(), m_textConsoleView.getConsoleFrameBuffer());
       }
 

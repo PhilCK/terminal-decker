@@ -4,7 +4,6 @@
 
 
 
-#include <Caffeine/Platform.hpp>
 #include <Caffeine/Math/Math.hpp>
 #include <Caffeine/Math/Vector.hpp>
 #include <Caffeine/Math/Matrix.hpp>
