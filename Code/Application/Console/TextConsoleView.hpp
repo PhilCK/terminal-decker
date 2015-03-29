@@ -36,9 +36,11 @@ class TextConsoleView
 {
 public:
 
-  explicit          TextConsoleView(const TextConsoleModel &model);
+  explicit                      TextConsoleView(const TextConsoleModel &model);
 
-  void              renderTextConsole(CaffApp::Dev::Device &renderer);
+  void                          render(CaffApp::Dev::Device &renderer);
+
+  CaffApp::Dev::FrameBuffer&    getConsoleFrameBuffer() { return m_finalOutput; }
 
 
 //private:
@@ -53,8 +55,6 @@ public:
   CaffApp::Dev::Shader          m_postShader;
   CaffApp::Dev::Texture         m_textureLookup;
   CaffApp::Dev::Texture         m_fontLookup;
-
-  public:
 
   CaffApp::Dev::FrameBuffer     m_frameBuffer;
   CaffApp::Dev::FrameBuffer     m_finalOutput;

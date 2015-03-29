@@ -13,11 +13,12 @@ namespace
 {
   inline std::vector<float> GetFullScreenVerts()
   {
-    std::vector<float> verts = {{
+    std::vector<float> verts =
+    {
       -1.f, -1.f, 0.f, 0.f,
       +3.f, -1.f, 2.f, 0.f,
       -1.f, +3.f, 0.f, 2.f,
-    }};
+    };
 
     return verts;
   }
@@ -120,44 +121,44 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 }
 
 
-void TextConsoleView::renderTextConsole(CaffApp::Dev::Device &renderer)
+void TextConsoleView::render(CaffApp::Dev::Device &renderer)
 {
-  m_frameBuffer.clear();
+  // Console
+  {
+    m_frameBuffer.clear();
 
-  // Simple shader.
-  CaffApp::Dev::Renderer::Reset();
+    // Simple shader.
+    CaffApp::Dev::Renderer::Reset();
 
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/
 
-  m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
+    m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
 
-  m_textShader.setTexture("fontLookup", m_fontLookup);
-  m_textShader.setTexture("dataLookup", m_textureLookup);
+    m_textShader.setTexture("fontLookup", m_fontLookup);
+    m_textShader.setTexture("dataLookup", m_textureLookup);
 
-  m_frameBuffer.bind();
-  m_textShader.bind();
-  m_consoleGridVBO.bind(m_consoleGridVF, m_textShader);
+    m_frameBuffer.bind();
+    m_textShader.bind();
+    m_consoleGridVBO.bind(m_consoleGridVF, m_textShader);
   
-  glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(m_model.getNumberOfCharactersInData()));
+    glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(m_model.getNumberOfCharactersInData()));
+  } // Console
 
   // Post
-  const uint32_t width = 1280;
-  const uint32_t height = 720;
-
-  CaffApp::Dev::Renderer::Reset();
-  renderer.setViewPort(width, height);
+  {
+    CaffApp::Dev::Renderer::Reset();
             
-  static float frameTime = 0;
-  frameTime += 0.1f;
+    static float frameTime = 0;
+    frameTime += 0.1f;
 
-  glDisable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
           
-  m_postShader.setShader1f("frameTime", frameTime);
-  m_postShader.setShader2f("screenSize", {{ width, height }});
-  m_postShader.setTexture("texFramebuffer", m_frameBuffer);
+    m_postShader.setShader1f("frameTime", frameTime);
+    m_postShader.setShader2f("screenSize", {{ m_finalOutput.getWidth(), m_finalOutput.getHeight() }});
+    m_postShader.setTexture("texFramebuffer", m_frameBuffer);
 
-  CaffApp::Dev::Renderer::Draw(m_finalOutput, m_postShader, m_postVF, m_postVBO);
-
+    CaffApp::Dev::Renderer::Draw(m_finalOutput, m_postShader, m_postVF, m_postVBO);
+  } // Post
 }

@@ -39,8 +39,16 @@ namespace
   const uint32_t height = 720;
   // 1280 × 720
   // 864 x 486
-}
 
+
+  FontData::FontDataInfo GetFontData(const std::string &filename)
+  {
+    auto fontData = FontData::ParseData(filename);
+
+    return fontData;
+  }
+
+}
 
 namespace Terminal {
 
@@ -50,77 +58,62 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
+  , m_luaModel()
+  , m_luaController(m_luaModel)
+  , m_textConsoleModel(80, 25, GetFontData("moop"))
+  , m_textConsoleView(m_textConsoleModel)
+  , m_textConsoleController(m_textConsoleModel)
+  , m_sceneModel()
+  , m_sceneView(m_sceneModel)
+  , m_sceneController(m_sceneModel)
   {
-    sceneModel.reset(new SceneModel());
-    sceneController.reset(new SceneController(*sceneModel));
-    sceneView.reset(new SceneView(*sceneModel));
-
     m_caffApp.getRenderer().setViewPort(width, height);
 
-    // Text MVC
+    // Inital Controller
     {
-      std::string filename = "moop";
-      auto fontData = FontData::ParseData(filename);
-
-      //auto fontData2 = ConvertFontToConsole(FontData::ParseData(filename));
-
-      textConsoleModel.reset(new TextConsoleModel(80, 25, fontData));
-      textConsoleView.reset(new TextConsoleView(*textConsoleModel));
-      textConsoleController.reset(new TextConsoleController(*textConsoleModel));
+      m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});
+      m_textConsoleController.addStringToBuffer("     |Welcome To Remote Console V1.2|");
+      m_textConsoleController.addContentToBuffer({32,32,32,32,32,9560,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9563});
+      m_textConsoleController.addStringToBuffer("");
+      m_textConsoleController.addContentToBuffer({32,32,32,32,32,32,32,32,9617,9618,9619,9608, 32, 65,84,32,89,79,85,82,32,79,87,78,32,82,73,83,75,32, 9608, 9619,9618,9617});
+      m_textConsoleController.addStringToBuffer("");
+      m_textConsoleController.setPrompt("ReCON:> ");
     }
 
-    textConsoleController->addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});
-    textConsoleController->addStringToBuffer("     |Welcome To Remote Console V1.2|");
-    textConsoleController->addContentToBuffer({32,32,32,32,32,9560,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9563});
-    textConsoleController->addStringToBuffer("");
-    textConsoleController->addContentToBuffer({32,32,32,32,32,32,32,32,9617,9618,9619,9608, 32, 65,84,32,89,79,85,82,32,79,87,78,32,82,73,83,75,32, 9608, 9619,9618,9617});
-    textConsoleController->addStringToBuffer("");
-    textConsoleController->setPrompt("ReCON:> ");
-
-    auto &input = m_caffApp.getInput();
+    // Input
+    {
+      auto &input = m_caffApp.getInput();
     
-    input.onKeyChangeEvent  = std::bind(&Application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
-    input.onTextStreamEvent = std::bind(&Application::onTextStream, this, std::placeholders::_1);
-    input.setTextStream(true);
+      input.onKeyChangeEvent  = std::bind(&Application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
+      input.onTextStreamEvent = std::bind(&Application::onTextStream, this, std::placeholders::_1);
+      input.setTextStream(true);
+    }
 
     // Lua
     {
-      luaModel.reset(new LuaModel());
-      luaController.reset(new LuaController(*luaModel));
-
-      luaModel->onLoaded();
+      m_luaModel.onLoaded();
     }
   }
 
 
   void start()
   {
-    std::string filename = "moop";
-    auto fontData = FontData::ParseData(filename);    
-
     while(!m_caffApp.shouldQuit())
     {
       m_caffApp.startFrame();
 
       const float32_t deltaTime = m_caffApp.getDeltaTime();
       
-      // Render
+      // Update / Render
       {
-        {
-          textConsoleModel->prepareData();
-          textConsoleView->renderTextConsole(m_caffApp.getRenderer());
-        }
+ 
+        m_textConsoleModel.prepareData();
+        m_luaModel.onUpdate();
 
-        GL_ERROR("End of frame");
-      }
-  
-      {
-        auto &renderer = m_caffApp.getRenderer();
-        sceneView->draw(renderer, textConsoleView->m_finalOutput);
+        m_textConsoleView.render(m_caffApp.getRenderer());
+        m_sceneView.draw(m_caffApp.getRenderer(), m_textConsoleView.getConsoleFrameBuffer());
       }
 
-      luaModel->onUpdate();
-      
       m_caffApp.endFrame();
     }
   }
@@ -128,7 +121,7 @@ public:
 
   void onTextStream(const std::string &str)
   {
-    textConsoleController->addStringToInput(str);
+    m_textConsoleController.addStringToInput(str);
   }
 
 
@@ -138,13 +131,13 @@ public:
     {
       if(id == CaffApp::KeyID::KB_BACKSPACE)
       {
-        textConsoleController->backspaceInput();
+        m_textConsoleController.backspaceInput();
       }
 
       if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
       {
-        textConsoleController->addStringToBuffer(textConsoleModel->getInput());
-        textConsoleController->clearInput();
+        m_textConsoleController.addStringToBuffer(m_textConsoleModel.getInput());
+        m_textConsoleController.clearInput();
       }
     }
   }
@@ -153,16 +146,16 @@ private:
 
   CaffApp::Application                    m_caffApp;
 
-  std::unique_ptr<LuaController>          luaController;
-  std::unique_ptr<LuaModel>               luaModel;
+  LuaModel                                m_luaModel;
+  LuaController                           m_luaController;
 
-  std::unique_ptr<TextConsoleModel>       textConsoleModel;
-  std::unique_ptr<TextConsoleController>  textConsoleController;
-  std::unique_ptr<TextConsoleView>        textConsoleView;
+  TextConsoleModel                        m_textConsoleModel;
+  TextConsoleView                         m_textConsoleView;
+  TextConsoleController                   m_textConsoleController;
 
-  std::unique_ptr<SceneController>        sceneController;
-  std::unique_ptr<SceneModel>             sceneModel;
-  std::unique_ptr<SceneView>              sceneView;
+  SceneModel                              m_sceneModel;
+  SceneView                               m_sceneView;
+  SceneController                         m_sceneController;
 
 };
 
