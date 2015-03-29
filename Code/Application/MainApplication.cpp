@@ -23,31 +23,31 @@
 #include <Application/Console/TextConsoleController.hpp>
 #include <Application/Console/TextDataParse.hpp>
 
+#include <Application/Scene/SceneController.hpp>
+#include <Application/Scene/SceneView.hpp>
+#include <Application/Scene/SceneModel.hpp>
+
 #include <lua.hpp>
 #include <Lua/LuaController.hpp>
 #include <Lua/LuaModel.hpp>
 #include <vector>
 
+
 namespace
 {
-  CaffApp::Model              model;
-  CaffApp::Model              screen;
-  CaffApp::Dev::VertexBuffer  screenBuffer;
-
-  CaffApp::Dev::Shader        caffAppShader;
   CaffApp::Dev::Shader        caffAppPostShader;
-  CaffApp::Dev::VertexFormat  caffAppVertexFormat;
   CaffApp::Dev::VertexFormat  caffAppPostVertexFormat;
-  CaffApp::Dev::Texture       caffAppTexture;
-  CaffApp::Dev::VertexBuffer  caffAppVertexBuffer;
   CaffApp::Dev::VertexBuffer  caffAppPostVertexBuffer;
-  CaffApp::Dev::FrameBuffer   caffAppFrameBuffer;
 
   CaffApp::Dev::FrameBuffer   finalScreen;
   
   std::unique_ptr<TextConsoleModel> textConsoleModel;
   std::unique_ptr<TextConsoleController> textConsoleController;
   std::unique_ptr<TextConsoleView> textConsoleView;
+
+  std::unique_ptr<SceneController> sceneController;
+  std::unique_ptr<SceneModel> sceneModel;
+  std::unique_ptr<SceneView> sceneView;
 
   std::vector<float> fullscreenVerts = {{
     -1.f, -1.f, 0.f, 0.f,
@@ -70,21 +70,10 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
-  , m_projectionMatrix(CaffMath::Matrix44Projection(3.142f / 6.f, static_cast<float>(width), static_cast<float>(height), 0.1f, 1000.f))
-  , m_viewMatrix(CaffMath::Matrix44InitIdentity())
-  , m_worldMatrix(CaffMath::Matrix44InitIdentity())
-  , laptopBody(CaffUtil::GetPathDir() + "Textures/laptop_body.png")
   {
-    model.loadModel(CaffUtil::GetPathDir() + "Models/laptop.obj");
-    screen.loadModel(CaffUtil::GetPathDir() + "Models/laptop_screen.obj");
-    screenBuffer.loadVertexBuffer(screen.getMesh(0).getGLVertexBuffer());
-
-    // Nooo Renderer stuff
-    {
-      const std::string filename = CaffUtil::GetPathDir() + "Shaders/Fullbright.shd";
-      const std::string shaderFullbright(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
-      caffAppShader.loadShader(shaderFullbright);
-    }
+    sceneModel.reset(new SceneModel());
+    sceneController.reset(new SceneController(*sceneModel));
+    sceneView.reset(new SceneView(*sceneModel));
 
     {
       const std::string filename = CaffUtil::GetPathDir() + "Shaders/Post.shd";
@@ -93,30 +82,13 @@ public:
     }
     
     std::vector<CaffApp::Dev::AttributeFormatDesc> vertDesc;
-    vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"inPosition", CaffApp::Dev::AttrType::FLOAT3});
-    vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"inTexC", CaffApp::Dev::AttrType::FLOAT2});
-    vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"inNormal", CaffApp::Dev::AttrType::FLOAT3});
-
-    caffAppVertexFormat.loadFormat(vertDesc);
-
-    vertDesc.clear();
 
     vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"position", CaffApp::Dev::AttrType::FLOAT2});
     vertDesc.emplace_back(CaffApp::Dev::AttributeFormatDesc{"texcoord", CaffApp::Dev::AttrType::FLOAT2});
 
     caffAppPostVertexFormat.loadFormat(vertDesc);
 
-    caffAppTexture.loadTexture(CaffUtil::GetPathDir() + "Textures/dev_grid_blue.png");
-
-    caffAppVertexBuffer.loadVertexBuffer(model.getMesh(0).getGLVertexBuffer());
     caffAppPostVertexBuffer.loadVertexBuffer(fullscreenVerts);
-
-    caffAppFrameBuffer.loadBuffer(width, height);
-
-    caffAppShader.setShaderRaw("projMat",   sizeof(float) * 16, &m_projectionMatrix._11);
-    caffAppShader.setShaderRaw("worldMat",  sizeof(float) * 16, &m_worldMatrix._11);
-
-    
 
     m_caffApp.getRenderer().setViewPort(width, height);
 
@@ -197,49 +169,10 @@ public:
 
         GL_ERROR("End of frame");
       }
-
-      {
-        caffAppShader.setShaderRaw("viewMat", sizeof(m_viewMatrix), &m_viewMatrix._11);
-        caffAppShader.setShaderRaw("worldMat", sizeof(m_worldMatrix), &m_worldMatrix._11);
-        caffAppShader.setShaderRaw("projMat", sizeof(m_projectionMatrix), &m_projectionMatrix._11);
-
-        //CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
-      }
-
+  
       {
         auto &renderer = m_caffApp.getRenderer();
-
-        static float spin = CaffMath::QuartTau();
-        //spin += deltaTime;
-        //
-        const float x = CaffMath::Sin(spin) * 2.f;
-        const float z = CaffMath::Cos(spin) * 2.f;
-        const float y = CaffMath::Sin(spin) * 2.f;
-
-        CaffMath::Vector3 eye   = CaffMath::Vector3Init(x, 1.7f, z);
-        CaffMath::Vector3 look  = CaffMath::Vector3Init(0.f, 1.f, 0.f);
-        CaffMath::Vector3 up    = CaffMath::Vector3Init(0.f, 1.f, 0.f);
-        CaffMath::Matrix44 view = CaffMath::Matrix44LookAt(eye, up, look);
-
-        //CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
-
-        //// Draw geometry
-        //{
-        //  textConsoleView->m_frameBuffer.clear(true, true);
-
-        //  CaffApp::Dev::Renderer::Reset();
-        caffAppShader.setShaderRaw("viewMat",   sizeof(float) * 16, &view._11);
-        caffAppShader.setTexture("diffuseTex",  laptopBody);
-        CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
-
-        caffAppShader.setTexture("diffuseTex", finalScreen);
-        CaffApp::Dev::Renderer::Draw(m_caffApp.getRenderer(), caffAppShader, caffAppVertexFormat, screenBuffer);
-
-       //CaffApp::Dev::Renderer::Draw(textConsole->m_frameBuffer, caffAppShader, caffAppVertexFormat, caffAppVertexBuffer);
-
-        //  caffAppFrameBuffer.clear(false, true);
-
-        //}
+        sceneView->draw(renderer, finalScreen);
       }
 
       luaModel->onUpdate();
@@ -275,10 +208,6 @@ public:
 private:
 
   CaffApp::Application    m_caffApp;
-  CaffMath::Matrix44      m_projectionMatrix;
-  CaffMath::Matrix44      m_viewMatrix;
-  CaffMath::Matrix44      m_worldMatrix;
-  CaffApp::Dev::Texture   laptopBody;
 
   std::unique_ptr<LuaController> luaController;
   std::unique_ptr<LuaModel> luaModel;
