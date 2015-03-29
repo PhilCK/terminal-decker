@@ -89,6 +89,9 @@
     <ClCompile Include="..\..\..\Code\Application\Lua\LuaController.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Lua\LuaModel.cpp" />
     <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneController.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneModel.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneView.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Application.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Input.cpp" />
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Model.cpp" />
@@ -156,6 +159,10 @@
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaController.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaModel.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneController.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneFwd.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneModel.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneView.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Application.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\ApplicationFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Input.hpp" />

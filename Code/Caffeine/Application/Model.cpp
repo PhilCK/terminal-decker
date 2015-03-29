@@ -250,6 +250,13 @@ Model::Model()
 }
 
 
+Model::Model(const std::string &filename)
+: Model()
+{
+  loadModel(filename);
+}
+
+
 bool Model::loadModel(const std::string & filename)
 {
 	return LoadOBJ(filename, m_meshes, m_bounds, true);

@@ -41,10 +41,10 @@ public:
   void                updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY);
   void                updateSubset(const std::vector<uint8_t> &data, const uint32_t offsetX, const uint32_t offsetY);
 
-  inline bool         isValid() { return m_textureID > 0; }
+  inline bool         isValid() const { return m_textureID > 0; }
   
-  inline uint32_t     getWidth()  { return m_width;  }
-  inline uint32_t     getHeight() { return m_height; }
+  inline uint32_t     getWidth()  const { return m_width;  }
+  inline uint32_t     getHeight() const { return m_height; }
 
   inline TextureD     getDimention() const    { return m_dimention; } // TODO: Should this return GLenum, DX isn't a thing for us.
   inline Format       getFormat() const       { return m_format;    } // TODO: Should this return GLenum, DX isn't a thing for us.

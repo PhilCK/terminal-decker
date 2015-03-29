@@ -49,6 +49,9 @@
     <Filter Include="Application\Lua">
       <UniqueIdentifier>{627b1663-c696-4f60-a73f-bad5f27adf74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Scene">
+      <UniqueIdentifier>{c573aec8-b355-4c11-a9b8-d11bf258f507}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c">
@@ -236,6 +239,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\Lua\LuaModel.cpp">
       <Filter>Application\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneController.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneModel.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Scene\SceneView.cpp">
+      <Filter>Application\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -451,6 +463,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaFwd.hpp">
       <Filter>Application\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneController.hpp">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneModel.hpp">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneView.hpp">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Scene\SceneFwd.hpp">
+      <Filter>Application\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

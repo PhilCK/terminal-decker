@@ -128,6 +128,7 @@ class Model
 public:
 
 	explicit					Model();
+  explicit          Model(const std::string &str);
 
 	bool						loadModel(const std::string & filename);
 	
