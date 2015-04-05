@@ -62,9 +62,13 @@ void SceneController::update(const float dt, const CaffApp::Input &input)
 
   // Logic for FOV change
   {
-    const float updateFOV = m_targetFOV;
+    const float distance  = m_targetFOV - m_model.getCurrentFOV();
+    const float updatePos = distance * (dt * 2);
+    const float clamped   = CaffMath::Clamp(updatePos, m_model.getMinFOV(), m_model.getMaxFOV());
+    
+    const float newPos    = m_model.getCurrentFOV() + updatePos;
 
-    m_model.setFOV(updateFOV);
+    m_model.setFOV(newPos);
   }
 
   // Head movement logic

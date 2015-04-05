@@ -31,8 +31,6 @@ CaffMath::Matrix44 SceneModel::getModelMatrix() const
 void SceneModel::setFOV(const float currentFOV)
 {
   m_currentFOV = CaffMath::Clamp(currentFOV, m_minFOV, m_maxFOV);
-
-  std::cout << m_currentFOV << std::endl;
 }
 
 
