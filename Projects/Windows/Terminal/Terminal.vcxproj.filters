@@ -52,6 +52,21 @@
     <Filter Include="Application\Scene">
       <UniqueIdentifier>{c573aec8-b355-4c11-a9b8-d11bf258f507}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{20a4ff6c-feb1-4e61-aacb-87f4a030dbd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\detail">
+      <UniqueIdentifier>{999c1477-0e3d-4591-b325-9cedf1fe9d74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules">
+      <UniqueIdentifier>{583bc220-df72-4a99-ba04-e2a281a9148b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\console">
+      <UniqueIdentifier>{3daeb575-66e3-4dc9-b5eb-9b4af6f63795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\common">
+      <UniqueIdentifier>{3f28a012-fd99-43c1-8e77-b8e234a1f743}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.c">
@@ -248,6 +263,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\Scene\SceneView.cpp">
       <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\core\core.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\core\data_core.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\modules\console\console_module.cpp">
+      <Filter>modules\console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +499,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Scene\SceneFwd.hpp">
       <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\core\module_details.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\core\core.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\core\core_fwd.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\core\data_core.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\core\detail\core_module.hpp">
+      <Filter>core\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\modules\console\console_module.hpp">
+      <Filter>modules\console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\modules\common\data_type_id.hpp">
+      <Filter>modules\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

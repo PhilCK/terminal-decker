@@ -36,10 +36,8 @@ void SceneController::update(const float dt, const CaffApp::Input &input)
     }
   }
 
-  //
-
-  m_targetYaw += (input.getMouseDeltaX() / 10.f);
-  m_targetPitch += (input.getMouseDeltaY() / 10.f);
+  m_targetYaw   += (static_cast<float>(input.getMouseDeltaX()) * dt);
+  m_targetPitch += (static_cast<float>(input.getMouseDeltaY()) * dt);
 
   switch(m_controllerState)
   {
@@ -73,15 +71,16 @@ void SceneController::update(const float dt, const CaffApp::Input &input)
 
   // Head movement logic
   {
-    CaffMath::Quaternion yawQuat    = CaffMath::QuaternionInitFromAngleAxis(m_targetYaw, CaffMath::Vector3Init(0,1,0));
+    CaffMath::Quaternion yawQuat    = CaffMath::QuaternionInitFromAngleAxis(m_targetYaw - CaffMath::QuartTau(), CaffMath::Vector3Init(0,1,0));
     CaffMath::Quaternion pitchQuat  = CaffMath::QuaternionInitFromAngleAxis(m_targetPitch, CaffMath::Vector3Init(0,0,1));
     CaffMath::Quaternion rollQuat   = CaffMath::QuaternionInitFromAngleAxis(0, CaffMath::Vector3Init(1,0,0));
 
     CaffMath::Quaternion rollPitchQuat  = CaffMath::QuaternionMultiply(rollQuat, pitchQuat);
     CaffMath::Quaternion quat           = CaffMath::QuaternionMultiply(yawQuat, rollPitchQuat);
+      
+    //CaffMath::Quaternion rollPitchQuat  = CaffMath::QuaternionMultiply(yawQuat, pitchQuat);
+    //CaffMath::Quaternion quat           = CaffMath::QuaternionMultiply(rollQuat, rollPitchQuat);
 
     m_model.setRotation(quat);
   }
-
-   
 }

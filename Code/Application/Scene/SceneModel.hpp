@@ -38,6 +38,7 @@ private:
   uint32_t m_height;
 
   CaffMath::Matrix44 m_modelMatrix = CaffMath::Matrix44InitIdentity();
+  CaffMath::Matrix44 m_viewMatrix = CaffMath::Matrix44InitIdentity();
 
 }; // class
 

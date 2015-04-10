@@ -32,6 +32,10 @@
 #include <Lua/LuaModel.hpp>
 #include <vector>
 
+#include <core/core.hpp>
+#include <core/data_core.hpp>
+#include <modules/console/console_module.hpp>
+
 
 namespace
 {
@@ -118,6 +122,9 @@ public:
         m_sceneView.draw(m_caffApp.getRenderer(), m_textConsoleView.getConsoleFrameBuffer());
       }
 
+      caffcore::think_all_modules();
+      caffcore::dispatch_data_notifications();
+
       m_caffApp.endFrame();
     }
   }
@@ -126,6 +133,12 @@ public:
   void onTextStream(const std::string &str)
   {
     m_textConsoleController.addStringToInput(str);
+
+    static std::string dataStr;
+    dataStr = str;
+
+    caffcore::DataNode data{0,0,&dataStr[0], sizeof(char) * dataStr.length()};
+    caffcore::add_data_to_core(data);
   }
 
 
@@ -168,6 +181,13 @@ private:
 
 int main(int argc, char **argv)
 {
+  // Core
+  caffcore::push_new_module(ConsoleModule());
+  
+  caffcore::register_all_modules();
+  caffcore::start_all_modules();
+
+
   // Logging
   CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
   CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);

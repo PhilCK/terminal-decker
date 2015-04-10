@@ -1,9 +1,7 @@
 
 Forward Lighting
 ----------------
-Very limited forward lighting shader.
 
-Only supports 1 directional light and only a diffuse texture.
 
 
 [VERTEXSHADER]
@@ -18,27 +16,47 @@ in vec3 inNormal;
 uniform mat4 worldMat;
 uniform mat4 viewMat;
 uniform mat4 projMat;
+//uniform mat4 normMat;
+
 uniform vec3 eyePos;
 
-out vec4 worldPosition;
-out vec4 clipPosition;
 out vec3 normal;
+out vec3 toLight;
+out vec3 toCamera;
 out vec2 texC;
-out vec3 eye;
+
+const vec3 lightPos = vec3(0.0,1.0,0.0);
 
 void main()
 {
-    mat4 wvpMat = projMat * viewMat * worldMat;
+    mat4 viewModel = worldMat * viewMat;
+    mat4 normalMat = transpose(inverse(viewModel));
 
-    worldPosition = worldMat * vec4(inPosition, 1.0);
-    clipPosition  = wvpMat * vec4(inPosition, 1.0);
+    vec4 pos = viewModel * vec4(inPosition, 1.0);
 
-    gl_Position = clipPosition;
+    normal = normalize(normalMat * vec4(inNormal, 1.0)).xyz;
+    toLight = vec3(lightPos - pos.xyz);
+    toCamera = vec3(-pos.x, -pos.y, -pos.z);
+
+    mat4 wvp = projMat * viewMat * worldMat;
+    gl_Position = wvp * vec4(inPosition, 1.0);
 
     texC = inTexC;
-    eye  = eyePos;
 
-    normal = normalize(mat3(worldMat) * inNormal);
+    // vec4 worldPosition = worldMat * vec4(inPosition, 1.0);
+
+    // mat4 modelView = worldMat * viewMat;
+    // mat4 normalMat = transpose(inverse(modelView));
+
+    // normal = normalize(normalMat * vec4(inNormal, 1.0)).xyz;
+
+    // toLight = normalize(lightPos - worldPosition.xyz);
+
+    // toCamera = normalize(eyePos - worldPosition.xyz);
+
+    // gl_Position = projMat * viewMat * worldPosition;
+
+    texC = inTexC;
 }
 
 
@@ -49,63 +67,100 @@ void main()
 
 #version 150 core
 
-in vec4 worldPosition;
-in vec4 clipPosition;
 in vec3 normal;
+in vec3 toLight;
+in vec3 toCamera;
 in vec2 texC;
-in vec3 eye;
 
 uniform sampler2D diffuseTex;
 
-out vec4 outputColor;
+out vec4 outputColor;   
 
-struct Material {
-    float Ka, Kd, Ks, A;
-};
+// parameters of the light and possible values
+const vec3 u_lightAmbientIntensity = vec3(0.6, 0.3, 0);
+const vec3 u_lightDiffuseIntensity = vec3(0.2, 0.5, 0.2);
+const vec3 u_lightSpecularIntensity = vec3(1, 1, 1);
 
-vec4 PhongLighting(Material M, vec4 lightColor, vec3 N, vec3 L, vec3 V, vec3 R)
+// parameters of the material and possible values
+const vec3 u_matAmbientReflectance = vec3(1, 1, 1);
+const vec3 u_matDiffuseReflectance = vec3(1, 1, 1);
+const vec3 u_matSpecularReflectance = vec3(1, 1, 1);
+const float u_matShininess = 64;
+
+
+// returns intensity of reflected ambient lighting
+vec3 ambientLighting()
 {
-    vec4 ambientLight = vec4(0.5, 0.5, 0.5, 0.5);
-
-    vec4 Ia = M.Ka * ambientLight;
-    vec4 Id = M.Kd * vec4(clamp(dot(N,L), 0.0, 1.0));
-    vec4 Is = M.Ks * pow( vec4(clamp(dot(R,V), 0.0, 1.0)), vec4(M.A, M.A, M.A, M.A) );
- 
-    return Ia + (Id + Is) * lightColor;
+   return u_matAmbientReflectance * u_lightAmbientIntensity;
 }
 
-
-/*
-vec4 BlinnPhongLighting(Material m, vec4 lightColor, vec3 N, vec3 L, vec3 H)
+// returns intensity of diffuse reflection
+vec3 diffuseLighting(in vec3 N, in vec3 L)
 {
-    vec4 ambientLight = vec4(1.0, 1.0, 1.0, 1.0);
-
-    vec4 Ia = M.Ka * ambientLight;
-    vec4 Id = M.Kd * clamp(dot(N,L), 0.0, 1.0);
-    vec4 Is = M.Ks * pow(clamp(dot(N,H), 0.0, 1.0), M.A);
-
-    return Ia + (Id + Is) * lightColor;
+   // calculation as for Lambertian reflection
+   float diffuseTerm = clamp(dot(N, L), 0, 1);
+   return u_matDiffuseReflectance * u_lightDiffuseIntensity * diffuseTerm;
 }
-*/
+
+// returns intensity of specular reflection
+vec3 specularLighting(in vec3 N, in vec3 L, in vec3 V)
+{
+   float specularTerm = 0;
+
+   // calculate specular reflection only if
+   // the surface is oriented to the light source
+   if(dot(N, L) > 0)
+   {
+      // half vector
+      vec3 H = normalize(L + V);
+      specularTerm = pow(dot(N, H), u_matShininess);
+   }
+   return u_matSpecularReflectance * u_lightSpecularIntensity * specularTerm;
+}
 
 void main()
 {
-    //calculate lighting vectors - renormalize vectors
-    //input.n = normalize( input.n );
-    vec3 V = normalize(eye - vec3(worldPosition));
-    //DONOT USE -light.dir since the reflection returns a ray from the surface
-    vec3 R = reflect(normalize(vec3(-1,-1,1)), normal);
- 
-    Material material;
-    material.Ka = 0.1;
-    material.Kd = 0.5;
-    material.Ks = 0.5;
-    material.A  = 1;
+   vec4 texColor = texture(diffuseTex, texC);
 
-    //calculate lighting
-	vec4 texColor = texture(diffuseTex, texC);
-	//vec4 texColor = vec4(0.5, 0.5, 0.5, 1.0);
-    outputColor = texColor * PhongLighting(material, vec4(0.8, 0.8, 0.8, 1), normal, normalize(-vec3(-1,-1,1)), V, R );
+   // normalize vectors after interpolation
+   // vec3 L = normalize(toLight);
+   // vec3 V = normalize(toCamera);
+   // vec3 N = normalize(normal);
+
+   // // get Blinn-Phong reflectance components
+   // float Iamb = ambientLighting();
+   // float Idif = diffuseLighting(N, L);
+   // float Ispe = specularLighting(N, L, V);
+
+   // // diffuse color of the object from texture
+   // //vec3 diffuseColor = texture(u_diffuseTexture, o_texcoords).rgb;
+
+   // // combination of all components and diffuse color of the object
+   // outputColor.xyz = texColor.rgb * (Iamb + Idif + Ispe);
+   // outputColor.a = 1;
+
+    //outputColor = texColor;
+
+   vec4 spec = vec4(0.0);
+   vec3 N = normalize(normal);
+   vec3 L = normalize(toLight);
+   vec3 E = normalize(toCamera);
+
+   float intensity = max(dot(N, L), 0.0);
+   if(intensity > 0.0)
+   {
+      vec3 H = normalize(L + E);
+      float intSpec = max(dot(H, N), 0.0);
+      vec4 specular = vec4(1,1,1,1);
+      float shininess = 64;
+      spec = specular * pow(intSpec, shininess);
+   }
+
+   vec4 diffuse = vec4(0.2, 0.2, 0.2, 1);
+   vec4 ambient = vec4(0.2, 0.2, 0.2, 1);
+
+   vec4 brighness = max(intensity * diffuse + spec, ambient);
+   outputColor = texColor * brighness;
 }
 
 [/PIXELSHADER]

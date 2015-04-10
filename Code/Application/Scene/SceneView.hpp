@@ -21,14 +21,18 @@ public:
 
   void                        draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::FrameBuffer &laptopScreen);
 
+
 private:
 
   const SceneModel                  &m_model;
   const CaffApp::Dev::VertexFormat  m_sceneVertexFormat;
   const CaffApp::Dev::VertexBuffer  m_laptopBuffer;
   const CaffApp::Dev::VertexBuffer  m_screenBuffer;
+  const CaffApp::Dev::VertexBuffer  m_roomBuffer;
   const CaffApp::Dev::Texture       m_laptopDiffuse;
+  const CaffApp::Dev::Texture       m_roomDiffuse;
   CaffApp::Dev::Shader              m_sceneShader;
+  CaffApp::Dev::Shader              m_lightingShader;
 
 }; // class
 
