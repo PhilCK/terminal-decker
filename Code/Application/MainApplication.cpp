@@ -154,6 +154,8 @@ public:
       if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
       {
         m_textConsoleController.addStringToBuffer(m_textConsoleModel.getInput());
+        m_luaModel.onCommand(m_textConsoleModel.getInput(), "");
+
         m_textConsoleController.clearInput();
       }
     }

@@ -87,10 +87,6 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
 
     m_lightingShader.setTexture("diffuseTex", m_roomDiffuse);
 
-
-
-
-
     const std::array<float, 3> pos = {{ 3.f, 1.f, 0 }};
 
     m_lightingShader.setShader3f("eyePos", pos);
