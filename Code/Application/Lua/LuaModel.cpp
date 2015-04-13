@@ -1,6 +1,25 @@
 ﻿
 #include <Application/Lua/LuaModel.hpp>
+#include <lualib.h>
 #include <iostream>
+
+
+namespace
+{
+  using ReturnVals = int;
+
+  ReturnVals terminal_clear(lua_State *L)
+  {
+    std::cout << "terminal clear" << std::endl;
+    return 0;
+  }
+
+  const luaL_Reg terminal_funcs[] =
+  {
+      { "clear", terminal_clear},
+      { NULL, NULL }
+  };
+}
 
 
 LuaModel::LuaModel()
@@ -13,6 +32,10 @@ LuaModel::LuaModel()
   L = luaL_newstate();
   luaL_openlibs(L);
 
+  luaL_newmetatable(L, "terminald");
+  luaL_newlib(L, terminal_funcs);
+   
+
   const std::string entry("C:\\Users\\Gunhead\\Desktop\\TerminalGame\\Assets\\GameCode\\Terminal\\main.lua");
 
   if(luaL_dofile(L, entry.c_str()))
@@ -21,6 +44,9 @@ LuaModel::LuaModel()
   }
 
 
+
+   //lua_pushcfunction(L, terminal_clear);
+   //lua_setglobal(L, "terminal.clear");
 }
 
 
@@ -58,8 +84,12 @@ void LuaModel::onCommand(const std::string &command, const std::string &args)
   lua_getglobal(L, "terminal");
   lua_getfield(L, -1, "input_string");
   lua_pushstring(L, command.c_str());
-  lua_pcall(L, 1, 1, 0);
+  if(lua_pcall(L, 1, 1, 0))
+  {
+    std::cout << "Lua error: " << luaL_checkstring(L, -1) << std::endl;
+  }
   
+
   bool retValue = lua_toboolean(L, -1);
   lua_pop(L, 1);
 
