@@ -12,7 +12,7 @@ function local_sys.input(input_str)
 
 	if(input_str == "sys.help") then
 		local_sys.help_menu()
-		terminald.clear()
+		terminal.clear()
 		return true
 	end
 

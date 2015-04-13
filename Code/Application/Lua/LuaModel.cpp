@@ -1,5 +1,6 @@
 ﻿
 #include <Application/Lua/LuaModel.hpp>
+#include <Caffeine/Common/Utilities/directories.hpp>
 #include <lualib.h>
 #include <iostream>
 
@@ -32,11 +33,14 @@ LuaModel::LuaModel()
   L = luaL_newstate();
   luaL_openlibs(L);
 
-  luaL_newmetatable(L, "terminald");
-  luaL_newlib(L, terminal_funcs);
-   
+  lua_newtable(L);
+  lua_setglobal(L, "terminal");
 
-  const std::string entry("C:\\Users\\Gunhead\\Desktop\\TerminalGame\\Assets\\GameCode\\Terminal\\main.lua");
+  //luaL_newmetatable(L, "terminald");
+  lua_getglobal(L, "terminal");
+  luaL_setfuncs(L, terminal_funcs, 0);
+
+  const std::string entry(CaffUtil::GetPathDir() + "GameCode\\Terminal\\main.lua");
 
   if(luaL_dofile(L, entry.c_str()))
   {

@@ -1,6 +1,6 @@
 
-terminal = {} --handle this inside the application?
-term = require "terminald"
+--terminal = {} --handle this inside the application?
+--term = require "terminald"
 test_system = {}
 
 
