@@ -18,6 +18,7 @@ namespace
     {
       termConsoleController->clearScreen();
     }
+
     return 0;
   }
 
