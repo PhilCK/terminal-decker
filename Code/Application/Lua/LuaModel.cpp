@@ -10,12 +10,13 @@ namespace
 {
   using ReturnVals = int;
   TextConsoleController *termConsoleController = nullptr;
+  CaffApp::Application *caffApplication = nullptr;
 
   ReturnVals terminal_clear(lua_State *L)
   {
     if(termConsoleController)
     {
-      termConsoleController->addStringToBuffer("clear screen");
+      termConsoleController->clearScreen();
     }
     return 0;
   }
@@ -36,7 +37,18 @@ namespace
     {
       const std::string str = lua_tostring(L, 1);
 
+
       termConsoleController->addStringToBuffer(str);
+    }
+
+    return 0;
+  }
+
+  ReturnVals terminal_quit(lua_State *L)
+  {
+    if(caffApplication)
+    {
+      caffApplication->requestQuit();
     }
 
     return 0;
@@ -48,16 +60,19 @@ namespace
       { "ls",       terminal_ls     },
       { "connect",  terminal_conn   },
       { "echo",     terminal_echo   },
+      { "quit",     terminal_quit   },
       { NULL,       NULL            },
   };
 }
 
 
-LuaModel::LuaModel(TextConsoleController &consoleController)
+LuaModel::LuaModel(TextConsoleController &consoleController, CaffApp::Application &caffApp)
 : L(nullptr)
 , m_consoleController(consoleController)
+, m_caffApp(caffApp)
 {
   termConsoleController = &m_consoleController;
+  caffApplication = &m_caffApp;
 
   L = luaL_newstate();
   luaL_openlibs(L);

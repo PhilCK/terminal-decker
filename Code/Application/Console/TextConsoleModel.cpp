@@ -65,7 +65,7 @@ void TextConsoleModel::prepareData()
 
     m_bufferDirty = false;
 
-    const auto pivot = m_currentBufferPosition % m_bufferHistory_.size();
+    const auto pivot = m_currentBufferPosition > 0 ? m_currentBufferPosition % m_bufferHistory_.size() : 0;
     std::rotate_copy(m_bufferHistory_.begin(), m_bufferHistory_.begin() + pivot, m_bufferHistory_.end(), outputScreen.begin());
   }
 
@@ -175,7 +175,8 @@ void TextConsoleModel::addStringToBuffer(const std::vector<uint32_t> &content)
 
   m_bufferDirty = true;
 
-  auto &bufferStr = m_bufferHistory_.at(m_currentBufferPosition % bufferHistorySize);
+  const auto position = m_currentBufferPosition > 0 ? m_currentBufferPosition % bufferHistorySize : 0;
+  auto &bufferStr = m_bufferHistory_.at(position);
   
   for(std::size_t i = 0; i < content.size(); ++i)
   {
@@ -192,6 +193,7 @@ void TextConsoleModel::clearBuffer()
 
   m_bufferDirty = true;
   m_bufferHistory_.clear();
+  m_bufferHistory_.resize(bufferHistorySize);
   m_currentBufferPosition = 0;
 }
 

@@ -36,6 +36,7 @@ public:
 	
   inline float        getDeltaTime() const  { return m_deltaTime;  }
   inline bool         shouldQuit() const    { return m_shouldQuit; }
+  inline void         requestQuit()         { m_shouldQuit = true; }
 	
   Dev::Device &       getRenderer() const;
   Window &            getWindow() const;

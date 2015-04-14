@@ -2,6 +2,7 @@
 
 require "GameCode/Terminal/systems/system_local"
 require "GameCode/Terminal/systems/system_elevator"
+require "GameCode/Terminal/systems/system_net"
 
 
 -- Anything you want to load?
@@ -9,8 +10,9 @@ function terminal.load()
 
 	terminal.systems = {}
 
-	terminal.systems[0] = elevator_sys -- better way to insert?
-	terminal.systems[1] = local_sys
+	terminal.systems[1] = elevator_sys -- better way to insert?
+	terminal.systems[2] = local_sys
+	terminal.systems[3] = net_sys
 
 	print("terminal.loaded")
 

@@ -47,6 +47,12 @@ void TextConsoleController::clearInput()
 }
 
 
+void TextConsoleController::clearScreen()
+{
+  m_model.clearBuffer();
+}
+
+
 void TextConsoleController::setPrompt(const std::string &str)
 {
   m_model.setInputPrompt(str);

@@ -4,12 +4,13 @@
 #include <lua.hpp>
 #include <string>
 #include <Application/Console/TextConsoleFwd.hpp>
+#include <Caffeine/Application/Application.hpp>
 
 class LuaModel
 {
 public:
 
-  explicit                LuaModel(TextConsoleController &consoleController);
+  explicit                LuaModel(TextConsoleController &consoleController, CaffApp::Application &caffApp);
                           ~LuaModel();
 
   void                    onLoaded();
@@ -20,6 +21,7 @@ private:
 
   lua_State               *L = nullptr;
   TextConsoleController   &m_consoleController;
+  CaffApp::Application    &m_caffApp;
 
 };
 

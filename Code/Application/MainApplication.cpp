@@ -65,7 +65,7 @@ public:
   , m_textConsoleModel(80, 25, GetFontData("moop"))
   , m_textConsoleView(m_textConsoleModel)
   , m_textConsoleController(m_textConsoleModel)
-  , m_luaModel(m_textConsoleController)
+  , m_luaModel(m_textConsoleController, m_caffApp)
   , m_luaController(m_luaModel)
   , m_sceneModel()
   , m_sceneView(m_sceneModel)
@@ -188,7 +188,6 @@ int main(int argc, char **argv)
   
   caffcore::register_all_modules();
   caffcore::start_all_modules();
-
 
   // Logging
   CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);

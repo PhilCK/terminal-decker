@@ -20,6 +20,7 @@ public:
   void                addInputToBuffer();
   void                backspaceInput();
   void                clearInput();
+  void                clearScreen();
   void                setPrompt(const std::string &str);
 
 private:
