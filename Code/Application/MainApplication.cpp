@@ -62,11 +62,11 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
-  , m_luaModel()
-  , m_luaController(m_luaModel)
   , m_textConsoleModel(80, 25, GetFontData("moop"))
   , m_textConsoleView(m_textConsoleModel)
   , m_textConsoleController(m_textConsoleModel)
+  , m_luaModel(m_textConsoleController)
+  , m_luaController(m_luaModel)
   , m_sceneModel()
   , m_sceneView(m_sceneModel)
   , m_sceneController(m_sceneModel)
@@ -165,12 +165,12 @@ private:
 
   CaffApp::Application                    m_caffApp;
 
-  LuaModel                                m_luaModel;
-  LuaController                           m_luaController;
-
   TextConsoleModel                        m_textConsoleModel;
   TextConsoleView                         m_textConsoleView;
   TextConsoleController                   m_textConsoleController;
+
+  LuaModel                                m_luaModel;
+  LuaController                           m_luaController;
 
   SceneModel                              m_sceneModel;
   SceneView                               m_sceneView;

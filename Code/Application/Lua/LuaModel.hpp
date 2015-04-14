@@ -3,12 +3,13 @@
 
 #include <lua.hpp>
 #include <string>
+#include <Application/Console/TextConsoleFwd.hpp>
 
 class LuaModel
 {
 public:
 
-  explicit                LuaModel();
+  explicit                LuaModel(TextConsoleController &consoleController);
                           ~LuaModel();
 
   void                    onLoaded();
@@ -18,6 +19,7 @@ public:
 private:
 
   lua_State               *L = nullptr;
+  TextConsoleController   &m_consoleController;
 
 };
 

@@ -1,5 +1,6 @@
 ﻿
 #include <Application/Lua/LuaModel.hpp>
+#include <Application/Console/TextConsoleController.hpp>
 #include <Caffeine/Common/Utilities/directories.hpp>
 #include <lualib.h>
 #include <iostream>
@@ -8,27 +9,55 @@
 namespace
 {
   using ReturnVals = int;
+  TextConsoleController *termConsoleController = nullptr;
 
   ReturnVals terminal_clear(lua_State *L)
   {
-    std::cout << "terminal clear" << std::endl;
+    if(termConsoleController)
+    {
+      termConsoleController->addStringToBuffer("clear screen");
+    }
+    return 0;
+  }
+
+  ReturnVals terminal_ls(lua_State *L)
+  {
+    return 0;
+  }
+
+  ReturnVals terminal_conn(lua_State *L)
+  {
+    return 0;
+  }
+
+  ReturnVals terminal_echo(lua_State *L)
+  {
+    if(termConsoleController)
+    {
+      const std::string str = lua_tostring(L, 1);
+
+      termConsoleController->addStringToBuffer(str);
+    }
+
     return 0;
   }
 
   const luaL_Reg terminal_funcs[] =
   {
-      { "clear", terminal_clear},
-      { NULL, NULL }
+      { "clear",    terminal_clear  },
+      { "ls",       terminal_ls     },
+      { "connect",  terminal_conn   },
+      { "echo",     terminal_echo   },
+      { NULL,       NULL            },
   };
 }
 
 
-LuaModel::LuaModel()
+LuaModel::LuaModel(TextConsoleController &consoleController)
+: L(nullptr)
+, m_consoleController(consoleController)
 {
-  if(this == NULL)
-  {
-    std::cout << "MMoop" << std::endl;
-  }
+  termConsoleController = &m_consoleController;
 
   L = luaL_newstate();
   luaL_openlibs(L);

@@ -1,20 +1,7 @@
 
---terminal = {} --handle this inside the application?
---term = require "terminald"
-test_system = {}
-
 
 require "GameCode/Terminal/systems/system_local"
 require "GameCode/Terminal/systems/system_elevator"
-
-
-function test_system.input(input)
-
-	print("test_system")
-
-	return true
-
-end
 
 
 -- Anything you want to load?
@@ -22,9 +9,8 @@ function terminal.load()
 
 	terminal.systems = {}
 
-	terminal.systems[0] = test_system
-	terminal.systems[1] = elevator_sys
-	terminal.systems[2] = local_sys
+	terminal.systems[0] = elevator_sys -- better way to insert?
+	terminal.systems[1] = local_sys
 
 	print("terminal.loaded")
 
@@ -40,16 +26,23 @@ function terminal.input_string(input)
 	local is_valid = true;
 
 	-- if valid command
-	if(is_valid) then
+	if is_valid then
 		
-		terminal.systems[0].input(input)
-		terminal.systems[1].input(input);
-		terminal.systems[2].input(input);
+		local found_command = false;
+
+		for i, v in pairs(terminal.systems) do
+			found_command = v.input(input)
+
+			-- Command was consumed by a system so stop
+			if found_command then
+				return true
+			end
+		end
 
 	end
 
 	-- bad request.
-	print("bad request")
+	terminal.echo(" - bad request - ")
 
 	return false;
 
@@ -64,8 +57,6 @@ end
 
 -- Update tick.
 function terminal.update()
-
-	--print("terminal.update")
 
 end
 
