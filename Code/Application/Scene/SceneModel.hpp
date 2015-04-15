@@ -31,7 +31,7 @@ private:
 private:
 
   float m_currentFOV;
-  float m_maxFOV = 3.142f / 1.5f;
+  float m_maxFOV = 3.142f / 3.f;
   float m_minFOV = 3.142f / 6.f;
 
   uint32_t m_width;
