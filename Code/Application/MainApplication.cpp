@@ -200,10 +200,6 @@ const luaL_Reg lua_funcs[] =
 };
 
 
-
-
-
-
 int main(int argc, char **argv)
 {
   // Core
