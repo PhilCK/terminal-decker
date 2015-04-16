@@ -1,0 +1,11 @@
+
+
+ASSET_DIR = "../Assets/"
+BIN_DIR = "../Bin/"
+
+desc "copy files to bin dir"
+task :copy_to_bin do |t, args|
+
+	puts "copying..."
+
+end

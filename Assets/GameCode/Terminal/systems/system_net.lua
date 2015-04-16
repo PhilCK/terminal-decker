@@ -6,7 +6,11 @@
 
 --require "terminal"
 
-net_sys = {}
+net_sys = {
+
+	local_sys = {}
+
+}
 
 
 function net_sys.input(input_str)
@@ -34,7 +38,31 @@ function net_sys.input(input_str)
 
 	end
 
+
+	if(input_str == "net.local") then
+
+		if(#net_sys.local_sys == 0) then
+			terminal.echo("Nothing found on the local system.")
+		else
+			terminal.echo("Stuff on local system.")
+
+			for i, v in pairs(net_sys.local_sys) do
+				terminal.echo("Found en")
+			end
+		end
+
+		return true
+
+	end
+
 	-- Found nothing.
 	return false
+
+end
+
+
+function net_sys.connect_to_local_sys(local_system)
+
+
 
 end
