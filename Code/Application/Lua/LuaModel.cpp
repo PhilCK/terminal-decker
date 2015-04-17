@@ -111,8 +111,6 @@ void LuaModel::onLoaded()
 }
 
 
-
-
 void LuaModel::onUpdate()
 {
   //luaL_dostring(L, "terminal.update()");

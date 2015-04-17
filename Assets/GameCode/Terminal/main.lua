@@ -3,6 +3,7 @@
 require "GameCode/Terminal/systems/system_local"
 require "GameCode/Terminal/systems/system_elevator"
 require "GameCode/Terminal/systems/system_net"
+require "GameCode/Terminal/systems/local"
 
 
 -- Anything you want to load?
@@ -27,21 +28,22 @@ function terminal.input_string(input)
 
 	local is_valid = true;
 
-	-- if valid command
-	if is_valid then
+
+	-- -- if valid command
+	-- if is_valid then
 		
-		local found_command = false;
+	-- 	local found_command = false;
 
-		for i, v in pairs(terminal.systems) do
-			found_command = v.input(input)
+	-- 	for i, v in pairs(terminal.systems) do
+	-- 		found_command = v.input(input)
 
-			-- Command was consumed by a system so stop
-			if found_command then
-				return true
-			end
-		end
+	-- 		-- Command was consumed by a system so stop
+	-- 		if found_command then
+	-- 			return true
+	-- 		end
+	-- 	end
 
-	end
+	-- end
 
 	-- bad request.
 	terminal.echo(" - bad request - ")

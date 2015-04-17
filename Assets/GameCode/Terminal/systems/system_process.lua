@@ -27,3 +27,8 @@ function process_sys:input(input_str)
 	
 
 end
+
+
+
+-- Holds systems, 
+-- priorites a system that is connection mode.
