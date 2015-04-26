@@ -13,6 +13,8 @@
     <OutDir>$(BinDir)$(Configuration)\</OutDir>
     <IncludePath>$(AppCodeDir);$(CodeDir);$(IncludeDir)Glew/Include/;$(IncludeDir)Dirent/Include/;$(IncludeDir)SDL2/Include/;$(IncludeDir)Soil/Include/;$(IncludeDir);$(IncludeDir)Selene/Include/;$(IncludeDir)Lua/Include/;$(IncludeDir)TinyXML2/Include/;$(IncludePath)</IncludePath>
     <LibraryPath>$(IncludeDir)SDL2/Lib/Win32/;$(IncludeDir)Glew/Lib/Win32/;$(LibraryPath)</LibraryPath>
+    <CustomBuildBeforeTargets>
+    </CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -23,6 +25,14 @@
 xcopy /y /C $(IncludeDir)Glew\Lib\Win32\glew32.dll $(OutDir)
 xcopy $(AssetDir)*.* $(OutDir) /Y /I /E /D /C</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>xcopy /y /C $(IncludeDir)SDL2\Lib\Win32\SDL2.dll  $(OutDir)
+xcopy /y /C $(IncludeDir)Glew\Lib\Win32\glew32.dll $(OutDir)
+xcopy $(AssetDir)*.* $(OutDir) /Y /I /E /D /C</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>nope.bat</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="RootDir">
