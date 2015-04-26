@@ -34,8 +34,8 @@ private:
   float m_maxFOV = 3.142f / 3.f;
   float m_minFOV = 3.142f / 6.f;
 
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width  = 0;
+  uint32_t m_height = 0;
 
   CaffMath::Matrix44 m_modelMatrix = CaffMath::Matrix44InitIdentity();
   CaffMath::Matrix44 m_viewMatrix = CaffMath::Matrix44InitIdentity();
