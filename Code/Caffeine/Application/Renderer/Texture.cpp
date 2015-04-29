@@ -128,7 +128,6 @@ namespace
   {
     using namespace CaffApp::Dev;
 
-    const auto externalFormat = format == Format::DEV ? GL_RGBA32F : GL_RGBA ;
     const auto internalFormat = GL_RGBA;
     const auto formatType     = format == Format::R8G8B8 ? GL_UNSIGNED_BYTE : GL_FLOAT;
     const auto glDimention    = GetDimentionTarget(dimention);
@@ -193,12 +192,12 @@ namespace
 {
   void SetTextureDimentionFromDataSize(const TextureD dimention, const std::size_t dataSize, uint32_t &outWidth, uint32_t &outHeight)
   {
-    assert(CaffMath::IsPOW2(dataSize)); // only pow2 square textures.
+    assert(CaffMath::IsPOW2(static_cast<int32_t>(dataSize))); // only pow2 square textures.
 
     switch(dimention)
     {
     case(TextureD::ONE_D):
-       outWidth = dataSize;
+       outWidth = static_cast<uint32_t>(dataSize);
        outHeight = 1;
        break;
     case(TextureD::TWO_D):
@@ -253,7 +252,7 @@ void Texture::loadTexture(const std::vector<uint8_t> &data, const TextureD dimen
 void Texture::updateSubset(const std::vector<float> &data, const uint32_t offsetX, const uint32_t offsetY)
 {
   assert(m_textureID);
-  assert(CaffMath::IsPOW2(data.size()));
+  assert(CaffMath::IsPOW2(static_cast<uint32_t>(data.size())));
 
   uint32_t sizeX = m_width;
   uint32_t sizeY = m_height;

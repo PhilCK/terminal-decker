@@ -44,7 +44,11 @@ public:
 		return *this;
 	}
 
+#ifdef __APPLE__
+    CoreModule& operator=(CoreModule&&) noexcept = default;
+#else
 	CoreModule& operator=(CoreModule&&) {} /*noexcept = default;*/
+#endif
 
 	// Module Interface
 	friend void new_data(CoreModule& t)

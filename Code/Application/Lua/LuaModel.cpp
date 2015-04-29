@@ -84,8 +84,11 @@ LuaModel::LuaModel(TextConsoleController &consoleController, CaffApp::Applicatio
   //luaL_newmetatable(L, "terminald");
   lua_getglobal(L, "terminal");
   luaL_setfuncs(L, terminal_funcs, 0);
+  
+  const std::string package_path = "package.path = package.path .. ';" + CaffUtil::GetPathDir() + "GameCode/?.lua'";
+  luaL_dostring(L, package_path.c_str());
 
-  const std::string entry(CaffUtil::GetPathDir() + "GameCode\\Terminal\\main.lua");
+  const std::string entry(CaffUtil::GetPathDir() + "GameCode/Terminal/main.lua");
 
   if(luaL_dofile(L, entry.c_str()))
   {
@@ -139,7 +142,7 @@ void LuaModel::onCommand(const std::string &command, const std::string &args)
   }
   
 
-  bool retValue = lua_toboolean(L, -1);
+  lua_toboolean(L, -1); // return bool
   lua_pop(L, 1);
 
 }

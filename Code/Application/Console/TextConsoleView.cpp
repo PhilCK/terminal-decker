@@ -156,7 +156,7 @@ void TextConsoleView::render(CaffApp::Dev::Device &renderer)
     glDisable(GL_DEPTH_TEST);
           
     m_postShader.setShader1f("frameTime", frameTime);
-    m_postShader.setShader2f("screenSize", {{ m_finalOutput.getWidth(), m_finalOutput.getHeight() }});
+    m_postShader.setShader2f("screenSize", {{ static_cast<float>(m_finalOutput.getWidth()), static_cast<float>(m_finalOutput.getHeight()) }});
     m_postShader.setTexture("texFramebuffer", m_frameBuffer);
 
     CaffApp::Dev::Renderer::Draw(m_finalOutput, m_postShader, m_postVF, m_postVBO);

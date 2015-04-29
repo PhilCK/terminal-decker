@@ -1,9 +1,10 @@
 
 
-require "GameCode/Terminal/systems/system_local"
-require "GameCode/Terminal/systems/system_elevator"
-require "GameCode/Terminal/systems/system_net"
-require "GameCode/Terminal/systems/local"
+require "Terminal/systems/system_local"
+require "Terminal/systems/system_elevator"
+require "Terminal/systems/system_net"
+require "Terminal/systems/local"
+
 
 
 -- Anything you want to load?

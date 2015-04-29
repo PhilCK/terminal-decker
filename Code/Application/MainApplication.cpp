@@ -28,8 +28,8 @@
 #include <Application/Scene/SceneModel.hpp>
 
 #include <lua.hpp>
-#include <Lua/LuaController.hpp>
-#include <Lua/LuaModel.hpp>
+#include <Application/Lua/LuaController.hpp>
+#include <Application/Lua/LuaModel.hpp>
 #include <vector>
 
 #include <core/core.hpp>
@@ -181,25 +181,6 @@ private:
 } // namespace
 
 
-void hello()
-{
-  std::cout << "Hello!" << std::endl;
-}
-
-int testHello(lua_State*L)
-{
-  hello();
-
-  return 0;
-}
-
-const luaL_Reg lua_funcs[] = 
-{
-  {"hello", testHello},
-  {0,0},
-};
-
-
 int main(int argc, char **argv)
 {
   // Core
@@ -214,13 +195,6 @@ int main(int argc, char **argv)
 
   Terminal::Application app;
   app.start();
-
-  //lua_State *L = luaL_newstate();
-  //luaL_openlibs(L);
-  //lua_pushglobaltable(L); 
-  //luaL_setfuncs(L, lua_funcs, 0);
-
-  //luaL_dostring(L, "hello()");
 
   return 0;
 }

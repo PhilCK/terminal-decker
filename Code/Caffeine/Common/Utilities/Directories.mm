@@ -1,6 +1,6 @@
 
-#import <Caffeine/Utilities/Directories.hpp>
-#import <Caffeine/Utilities/Logging.hpp>
+#import <Caffeine/Common/Utilities/Directories.hpp>
+#import <Caffeine/Common/Utilities/Logging.hpp>
 #import <dirent.h>
 #import <Foundation/Foundation.h>
 

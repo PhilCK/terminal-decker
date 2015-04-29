@@ -100,8 +100,8 @@ inline float FMod(const float x, const float max)
 template<typename T>
 bool InRange(const T x, const T a, const T b)
 {
-	const float smallest = CaffMath::Min(a, b);
-	const float biggest  = CaffMath::Max(a, b);
+    const float smallest = Math::Min(a, b);
+	const float biggest  = Math::Max(a, b);
 	
 	return (x < smallest || x > biggest);
 }
@@ -135,7 +135,7 @@ inline float SquareRoot(const float x) {
 
 
 
-inline bool IsPOW2(const int i)
+inline bool IsPOW2(const int32_t i)
 {
 	return (i & -i) == i;
 }

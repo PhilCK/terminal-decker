@@ -5,13 +5,6 @@
 #include <Caffeine/Math/Quaternion.hpp>
 
 
-namespace
-{
-  const float freeviewFOVTarget = 3.143f / 1.5f;
-  const float lockonFOVTarget = 3.143f / 6.f;
-}
-
-
 SceneController::SceneController(SceneModel &model)
 : m_model(model)
 , m_controllerState(SceneState::LOCKON_TARGET_0)
@@ -62,8 +55,6 @@ void SceneController::update(const float dt, const CaffApp::Input &input)
   {
     const float distance  = m_targetFOV - m_model.getCurrentFOV();
     const float updatePos = distance * (dt * 2);
-    const float clamped   = CaffMath::Clamp(updatePos, m_model.getMinFOV(), m_model.getMaxFOV());
-    
     const float newPos    = m_model.getCurrentFOV() + updatePos;
 
     m_model.setFOV(newPos);
