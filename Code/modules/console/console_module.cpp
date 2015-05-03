@@ -34,7 +34,7 @@ on_think(ConsoleModule &self)
 void
 on_data_change(ConsoleModule &self, const std::vector<caffcore::DataNode> &nodes)
 {
-  const char* a = static_cast<char*>(nodes[0].data);
+  //const char* a = static_cast<char*>(nodes[0].data);
 
   
 }

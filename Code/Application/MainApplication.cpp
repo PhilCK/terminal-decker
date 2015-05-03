@@ -27,14 +27,15 @@
 #include <Application/Scene/SceneView.hpp>
 #include <Application/Scene/SceneModel.hpp>
 
-#include <lua.hpp>
-#include <Lua/LuaController.hpp>
-#include <Lua/LuaModel.hpp>
+#include <Application/Lua/lua_interface.hpp>
+#include <Application/Lua/LuaModel.hpp>
 #include <vector>
 
 #include <core/core.hpp>
 #include <core/data_core.hpp>
 #include <modules/console/console_module.hpp>
+
+#include <Application/Console/console_screen_controller.hpp>
 
 
 namespace
@@ -62,11 +63,11 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
-  , m_textConsoleModel(80, 25, GetFontData("moop"))
-  , m_textConsoleView(m_textConsoleModel)
-  , m_textConsoleController(m_textConsoleModel)
-  , m_luaModel(m_textConsoleController, m_caffApp)
-  , m_luaController(m_luaModel)
+  //, m_textConsoleModel(80, 25, GetFontData("moop"))
+  //, m_textConsoleView(m_textConsoleModel)
+  //, m_textConsoleController(m_textConsoleModel)
+  //, m_luaModel(m_textConsoleController, m_caffApp)
+  , m_laptop(4)
   , m_sceneModel()
   , m_sceneView(m_sceneModel)
   , m_sceneController(m_sceneModel)
@@ -75,13 +76,13 @@ public:
 
     // Inital Controller
     {
-      m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});
-      m_textConsoleController.addStringToBuffer("     |Welcome To Remote Console V1.2|");
-      m_textConsoleController.addContentToBuffer({32,32,32,32,32,9560,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9563});
-      m_textConsoleController.addStringToBuffer("");
-      m_textConsoleController.addContentToBuffer({32,32,32,32,32,32,32,32,9617,9618,9619,9608, 32, 65,84,32,89,79,85,82,32,79,87,78,32,82,73,83,75,32, 9608, 9619,9618,9617});
-      m_textConsoleController.addStringToBuffer("");
-      m_textConsoleController.setPrompt("ReCON:> ");
+      //m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});
+      //m_textConsoleController.addStringToBuffer("     |Welcome To Remote Console V1.2|");
+      //m_textConsoleController.addContentToBuffer({32,32,32,32,32,9560,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9563});
+      //m_textConsoleController.addStringToBuffer("");
+      //m_textConsoleController.addContentToBuffer({32,32,32,32,32,32,32,32,9617,9618,9619,9608, 32, 65,84,32,89,79,85,82,32,79,87,78,32,82,73,83,75,32, 9608, 9619,9618,9617});
+      //m_textConsoleController.addStringToBuffer("");
+      //m_textConsoleController.setPrompt("ReCON:> ");
     }
 
     // Input
@@ -95,7 +96,13 @@ public:
 
     // Lua
     {
-      m_luaModel.onLoaded();
+      lua_interface::create_lua_state();
+      lua_interface::register_modules_available_in_lua(&m_laptop, &m_caffApp);
+      lua_interface::register_lua_functions();
+      lua_interface::call_main_lua_file();
+      lua_interface::call_lua_on_loaded();
+    
+      //m_luaModel.onLoaded();
     }
   }
 
@@ -106,20 +113,24 @@ public:
     {
       m_caffApp.startFrame();
 
-      const float32_t deltaTime = m_caffApp.getDeltaTime();
+      const float delta_time = m_caffApp.getDeltaTime();
       
       // Update / Render
       {
         m_caffApp.getInput().setMouseHold(true);
 
-        m_textConsoleModel.prepareData();
-        m_luaModel.onUpdate();
-        m_sceneController.update(deltaTime, m_caffApp.getInput());
+        //m_textConsoleModel.prepareData();
+        m_laptop.think(delta_time);
+        
+        //m_luaModel.onUpdate();
+        lua_interface::call_lua_on_update(delta_time);
+        m_sceneController.update(delta_time, m_caffApp.getInput());
 
-        m_textConsoleView.render(m_caffApp.getRenderer());
+        //m_textConsoleView.render(m_caffApp.getRenderer());
+        CaffApp::Dev::FrameBuffer& console_output = m_laptop.render(m_caffApp.getRenderer());
 
         m_caffApp.getRenderer().clear();
-        m_sceneView.draw(m_caffApp.getRenderer(), m_textConsoleView.getConsoleFrameBuffer());
+        m_sceneView.draw(m_caffApp.getRenderer(), console_output);
       }
 
       caffcore::think_all_modules();
@@ -132,7 +143,8 @@ public:
 
   void onTextStream(const std::string &str)
   {
-    m_textConsoleController.addStringToInput(str);
+    //m_textConsoleController.addStringToInput(str);
+    m_laptop.add_string_to_input(m_laptop.get_current_active_screen(), str);
 
     static std::string dataStr;
     dataStr = str;
@@ -148,15 +160,21 @@ public:
     {
       if(id == CaffApp::KeyID::KB_BACKSPACE)
       {
-        m_textConsoleController.backspaceInput();
+        //m_textConsoleController.backspaceInput();
+        m_laptop.backspace_input(m_laptop.get_current_active_screen());
       }
 
       if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
       {
-        m_textConsoleController.addStringToBuffer(m_textConsoleModel.getInput());
-        m_luaModel.onCommand(m_textConsoleModel.getInput(), "");
+        //m_textConsoleController.addStringToBuffer(m_textConsoleModel.getInput());
+        //m_luaModel.onCommand(m_textConsoleModel.getInput(), "");
+        const std::string input = m_laptop.get_input(m_laptop.get_current_active_screen());
+        
+        m_laptop.add_string_to_screen(m_laptop.get_current_active_screen(), input);
+        lua_interface::call_lua_on_command(input);
 
-        m_textConsoleController.clearInput();
+        //m_textConsoleController.clearInput();
+        m_laptop.clear_input(m_laptop.get_current_active_screen());
       }
     }
   }
@@ -165,39 +183,21 @@ private:
 
   CaffApp::Application                    m_caffApp;
 
-  TextConsoleModel                        m_textConsoleModel;
-  TextConsoleView                         m_textConsoleView;
-  TextConsoleController                   m_textConsoleController;
+  //TextConsoleModel                        m_textConsoleModel;
+  //TextConsoleView                         m_textConsoleView;
+  //TextConsoleController                   m_textConsoleController;
 
-  LuaModel                                m_luaModel;
-  LuaController                           m_luaController;
+  //LuaModel                                m_luaModel;
 
   SceneModel                              m_sceneModel;
   SceneView                               m_sceneView;
   SceneController                         m_sceneController;
+  
+  console_screen_controller              m_laptop;
 
 };
 
 } // namespace
-
-
-void hello()
-{
-  std::cout << "Hello!" << std::endl;
-}
-
-int testHello(lua_State*L)
-{
-  hello();
-
-  return 0;
-}
-
-const luaL_Reg lua_funcs[] = 
-{
-  {"hello", testHello},
-  {0,0},
-};
 
 
 int main(int argc, char **argv)
@@ -214,13 +214,6 @@ int main(int argc, char **argv)
 
   Terminal::Application app;
   app.start();
-
-  //lua_State *L = luaL_newstate();
-  //luaL_openlibs(L);
-  //lua_pushglobaltable(L); 
-  //luaL_setfuncs(L, lua_funcs, 0);
-
-  //luaL_dostring(L, "hello()");
 
   return 0;
 }

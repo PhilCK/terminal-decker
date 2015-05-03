@@ -117,85 +117,71 @@ void Window::pumpSystemEvent(const void * sysEventData)
     {
       case(SDL_WINDOWEVENT_SHOWN): // When shown for the first time.
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_HIDDEN):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_EXPOSED): // Called from start and also when window comes back from minimized. 
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_MOVED):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_SIZE_CHANGED):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_RESIZED): // Called when size window dragged or max button pressed. and sometimes when SetWindowSize() is called.
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_MAXIMIZED):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_MINIMIZED):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_RESTORED): // When minimised and brought back onto the screen.
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_ENTER): // When mouse pointer hovers over. Even if not in focus.
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_LEAVE): // When mouse pointer leaves the window. Even if not in focus.
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_FOCUS_GAINED):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_FOCUS_LOST):
       {
-        int i = 0;
         break;
       }
 
       case(SDL_WINDOWEVENT_CLOSE): // When x hit.
       {
-        int i = 0;
         break;
       }
     }

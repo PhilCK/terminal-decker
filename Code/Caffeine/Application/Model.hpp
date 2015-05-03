@@ -96,16 +96,7 @@ struct AABB
     CaffMath::Vector3 max;
     CaffMath::Vector3 min;
     
-    CaffMath::Vector3 getSize() const
-    {
-      const float32_t x = CaffMath::Abs(x) + CaffMath::Abs(x);
-      const float32_t y = CaffMath::Abs(y) + CaffMath::Abs(y);
-      const float32_t z = CaffMath::Abs(z) + CaffMath::Abs(z);
-      
-      const CaffMath::Vector3 size = CaffMath::Vector3Init(x, y, z);
-      
-      return size;
-    }
+
     
     CaffMath::Vector3 getCenter() const
     {

@@ -45,7 +45,7 @@ public:
   inline std::size_t      getNumberOfElements() const { return m_format.size(); }
   inline uint32_t         getStride() const { return m_stride; }
 
-  Attribute               getAttr(const int i) const { return m_format.at(i); }
+  Attribute               getAttr(const std::size_t i) const { return m_format.at(i); }
 
   void                    bind() const;
 

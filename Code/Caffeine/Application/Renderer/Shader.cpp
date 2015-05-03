@@ -145,35 +145,8 @@ void Shader::loadShader(const std::string &vertShader, const std::string &pixelS
 
       auto findLine = [](const std::string &log, const std::string &shader, const std::string &logTag) -> std::string
       {
-        const auto position = log.find(":", logTag.size());
-        
-        //if(position != std::string::npos)
-        if(false)
-        {
-          const std::size_t colNo = std::stoi(log.substr(logTag.size(), position - (logTag.size()) - 1));
-          
-          const auto secondPosition = log.find(":", position + 1);
-
-          if(secondPosition != std::string::npos)
-          {
-            const std::size_t sizeOfNumber = secondPosition - position - 1;
-            const std::size_t rowNo = std::stoi(log.substr(position + 1, sizeOfNumber));
-
-            std::size_t currSearchPos = 0;
-
-            for(std::size_t i = 1; i < rowNo; ++i)
-            {
-              currSearchPos = shader.find('\n', currSearchPos);
-              currSearchPos++;
-            }
-
-            const std::string shaderSnip = shader.substr(currSearchPos, CaffMath::Min((uint32_t)10, shader.size() - currSearchPos));
-            return "CODE: " + shaderSnip;
-          }
-        }
-
+        // This needs to work much better.
         return "";
-
       };
 
       if(isCompiled == GL_FALSE)
@@ -282,7 +255,7 @@ void Shader::loadShader(const std::string &vertShader, const std::string &pixelS
 
         glUniform1i(location, m_samplers.size());
         
-        m_samplers.emplace_back(Sampler{uniformName, m_samplers.size()});
+        m_samplers.emplace_back(Sampler{uniformName, static_cast<uint32_t>(m_samplers.size())});
       }
       // Then uniform
       else
@@ -294,7 +267,7 @@ void Shader::loadShader(const std::string &vertShader, const std::string &pixelS
           const GLint index = glGetUniformLocation(m_programID, uniformName.c_str());
           const auto type = getGLConstantType(glType);
 
-          m_constants.emplace_back(Constant{uniformName, index, (int)type, size});
+            m_constants.emplace_back(Constant{uniformName, static_cast<uint32_t>(index), static_cast<int32_t>(type), static_cast<int32_t>(size)});
         }
       }
     }
@@ -398,6 +371,9 @@ void Shader::bind() const
         case(ConstantType::MAT2): 	glUniformMatrix2fv(index, numberOfElements, GL_FALSE, (GLfloat*)data); break;
         case(ConstantType::MAT3): 	glUniformMatrix3fv(index, numberOfElements, GL_FALSE, (GLfloat*)data); break;
         case(ConstantType::MAT4): 	glUniformMatrix4fv(index, numberOfElements, GL_FALSE, (GLfloat*)data); break;
+          
+        default:
+          assert(false); // Why did you get here?
       };
     }
     

@@ -16,7 +16,7 @@ uint32_t lighting_manager::add_light(const light &light)
 {
   m_lights.push_back(light);
 
-  return m_lights.size();
+  return static_cast<uint32_t>(m_lights.size());
 }
 
 

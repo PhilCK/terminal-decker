@@ -1,10 +1,19 @@
-﻿#ifndef LUA_MODEL_INCLUDED_D7BB0EBA_EE4F_4123_A8F9_9940C6CE76D
-#define LUA_MODEL_INCLUDED_D7BB0EBA_EE4F_4123_A8F9_9940C6CE76D
+﻿/*
+  Lua Callback
+  --
+  Creates the Lua state and provides the call back mechanisms.
+*/
+
+#ifndef LUA_CALLBACK_INCLUDED_D7BB0EBA_EE4F_4123_A8F9_9940C6CE76D
+#define LUA_CALLBACK_INCLUDED_D7BB0EBA_EE4F_4123_A8F9_9940C6CE76D
 
 #include <lua.hpp>
 #include <string>
 #include <Application/Console/TextConsoleFwd.hpp>
 #include <Caffeine/Application/Application.hpp>
+
+
+
 
 class LuaModel
 {

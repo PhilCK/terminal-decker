@@ -33,6 +33,14 @@ namespace
 
      return vertDesc;
   }
+  
+  std::vector<float> DummyVector()
+  {
+    std::vector<float> vec;
+    vec.reserve((4096 * 4) * 4);
+    
+    return vec;
+  }
 }
 
 
@@ -47,26 +55,23 @@ FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
 }
 
 
-TextConsoleView::TextConsoleView(const TextConsoleModel &model)
-: m_model(model)
-, m_textureLookup(m_model.getPropertyData(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV,  m_model.getSizeOfProperty(),  4096)
+TextConsoleView::TextConsoleView(const uint32_t cols, const uint32_t rows, const uint32_t size_of_text_property, const float max_char_width, const float max_char_height)
+: m_textureLookup(DummyVector(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV, 16 / 4,  4096)
 , m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
 , m_postShader(CaffApp::Dev::ShaderUtil::GetShaderCodeFromFile(CaffUtil::GetPathDir() + "Shaders/Post.shd"))
 , m_postVBO(GetFullScreenVerts())
+
 , m_postVF(GetPostVF())
 , m_finalOutput()
 {
   assert(m_postShader.isValid());
   assert(m_postVBO.isValid());
 
-  const uint32_t cols = m_model.getColumns();
-  const uint32_t rows = m_model.getRows();
-
   // Size of framebuffer
   {
-    const uint32_t sizeOfWidth  = cols * m_model.getMaxCharWidth();
-    const uint32_t sizeOfHeight = rows * m_model.getLineHeight();
-
+    const uint32_t sizeOfWidth  = cols * max_char_width;
+    const uint32_t sizeOfHeight = rows * max_char_height;
+  
     m_frameBuffer.loadBuffer(sizeOfWidth, sizeOfHeight);
     assert(m_frameBuffer.isValid());
 
@@ -121,7 +126,7 @@ TextConsoleView::TextConsoleView(const TextConsoleModel &model)
 }
 
 
-void TextConsoleView::render(CaffApp::Dev::Device &renderer)
+CaffApp::Dev::FrameBuffer& TextConsoleView::render(TextConsoleModel &model, CaffApp::Dev::Device &renderer)
 {
   // Console
   {
@@ -134,7 +139,7 @@ void TextConsoleView::render(CaffApp::Dev::Device &renderer)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_CULL_FACE); // TODO: Done UV's backwards :/
 
-    m_textureLookup.updateSubset(m_model.getPropertyData(), 0, 0);
+    m_textureLookup.updateSubset(model.getPropertyData(), 0, 0);
 
     m_textShader.setTexture("fontLookup", m_fontLookup);
     m_textShader.setTexture("dataLookup", m_textureLookup);
@@ -143,7 +148,7 @@ void TextConsoleView::render(CaffApp::Dev::Device &renderer)
     m_textShader.bind();
     m_consoleGridVBO.bind(m_consoleGridVF, m_textShader);
   
-    glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(m_model.getNumberOfCharactersInData()));
+    glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(model.getNumberOfCharactersInData()));
   } // Console
 
   // Post
@@ -156,9 +161,11 @@ void TextConsoleView::render(CaffApp::Dev::Device &renderer)
     glDisable(GL_DEPTH_TEST);
           
     m_postShader.setShader1f("frameTime", frameTime);
-    m_postShader.setShader2f("screenSize", {{ m_finalOutput.getWidth(), m_finalOutput.getHeight() }});
+    m_postShader.setShader2f("screenSize", {{ static_cast<float>(m_finalOutput.getWidth()), static_cast<float>(m_finalOutput.getHeight()) }});
     m_postShader.setTexture("texFramebuffer", m_frameBuffer);
 
     CaffApp::Dev::Renderer::Draw(m_finalOutput, m_postShader, m_postVF, m_postVBO);
   } // Post
+  
+  return m_finalOutput;
 }

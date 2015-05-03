@@ -36,16 +36,14 @@ class TextConsoleView
 {
 public:
 
-  explicit                      TextConsoleView(const TextConsoleModel &model);
+  explicit                      TextConsoleView(const uint32_t cols, const uint32_t rows, const uint32_t size_of_text_property, const float max_char_width, const float max_char_height);
 
-  void                          render(CaffApp::Dev::Device &renderer);
-
-  CaffApp::Dev::FrameBuffer&    getConsoleFrameBuffer() { return m_finalOutput; }
+  CaffApp::Dev::FrameBuffer&    render(TextConsoleModel &model, CaffApp::Dev::Device &renderer);
 
 
-//private:
+private:
   
-  const TextConsoleModel        &m_model;
+  //const TextConsoleModel        &m_model;
 
   CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
   CaffApp::Dev::VertexBuffer    m_postVBO;

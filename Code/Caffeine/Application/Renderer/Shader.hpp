@@ -64,8 +64,8 @@ private:
   {
   	std::string name;
 	  uint32_t    index;
-	  uint32_t    type;
-	  uint32_t    nElements;
+    int32_t    type;
+	  int32_t    nElements;
   };
 
   struct Sampler

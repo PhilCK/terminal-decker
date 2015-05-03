@@ -6,6 +6,10 @@
 #include <iostream>
 
 
+
+
+
+
 namespace
 {
   using ReturnVals = int;
@@ -31,13 +35,17 @@ namespace
   {
     return 0;
   }
+  
+  ReturnVals terminal_number_of_local_instances(lua_State *L)
+  {
+    return 2;
+  }
 
   ReturnVals terminal_echo(lua_State *L)
   {
     if(termConsoleController)
     {
       const std::string str = lua_tostring(L, 1);
-
 
       termConsoleController->addStringToBuffer(str);
     }
@@ -84,8 +92,11 @@ LuaModel::LuaModel(TextConsoleController &consoleController, CaffApp::Applicatio
   //luaL_newmetatable(L, "terminald");
   lua_getglobal(L, "terminal");
   luaL_setfuncs(L, terminal_funcs, 0);
+  
+  const std::string package_path = "package.path = package.path .. ';" + CaffUtil::GetPathDir() + "GameCode/?.lua'";
+  luaL_dostring(L, package_path.c_str());
 
-  const std::string entry(CaffUtil::GetPathDir() + "GameCode\\Terminal\\main.lua");
+  const std::string entry(CaffUtil::GetPathDir() + "GameCode/Terminal/main.lua");
 
   if(luaL_dofile(L, entry.c_str()))
   {
@@ -139,7 +150,7 @@ void LuaModel::onCommand(const std::string &command, const std::string &args)
   }
   
 
-  bool retValue = lua_toboolean(L, -1);
+  lua_toboolean(L, -1); // return bool
   lua_pop(L, 1);
 
 }

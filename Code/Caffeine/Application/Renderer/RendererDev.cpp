@@ -11,10 +11,7 @@
 
 namespace
 {
-   void setShader(const CaffApp::Dev::Shader &shader)
-   {
 
-   }
 }
 
 
@@ -54,7 +51,7 @@ void Draw(const Device &device, const Shader &shader, const VertexFormat &vertex
   shader.bind();
   vertexBuffer.bind(vertexFormat, shader);
 
-  glDrawArrays(GL_TRIANGLES, 0, vertexBuffer.getNumberOfTriangles());
+  glDrawArrays(GL_TRIANGLES, 0, static_cast<GLint>(vertexBuffer.getNumberOfTriangles()));
 
   GL_ERROR("Drawing to device.")
 }
@@ -67,7 +64,7 @@ void Draw(const FrameBuffer &frameBuffer, const Shader &shader, const VertexForm
   shader.bind();
   vertexBuffer.bind(vertexFormat, shader);
 
-  glDrawArrays(GL_TRIANGLES, 0, vertexBuffer.getNumberOfTriangles());
+  glDrawArrays(GL_TRIANGLES, 0, static_cast<GLint>(vertexBuffer.getNumberOfTriangles()));
 
   GL_ERROR("Drawing to frame buffer.")
 }
