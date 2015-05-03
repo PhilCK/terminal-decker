@@ -1,77 +1,55 @@
 
-
-require "Terminal/systems/system_local"
-require "Terminal/systems/system_elevator"
-require "Terminal/systems/system_net"
-require "Terminal/systems/local"
-
+require "Terminal/laptop"
 
 
 -- Anything you want to load?
-function terminal.load()
+function terminal.on_load()
 
-	terminal.systems = {}
+  local screen_id = terminal.get_current_screen_id()
 
-	terminal.systems[1] = elevator_sys -- better way to insert?
-	terminal.systems[2] = local_sys
-	terminal.systems[3] = net_sys
-
-	print("terminal.loaded")
+  laptop.boot_up(screen_id)
 
 end
 
 
 -- User entered in a cmd.
-function terminal.input_string(input)
+function terminal.on_input_string(input)
 
-	print("terminal.input_string")
-	print(input)
+  local screen_id = terminal.get_current_screen_id()
 
-	local is_valid = true;
-
-
-	-- -- if valid command
-	-- if is_valid then
-		
-	-- 	local found_command = false;
-
-	-- 	for i, v in pairs(terminal.systems) do
-	-- 		found_command = v.input(input)
-
-	-- 		-- Command was consumed by a system so stop
-	-- 		if found_command then
-	-- 			return true
-	-- 		end
-	-- 	end
-
-	-- end
-
-	-- bad request.
-	terminal.echo(" - bad request - ")
-
-	return false;
+  -- quit application
+  if(input == "app.quit") then
+    terminal.quit()
+    return
+  end
+  
+  -- pass through to game
+  laptop.input_str(screen_id, input)
 
 end
 
 
 -- User requested an auto complete.
-function terminal.auto_complete(current_cmd_string)
+function terminal.on_auto_complete(current_cmd_string)
+
+
 
 end
 
 
 -- Update tick.
-function terminal.update()
+function terminal.on_think(delta_time)
+
+  local screen_id = terminal.get_current_screen_id()
+  
+  laptop.on_think(screen_id, delta_time)
 
 end
 
 
 -- Last chance to save.
-function terminal.quitting()
+function terminal.on_quit()
+
+
 
 end
-
-
--- terminal.console.set_prompt("admin: ")
--- terminal.console.add_to_buffer("foop")
--- terminal.console.set_input(false)

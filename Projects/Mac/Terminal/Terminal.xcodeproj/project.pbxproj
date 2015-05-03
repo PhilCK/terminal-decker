@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E8BAC961AF50905002D4B62 /* console_screen_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */; };
 		7EA599741AF1552600800BB4 /* TextConsoleController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
 		7EA599781AF1552600800BB4 /* UTF8String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599181AF1552600800BB4 /* UTF8String.cpp */; };
-		7EA599791AF1552600800BB4 /* LuaController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5991B1AF1552600800BB4 /* LuaController.cpp */; };
 		7EA5997A1AF1552600800BB4 /* LuaModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5991E1AF1552600800BB4 /* LuaModel.cpp */; };
 		7EA5997B1AF1552600800BB4 /* MainApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599201AF1552600800BB4 /* MainApplication.cpp */; };
 		7EA5997C1AF1552600800BB4 /* SceneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599221AF1552600800BB4 /* SceneController.cpp */; };
@@ -85,6 +85,7 @@
 		7EA59AD71AF156DF00800BB4 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD21AF156DF00800BB4 /* Models */; };
 		7EA59AD81AF156DF00800BB4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD31AF156DF00800BB4 /* Shaders */; };
 		7EA59AD91AF156DF00800BB4 /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD41AF156DF00800BB4 /* Textures */; };
+		7ED619EB1AF4A9C600CC4B0F /* lua_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7ED619E91AF4A9C600CC4B0F /* lua_interface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = console_screen_controller.cpp; sourceTree = "<group>"; };
+		7E8BAC951AF50905002D4B62 /* console_screen_controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = console_screen_controller.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextConsoleController.cpp; sourceTree = "<group>"; };
@@ -114,8 +117,6 @@
 		7EA599161AF1552600800BB4 /* TextDataParse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextDataParse.hpp; sourceTree = "<group>"; };
 		7EA599181AF1552600800BB4 /* UTF8String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8String.cpp; sourceTree = "<group>"; };
 		7EA599191AF1552600800BB4 /* UTF8String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8String.hpp; sourceTree = "<group>"; };
-		7EA5991B1AF1552600800BB4 /* LuaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaController.cpp; sourceTree = "<group>"; };
-		7EA5991C1AF1552600800BB4 /* LuaController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaController.hpp; sourceTree = "<group>"; };
 		7EA5991D1AF1552600800BB4 /* LuaFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaFwd.hpp; sourceTree = "<group>"; };
 		7EA5991E1AF1552600800BB4 /* LuaModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaModel.cpp; sourceTree = "<group>"; };
 		7EA5991F1AF1552600800BB4 /* LuaModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaModel.hpp; sourceTree = "<group>"; };
@@ -263,6 +264,8 @@
 		7EA59AD21AF156DF00800BB4 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = ../../../Assets/Models; sourceTree = "<group>"; };
 		7EA59AD31AF156DF00800BB4 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../../../Assets/Shaders; sourceTree = "<group>"; };
 		7EA59AD41AF156DF00800BB4 /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../Assets/Textures; sourceTree = "<group>"; };
+		7ED619E91AF4A9C600CC4B0F /* lua_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_interface.cpp; sourceTree = "<group>"; };
+		7ED619EA1AF4A9C600CC4B0F /* lua_interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lua_interface.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +335,8 @@
 		7EA5990D1AF1552600800BB4 /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */,
+				7E8BAC951AF50905002D4B62 /* console_screen_controller.hpp */,
 				7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */,
 				7EA5990F1AF1552600800BB4 /* TextConsoleController.hpp */,
 				7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */,
@@ -357,8 +362,8 @@
 		7EA5991A1AF1552600800BB4 /* Lua */ = {
 			isa = PBXGroup;
 			children = (
-				7EA5991B1AF1552600800BB4 /* LuaController.cpp */,
-				7EA5991C1AF1552600800BB4 /* LuaController.hpp */,
+				7ED619E91AF4A9C600CC4B0F /* lua_interface.cpp */,
+				7ED619EA1AF4A9C600CC4B0F /* lua_interface.hpp */,
 				7EA5991D1AF1552600800BB4 /* LuaFwd.hpp */,
 				7EA5991E1AF1552600800BB4 /* LuaModel.cpp */,
 				7EA5991F1AF1552600800BB4 /* LuaModel.hpp */,
@@ -706,6 +711,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7EA599051AF1545B00800BB4 /* Build configuration list for PBXNativeTarget "Terminal" */;
 			buildPhases = (
+				7EA59B1D1AF168F900800BB4 /* Run Script - Touch Assets */,
 				7EA598E41AF1545B00800BB4 /* Sources */,
 				7EA598E51AF1545B00800BB4 /* Frameworks */,
 				7EA59A761AF1569100800BB4 /* CopyFiles */,
@@ -767,12 +773,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7EA59B1D1AF168F900800BB4 /* Run Script - Touch Assets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script - Touch Assets";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DIR=\"$PROJECT_DIR/../../../Assets\"\nfind $DIR -type d -exec touch \"{}\" \\+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7EA598E41AF1545B00800BB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7EA59A551AF1553D00800BB4 /* llex.c in Sources */,
+				7E8BAC961AF50905002D4B62 /* console_screen_controller.cpp in Sources */,
 				7EA59A511AF1553D00800BB4 /* lfunc.c in Sources */,
 				7EA5997C1AF1552600800BB4 /* SceneController.cpp in Sources */,
 				7EA59A5E1AF1553D00800BB4 /* lstring.c in Sources */,
@@ -787,7 +811,6 @@
 				7EA59A6D1AF1553D00800BB4 /* image_DXT.c in Sources */,
 				7EA599831AF1552600800BB4 /* FrameBuffer.cpp in Sources */,
 				7EA59A711AF1553D00800BB4 /* tinyxml2.cpp in Sources */,
-				7EA599791AF1552600800BB4 /* LuaController.cpp in Sources */,
 				7EA599881AF1552600800BB4 /* VertexBuffer.cpp in Sources */,
 				7EA599911AF1552600800BB4 /* Math.cpp in Sources */,
 				7EA599921AF1552600800BB4 /* lighting_manager.cpp in Sources */,
@@ -824,6 +847,7 @@
 				7EA599841AF1552600800BB4 /* IndexBuffer.cpp in Sources */,
 				7EA59A491AF1553D00800BB4 /* lbitlib.c in Sources */,
 				7EA59A6F1AF1553D00800BB4 /* SOIL.c in Sources */,
+				7ED619EB1AF4A9C600CC4B0F /* lua_interface.cpp in Sources */,
 				7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */,
 				7EA59A4F1AF1553D00800BB4 /* ldo.c in Sources */,
 				7EA59A5C1AF1553D00800BB4 /* lparser.c in Sources */,
@@ -1013,6 +1037,7 @@
 				7EA599071AF1545B00800BB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

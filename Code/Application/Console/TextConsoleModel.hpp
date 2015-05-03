@@ -1,6 +1,7 @@
 #ifndef TEXT_CONSOLE_MODEL_INCLUDED_335C9250_E154_440B_ADDA_85DAFEDAD3D2
 #define TEXT_CONSOLE_MODEL_INCLUDED_335C9250_E154_440B_ADDA_85DAFEDAD3D2
 
+
 #include <Application/Console/TextDataParse.hpp>
 #include <Application/Lib/UTF8String.hpp>
 #include <Caffeine/Common/Platform.hpp>
@@ -9,12 +10,16 @@
 #include <mutex>
 #include <deque>
 
+
 class TextConsoleModel
 {
+
+  TextConsoleModel(const TextConsoleModel&) = delete;
+  TextConsoleModel& operator=(const TextConsoleModel&) = delete;
+
 public:
 
   explicit                    TextConsoleModel(const uint16_t cols, const uint16_t rows, FontData::FontDataInfo fontData);
-                              ~TextConsoleModel() {}
 
   inline uint32_t             getColumns() const    { return (m_charSize >> 16) & 0xFF; }
   inline uint32_t             getRows() const       { return m_charSize & 0xFF; }
@@ -40,7 +45,7 @@ public:
 
 private:
 
-  friend class TextConsoleController;
+  friend class console_screen_controller;
 
   void                        addStringToBuffer(const std::vector<uint32_t> &content);
   void                        clearBuffer();
@@ -65,6 +70,8 @@ private:
   uint32_t                    m_numberOfCharsInData   = 0; // TODO: Remove, and figure number based on data!
   bool                        m_bufferDirty           = true;
 
+
 }; // class
+
 
 #endif // include guard

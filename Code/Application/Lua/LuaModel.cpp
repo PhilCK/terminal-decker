@@ -6,6 +6,10 @@
 #include <iostream>
 
 
+
+
+
+
 namespace
 {
   using ReturnVals = int;
@@ -31,13 +35,17 @@ namespace
   {
     return 0;
   }
+  
+  ReturnVals terminal_number_of_local_instances(lua_State *L)
+  {
+    return 2;
+  }
 
   ReturnVals terminal_echo(lua_State *L)
   {
     if(termConsoleController)
     {
       const std::string str = lua_tostring(L, 1);
-
 
       termConsoleController->addStringToBuffer(str);
     }
