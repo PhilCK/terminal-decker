@@ -20,7 +20,6 @@
 
 #include <Application/Console/TextConsoleModel.hpp>
 #include <Application/Console/TextConsoleView.hpp>
-#include <Application/Console/TextConsoleController.hpp>
 #include <Application/Console/TextDataParse.hpp>
 
 #include <Application/Scene/SceneController.hpp>
@@ -28,7 +27,6 @@
 #include <Application/Scene/SceneModel.hpp>
 
 #include <Application/Lua/lua_interface.hpp>
-#include <Application/Lua/LuaModel.hpp>
 #include <vector>
 
 #include <core/core.hpp>

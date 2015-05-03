@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7E8BAC961AF50905002D4B62 /* console_screen_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */; };
-		7EA599741AF1552600800BB4 /* TextConsoleController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
 		7EA599781AF1552600800BB4 /* UTF8String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599181AF1552600800BB4 /* UTF8String.cpp */; };
-		7EA5997A1AF1552600800BB4 /* LuaModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5991E1AF1552600800BB4 /* LuaModel.cpp */; };
 		7EA5997B1AF1552600800BB4 /* MainApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599201AF1552600800BB4 /* MainApplication.cpp */; };
 		7EA5997C1AF1552600800BB4 /* SceneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599221AF1552600800BB4 /* SceneController.cpp */; };
 		7EA5997D1AF1552600800BB4 /* SceneModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599251AF1552600800BB4 /* SceneModel.cpp */; };
@@ -106,8 +104,6 @@
 		7E8BAC951AF50905002D4B62 /* console_screen_controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = console_screen_controller.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextConsoleController.cpp; sourceTree = "<group>"; };
-		7EA5990F1AF1552600800BB4 /* TextConsoleController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleController.hpp; sourceTree = "<group>"; };
 		7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleFwd.hpp; sourceTree = "<group>"; };
 		7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextConsoleModel.cpp; sourceTree = "<group>"; };
 		7EA599121AF1552600800BB4 /* TextConsoleModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleModel.hpp; sourceTree = "<group>"; };
@@ -118,8 +114,6 @@
 		7EA599181AF1552600800BB4 /* UTF8String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8String.cpp; sourceTree = "<group>"; };
 		7EA599191AF1552600800BB4 /* UTF8String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8String.hpp; sourceTree = "<group>"; };
 		7EA5991D1AF1552600800BB4 /* LuaFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaFwd.hpp; sourceTree = "<group>"; };
-		7EA5991E1AF1552600800BB4 /* LuaModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaModel.cpp; sourceTree = "<group>"; };
-		7EA5991F1AF1552600800BB4 /* LuaModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaModel.hpp; sourceTree = "<group>"; };
 		7EA599201AF1552600800BB4 /* MainApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainApplication.cpp; sourceTree = "<group>"; };
 		7EA599221AF1552600800BB4 /* SceneController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneController.cpp; sourceTree = "<group>"; };
 		7EA599231AF1552600800BB4 /* SceneController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneController.hpp; sourceTree = "<group>"; };
@@ -337,8 +331,6 @@
 			children = (
 				7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */,
 				7E8BAC951AF50905002D4B62 /* console_screen_controller.hpp */,
-				7EA5990E1AF1552600800BB4 /* TextConsoleController.cpp */,
-				7EA5990F1AF1552600800BB4 /* TextConsoleController.hpp */,
 				7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */,
 				7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */,
 				7EA599121AF1552600800BB4 /* TextConsoleModel.hpp */,
@@ -365,8 +357,6 @@
 				7ED619E91AF4A9C600CC4B0F /* lua_interface.cpp */,
 				7ED619EA1AF4A9C600CC4B0F /* lua_interface.hpp */,
 				7EA5991D1AF1552600800BB4 /* LuaFwd.hpp */,
-				7EA5991E1AF1552600800BB4 /* LuaModel.cpp */,
-				7EA5991F1AF1552600800BB4 /* LuaModel.hpp */,
 			);
 			path = Lua;
 			sourceTree = "<group>";
@@ -821,7 +811,6 @@
 				7EA5997E1AF1552600800BB4 /* SceneView.cpp in Sources */,
 				7EA5997D1AF1552600800BB4 /* SceneModel.cpp in Sources */,
 				7EA59A5A1AF1553D00800BB4 /* lopcodes.c in Sources */,
-				7EA5997A1AF1552600800BB4 /* LuaModel.cpp in Sources */,
 				7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */,
 				7EA59A4E1AF1553D00800BB4 /* ldebug.c in Sources */,
 				7EA59A561AF1553D00800BB4 /* lmathlib.c in Sources */,
@@ -866,7 +855,6 @@
 				7EA599901AF1552600800BB4 /* Timer.cpp in Sources */,
 				7EA599951AF1552600800BB4 /* data_core.cpp in Sources */,
 				7EA59A531AF1553D00800BB4 /* linit.c in Sources */,
-				7EA599741AF1552600800BB4 /* TextConsoleController.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
