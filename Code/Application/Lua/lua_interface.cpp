@@ -132,7 +132,10 @@ void create_lua_state()
   lua_setglobal(L, api_table);
   
   // Set a package path for 'require' statements in lua.
-  const std::string package_path = "package.path = package.path .. ';" + CaffUtil::GetPathDir() + "GameCode/?.lua'";
+  std::string bin_path = CaffUtil::GetPathDir();
+  std::replace(std::begin(bin_path), std::end(bin_path), '\\', '/'); // Lua seems to want unix style brackets for this to work.
+
+  const std::string package_path = std::string("package.path = package.path .. ';") + bin_path + std::string("GameCode/?.lua'");
   luaL_dostring(L, package_path.c_str());
 }
 

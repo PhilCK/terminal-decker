@@ -138,9 +138,6 @@
     <ClCompile Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.cpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleController.cpp">
-      <Filter>Application\Console</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleModel.cpp">
       <Filter>Application\Console</Filter>
     </ClCompile>
@@ -249,12 +246,6 @@
     <ClCompile Include="..\..\..\Includes\Lua\Include\lzio.c">
       <Filter>Includes\Lua</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\Lua\LuaController.cpp">
-      <Filter>Application\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Code\Application\Lua\LuaModel.cpp">
-      <Filter>Application\Lua</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Code\Application\Scene\SceneController.cpp">
       <Filter>Application\Scene</Filter>
     </ClCompile>
@@ -272,6 +263,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Code\modules\console\console_module.cpp">
       <Filter>modules\console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Console\console_screen_controller.cpp">
+      <Filter>Application\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Code\Application\Lua\lua_interface.cpp">
+      <Filter>Application\Lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,9 +383,6 @@
     <ClInclude Include="..\..\..\Code\Caffeine\Application\Renderer\IndexBuffer.hpp">
       <Filter>Caffeine\Application\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleController.hpp">
-      <Filter>Application\Console</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleFwd.hpp">
       <Filter>Application\Console</Filter>
     </ClInclude>
@@ -479,12 +473,6 @@
     <ClInclude Include="..\..\..\Includes\Lua\Include\lzio.h">
       <Filter>Includes\Lua</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\Lua\LuaController.hpp">
-      <Filter>Application\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Code\Application\Lua\LuaModel.hpp">
-      <Filter>Application\Lua</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaFwd.hpp">
       <Filter>Application\Lua</Filter>
     </ClInclude>
@@ -520,6 +508,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\modules\common\data_type_id.hpp">
       <Filter>modules\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Console\console_screen_controller.hpp">
+      <Filter>Application\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Application\Lua\lua_interface.hpp">
+      <Filter>Application\Lua</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

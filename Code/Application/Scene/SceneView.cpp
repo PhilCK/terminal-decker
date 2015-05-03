@@ -85,6 +85,8 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
   {
     CaffApp::Dev::Renderer::Reset();
 
+    glDisable(GL_BLEND);
+
     m_lightingShader.setTexture("diffuseTex", m_roomDiffuse);
 
     const std::array<float, 3> pos = {{ 3.f, 1.f, 0 }};
@@ -95,8 +97,8 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
     
     //*** LIGHTS ***//
     {
-      std::array<float, 3> color = {{0.0f, 0.5f, 1.0f}};
-      std::array<float, 3> position = {{1.0f, 0.5f, 0.0f}};
+      std::array<float, 3> color    = {{0.0f, 0.5f, 1.0f}};
+      std::array<float, 3> position = {{-10.0f, 1.5f, -6.0f}};
 
       m_lightingShader.setShader3f("gPointLights[0].Base.Color", color);
       m_lightingShader.setShader1f("gPointLights[0].Base.AmbientIntensity", 0.5f);

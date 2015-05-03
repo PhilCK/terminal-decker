@@ -87,13 +87,12 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleController.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\Console\console_screen_controller.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleModel.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Console\TextConsoleView.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Console\TextDataParse.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Lib\UTF8String.cpp" />
-    <ClCompile Include="..\..\..\Code\Application\Lua\LuaController.cpp" />
-    <ClCompile Include="..\..\..\Code\Application\Lua\LuaModel.cpp" />
+    <ClCompile Include="..\..\..\Code\Application\Lua\lua_interface.cpp" />
     <ClCompile Include="..\..\..\Code\Application\MainApplication.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Scene\SceneController.cpp" />
     <ClCompile Include="..\..\..\Code\Application\Scene\SceneModel.cpp" />
@@ -159,15 +158,14 @@
     <ClCompile Include="..\..\..\Includes\TinyXML2\Include\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleController.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Console\console_screen_controller.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleModel.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Console\TextConsoleView.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Console\TextDataParse.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Lib\UTF8String.hpp" />
-    <ClInclude Include="..\..\..\Code\Application\Lua\LuaController.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Lua\LuaFwd.hpp" />
-    <ClInclude Include="..\..\..\Code\Application\Lua\LuaModel.hpp" />
+    <ClInclude Include="..\..\..\Code\Application\Lua\lua_interface.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Scene\SceneController.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Scene\SceneFwd.hpp" />
     <ClInclude Include="..\..\..\Code\Application\Scene\SceneModel.hpp" />
