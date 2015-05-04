@@ -97,18 +97,21 @@ void SceneView::draw(const CaffApp::Dev::Device &device, const CaffApp::Dev::Fra
     
     //*** LIGHTS ***//
     {
-      std::array<float, 3> color    = {{0.0f, 0.5f, 1.0f}};
-      std::array<float, 3> position = {{-10.0f, 1.5f, -6.0f}};
+      std::array<std::array<float, 3>, 4> color    = {{{1.0f, 1.0f, 0.5f}, {1.0f, 1.0f, 0.5f}, {1.0f, 1.0f, 0.5f}, {1.0f, 1.0f, 0.5f}}};
+      std::array<std::array<float, 3>, 4> position = {{{2.0f, 1.5f, -30.0f}, {2.0f, 1.5f, -6.0f}, {-15.0f, 1.5f, -40.0f}, {-15.0f, 1.5f, -6.0f}}};
 
-      m_lightingShader.setShader3f("gPointLights[0].Base.Color", color);
-      m_lightingShader.setShader1f("gPointLights[0].Base.AmbientIntensity", 0.5f);
-      m_lightingShader.setShader3f("gPointLights[0].Position", position);
-      m_lightingShader.setShader1f("gPointLights[0].Base.DiffuseIntensity", 10.5f);
-      m_lightingShader.setShader1f("gPointLights[0].Atten.Constant", 0.1f);
-      m_lightingShader.setShader1f("gPointLights[0].Atten.Linear", 0.1f);
-      m_lightingShader.setShader1f("gPointLights[0].Atten.Exp", 0.1f);
-      m_lightingShader.setShader1f("gMatSpecularIntensity", 0.f);                                      
-      m_lightingShader.setShader1f("gSpecularPower", 0.f);
+      for(int i = 0; i < 4; ++i)
+      {
+        m_lightingShader.setShader3f("gPointLights[" + std::to_string(i) + "].Base.Color", color[i]);
+        m_lightingShader.setShader1f("gPointLights[" + std::to_string(i) + "].Base.AmbientIntensity", 0.5f);
+        m_lightingShader.setShader3f("gPointLights[" + std::to_string(i) + "].Position", position[i]);
+        m_lightingShader.setShader1f("gPointLights[" + std::to_string(i) + "].Base.DiffuseIntensity", 6.5f);
+        m_lightingShader.setShader1f("gPointLights[" + std::to_string(i) + "].Atten.Constant", 0.05f);
+        m_lightingShader.setShader1f("gPointLights[" + std::to_string(i) + "].Atten.Linear", 0.15f);
+        m_lightingShader.setShader1f("gPointLights[" + std::to_string(i) + "].Atten.Exp", 0.2f);
+        m_lightingShader.setShader1f("gMatSpecularIntensity", 0.f);                                      
+        m_lightingShader.setShader1f("gSpecularPower", 0.f);
+      }
     }
 
     CaffApp::Dev::Renderer::Draw(device, m_lightingShader, m_sceneVertexFormat, m_roomBuffer);

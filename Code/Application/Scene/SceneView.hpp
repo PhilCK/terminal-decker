@@ -11,10 +11,15 @@
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <Caffeine/Application/Renderer/Texture.hpp>
 #include <Caffeine/Application/Renderer/Device.hpp>
+#include <Caffeine/Systems/lighting_manager.hpp>
 
 
-class SceneView : private CaffUtil::NonCopyable
+class SceneView
 {
+
+	SceneView(const SceneView &) = delete;
+	SceneView & operator=(const SceneView &) = delete;
+
 public:
 
   explicit                    SceneView(const SceneModel &model);

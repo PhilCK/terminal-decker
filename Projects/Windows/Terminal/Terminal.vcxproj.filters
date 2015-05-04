@@ -270,6 +270,9 @@
     <ClCompile Include="..\..\..\Code\Application\Lua\lua_interface.cpp">
       <Filter>Application\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Code\Caffeine\Systems\lighting_manager.cpp">
+      <Filter>Caffeine\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Includes\Dirent\Include\Dirent\dirent.h">
@@ -514,6 +517,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Code\Application\Lua\lua_interface.hpp">
       <Filter>Application\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Code\Caffeine\Systems\lighting_manager.hpp">
+      <Filter>Caffeine\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

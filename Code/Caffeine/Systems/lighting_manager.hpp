@@ -12,8 +12,18 @@ namespace Caffeine {
 namespace Systems {
 
 
-class light
+enum class light_type
 {
+  DIR,
+  POINT,
+  SPOT,
+};
+
+
+struct light
+{
+  light_type          type_of_light;
+
   CaffMath::Vector3   color;
   CaffMath::Vector3   position;
   float               ambient_intensity;
@@ -33,13 +43,16 @@ class lighting_manager
 
 public:
 
-  explicit                lighting_manager(const std::size_t number_or_lights_hint = 1000);
+  explicit                          lighting_manager(const std::size_t number_or_lights_hint = 100);
 
-  uint32_t                add_light(const light &light);
-  void                    update_light(const uint32_t id, const light &light);
-  light                   get_light(const uint32_t id) const;
-  inline void*            get_data() { return static_cast<void*>(m_lights.data()); }
-  std::size_t             get_number_of_bytes_in_data() const;
+  uint32_t                          add_point_light( );
+  uint32_t                          add_light(const light &light);
+  void                              update_light(const uint32_t id, const light &light);
+  light                             get_light(const uint32_t id) const;
+  inline void*                      get_data() { return static_cast<void*>(m_lights.data()); }
+  std::size_t                       get_number_of_bytes_in_data() const;
+  inline void                       clear() { m_lights.clear(); }
+  inline const std::vector<light>&  data() { return m_lights; }
 
 private:
 

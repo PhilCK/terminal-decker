@@ -17,6 +17,8 @@ public:
   inline float          getMinFOV() const     { return m_minFOV;      }
   inline float          getCurrentFOV() const { return m_currentFOV;  }
   
+  inline CaffMath::Quaternion getRotation() const { return m_curr_rot; }
+
   CaffMath::Matrix44    getProjectionMatrix() const;
   CaffMath::Matrix44    getViewMatrix() const;
   CaffMath::Matrix44    getModelMatrix() const;
@@ -38,7 +40,8 @@ private:
   uint32_t m_height = 0;
 
   CaffMath::Matrix44 m_modelMatrix = CaffMath::Matrix44InitIdentity();
-  CaffMath::Matrix44 m_viewMatrix = CaffMath::Matrix44InitIdentity();
+  CaffMath::Matrix44 m_viewMatrix  = CaffMath::Matrix44InitIdentity();
+  CaffMath::Quaternion m_curr_rot  = CaffMath::QuaternionInitFromAngleAxis(0, CaffMath::Vector3Init(0.f, 0.f, 1.f));
 
 }; // class
 

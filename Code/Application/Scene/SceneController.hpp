@@ -3,6 +3,7 @@
 
 
 #include <Caffeine/Common/Platform.hpp>
+#include <Caffeine/Math/Math.hpp>
 #include <Caffeine/Common/Utilities/NonCopyable.hpp>
 #include <Application/Scene/SceneFwd.hpp>
 #include <Caffeine/Application/ApplicationFwd.hpp>
@@ -23,11 +24,11 @@ private:
   SceneModel        &m_model;
   SceneState        m_controllerState           = SceneState::LOCKON_TARGET_0;
 
-  float             m_currentYaw = 0.f;
-  float             m_targetYaw = 0.f;
+  float             m_currentYaw =  CaffMath::HalfTau();
+  float             m_targetYaw =  CaffMath::HalfTau();
 
-  float             m_currentPitch = 0.f;
-  float             m_targetPitch = 0.f;
+  float             m_currentPitch = 0.3f;
+  float             m_targetPitch = 0.3f;
 
   float             m_targetFOV = 0.f;
 

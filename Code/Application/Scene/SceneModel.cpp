@@ -36,11 +36,12 @@ void SceneModel::setFOV(const float currentFOV)
 
 void SceneModel::setRotation(const CaffMath::Quaternion &quat)
 {
-  const CaffMath::Vector3 pos = CaffMath::Vector3Init(3.f, 1.f, 0.f);
+  m_curr_rot = quat;
 
+  const CaffMath::Vector3 pos = CaffMath::Vector3Init(3.f, 2.f, 0.f);
 
   const CaffMath::Vector3 fwd     = CaffMath::Vector3Init(0.f, 0.f, 1.f);
-  const CaffMath::Vector3 viewDir = CaffMath::QuaternionRotate(quat, fwd);
+  const CaffMath::Vector3 viewDir = CaffMath::QuaternionRotate(m_curr_rot, fwd);
   const CaffMath::Vector3 viewAt  = CaffMath::Vector3ComponentAdd(viewDir, pos);
 
   m_viewMatrix = CaffMath::Matrix44LookAt(pos, CaffMath::Vector3Init(0.f, 1.f, 0.f), viewAt);

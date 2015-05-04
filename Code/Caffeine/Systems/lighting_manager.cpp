@@ -11,7 +11,6 @@ lighting_manager::lighting_manager(const std::size_t number_or_lights_hint)
   m_lights.reserve(number_or_lights_hint);
 }
 
-
 uint32_t lighting_manager::add_light(const light &light)
 {
   m_lights.push_back(light);
@@ -32,8 +31,6 @@ light lighting_manager::get_light(const uint32_t id) const
 
   return m_lights.at(id - 1);
 }
-
-
 
 
 
