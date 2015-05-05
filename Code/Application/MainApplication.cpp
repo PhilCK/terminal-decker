@@ -42,15 +42,6 @@ namespace
   const uint32_t height = 720;
   // 1280 × 720
   // 864 x 486
-
-
-  FontData::FontDataInfo GetFontData(const std::string &filename)
-  {
-    auto fontData = FontData::ParseData(filename);
-
-    return fontData;
-  }
-
 }
 
 namespace Terminal {
@@ -61,10 +52,6 @@ public:
 
   explicit Application()
   : m_caffApp("Terminal", width, height, false)
-  //, m_textConsoleModel(80, 25, GetFontData("moop"))
-  //, m_textConsoleView(m_textConsoleModel)
-  //, m_textConsoleController(m_textConsoleModel)
-  //, m_luaModel(m_textConsoleController, m_caffApp)
   , m_laptop(4)
   , m_sceneModel()
   , m_sceneView(m_sceneModel)
@@ -99,8 +86,6 @@ public:
       lua_interface::register_lua_functions();
       lua_interface::call_main_lua_file();
       lua_interface::call_lua_on_loaded();
-    
-      //m_luaModel.onLoaded();
     }
   }
 
@@ -117,14 +102,11 @@ public:
       {
         m_caffApp.getInput().setMouseHold(true);
 
-        //m_textConsoleModel.prepareData();
         m_laptop.think(delta_time);
         
-        //m_luaModel.onUpdate();
         lua_interface::call_lua_on_update(delta_time);
         m_sceneController.update(delta_time, m_caffApp.getInput());
 
-        //m_textConsoleView.render(m_caffApp.getRenderer());
         CaffApp::Dev::FrameBuffer& console_output = m_laptop.render(m_caffApp.getRenderer());
 
         m_caffApp.getRenderer().clear();
@@ -141,7 +123,6 @@ public:
 
   void onTextStream(const std::string &str)
   {
-    //m_textConsoleController.addStringToInput(str);
     m_laptop.add_string_to_input(m_laptop.get_current_active_screen(), str);
 
     static std::string dataStr;
@@ -158,20 +139,16 @@ public:
     {
       if(id == CaffApp::KeyID::KB_BACKSPACE)
       {
-        //m_textConsoleController.backspaceInput();
         m_laptop.backspace_input(m_laptop.get_current_active_screen());
       }
 
       if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
       {
-        //m_textConsoleController.addStringToBuffer(m_textConsoleModel.getInput());
-        //m_luaModel.onCommand(m_textConsoleModel.getInput(), "");
         const std::string input = m_laptop.get_input(m_laptop.get_current_active_screen());
         
         m_laptop.add_string_to_screen(m_laptop.get_current_active_screen(), input);
         lua_interface::call_lua_on_command(input);
 
-        //m_textConsoleController.clearInput();
         m_laptop.clear_input(m_laptop.get_current_active_screen());
       }
     }
@@ -180,12 +157,6 @@ public:
 private:
 
   CaffApp::Application                    m_caffApp;
-
-  //TextConsoleModel                        m_textConsoleModel;
-  //TextConsoleView                         m_textConsoleView;
-  //TextConsoleController                   m_textConsoleController;
-
-  //LuaModel                                m_luaModel;
 
   SceneModel                              m_sceneModel;
   SceneView                               m_sceneView;

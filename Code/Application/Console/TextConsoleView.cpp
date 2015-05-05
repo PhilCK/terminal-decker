@@ -11,29 +11,6 @@
 
 namespace
 {
-  inline std::vector<float> GetFullScreenVerts()
-  {
-    std::vector<float> verts =
-    {
-      -1.f, -1.f, 0.f, 0.f,
-      +3.f, -1.f, 2.f, 0.f,
-      -1.f, +3.f, 0.f, 2.f,
-    };
-
-    return verts;
-  }
-
-  inline std::vector<CaffApp::Dev::AttributeFormatDesc> GetPostVF()
-  {
-     const std::vector<CaffApp::Dev::AttributeFormatDesc> vertDesc =
-     {
-        CaffApp::Dev::AttributeFormatDesc{"position", CaffApp::Dev::AttrType::FLOAT2},
-        CaffApp::Dev::AttributeFormatDesc{"texcoord", CaffApp::Dev::AttrType::FLOAT2},
-     };
-
-     return vertDesc;
-  }
-  
   std::vector<float> DummyVector()
   {
     std::vector<float> vec;
@@ -44,28 +21,19 @@ namespace
 }
 
 
-FontDesc ConvertFontToConsole(FontData::FontDataInfo fontData)
-{
-  ConsoleFont font;
-  std::vector<ConsoleChar> chars;
-
-  FontDesc desc {font, chars};
-
-  return desc;
-}
-
-
-TextConsoleView::TextConsoleView(const uint32_t cols, const uint32_t rows, const uint32_t size_of_text_property, const float max_char_width, const float max_char_height)
+text_console_view::text_console_view(const uint32_t cols, const uint32_t rows, const uint32_t size_of_text_property, const float max_char_width, const float max_char_height)
 : m_textureLookup(DummyVector(), CaffApp::Dev::TextureD::TWO_D, CaffApp::Dev::Format::DEV, 16 / 4,  4096)
-, m_fontLookup(CaffUtil::GetPathDir() + "Textures/Monaco_font.png")
-, m_postShader(CaffApp::Dev::ShaderUtil::GetShaderCodeFromFile(CaffUtil::GetPathDir() + "Shaders/Post.shd"))
-, m_postVBO(GetFullScreenVerts())
-
-, m_postVF(GetPostVF())
 , m_finalOutput()
 {
-  assert(m_postShader.isValid());
-  assert(m_postVBO.isValid());
+  // Have resources loaded.
+  {
+    assert(m_postShader.isValid());
+    assert(m_postVBO.isValid());
+    assert(m_textShader.isValid());
+    assert(m_consoleGridVF.hasFormatedLoaded());
+    assert(m_textureLookup.isValid());
+    assert(m_fontLookup.isValid());
+  }
 
   // Size of framebuffer
   {
@@ -78,55 +46,33 @@ TextConsoleView::TextConsoleView(const uint32_t cols, const uint32_t rows, const
     m_finalOutput.loadBuffer(sizeOfWidth, sizeOfHeight);
   }
 
-  // Text Shader
-  {
-    const std::string filename = CaffUtil::GetPathDir() + "Shaders/ConsoleTextShader.shd";
-    const std::string shader(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
-
-    m_textShader.loadShader(shader);
-    assert(m_textShader.isValid());
-  }
-
-  // Console VertexFormat
-  {
-    m_consoleGridVF.loadFormat({
-      CaffApp::Dev::AttributeFormatDesc{"inID", CaffApp::Dev::AttrType::FLOAT}, // TODO: Make this an int
-    });
-
-    assert(m_consoleGridVF.hasFormatedLoaded());
-  }
-
   // Generate VBO a collection of points each point is a character.
   {
     const uint32_t size = cols * rows;
 
-    std::vector<float> pointsVBO; // TODO: Make this an int
-    pointsVBO.reserve(size);
+    std::vector<float> points_vertex_data;
+    points_vertex_data.reserve(size);
 
     for(uint32_t i = 0; i < size; ++i)
     {
-      pointsVBO.push_back(i);
+      points_vertex_data.push_back(i);
     }
 
-    m_consoleGridVBO.loadVertexBuffer(pointsVBO, false);
+    m_consoleGridVBO.loadVertexBuffer(points_vertex_data, false);
     assert(m_consoleGridVBO.isValid());
   }
 
   // Load some constants
   {
-    m_textShader.setShader2f("bufferResolution",  {{ static_cast<float>(m_frameBuffer.getWidth()), static_cast<float>(m_frameBuffer.getHeight()) }});
-    m_textShader.setShader2f("textureResolution", {{ static_cast<float>(m_fontLookup.getWidth()), static_cast<float>(m_fontLookup.getHeight()) }});
-  }
-
-  // Did textures load?
-  {
-    assert(m_textureLookup.isValid());
-    assert(m_fontLookup.isValid());
+    m_textShader.setShader2f("bufferResolution",
+                            {{ static_cast<float>(m_frameBuffer.getWidth()), static_cast<float>(m_frameBuffer.getHeight()) }});
+    m_textShader.setShader2f("textureResolution",
+                            {{ static_cast<float>(m_fontLookup.getWidth()), static_cast<float>(m_fontLookup.getHeight()) }});
   }
 }
 
 
-CaffApp::Dev::FrameBuffer& TextConsoleView::render(TextConsoleModel &model, CaffApp::Dev::Device &renderer)
+CaffApp::Dev::FrameBuffer& text_console_view::render(TextConsoleModel &model, CaffApp::Dev::Device &renderer)
 {
   // Console
   {

@@ -30,7 +30,7 @@ void console_screen_controller::clear_screen(const uint32_t screen_id)
 
 void console_screen_controller::add_string_to_screen(const uint32_t screen_id, const std::string &str)
 {
-  std::vector<uint32_t> content(str.begin(), str.end());
+  const std::vector<uint32_t> content(str.begin(), str.end());
   add_content_to_screen(screen_id, content);
 }
 

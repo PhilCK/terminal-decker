@@ -16,14 +16,6 @@ namespace Caffeine {
 namespace Application {
 namespace Dev {
 
-namespace ShaderUtil
-{
-  inline std::string GetShaderCodeFromFile(const std::string &filename)
-  {
-    const std::string shaderCode(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
-    return shaderCode;
-  }
-}
 
 class Shader
 {
@@ -94,6 +86,23 @@ private:
   GLuint m_fragmentID       = 0;
 
 }; // class
+
+
+namespace ShaderUtil
+{
+  inline std::string get_shader_code_from_file(const std::string &filename)
+  {
+    const std::string shader_code(std::istreambuf_iterator<char>(std::ifstream(filename).rdbuf()), std::istreambuf_iterator<char>());
+    return shader_code;
+  }
+  
+  inline CaffApp::Dev::Shader create_shader_from_file_name(const std::string &filename)
+  {
+    const std::string &shader_code = get_shader_code_from_file(filename);
+    return CaffApp::Dev::Shader(shader_code);
+  }
+} // namespace
+
 
 } // Dev namespace
 } // namespace

@@ -58,7 +58,7 @@ private:
   uint32_t            m_number_of_screens = 0;
   uint32_t            m_view_screen = 0;
   std::vector<std::unique_ptr<TextConsoleModel> > m_screen_models;
-  TextConsoleView     m_view;
+  text_console_view     m_view;
 
 }; // class
 
