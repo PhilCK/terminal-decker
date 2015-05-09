@@ -26,7 +26,6 @@
 #include <Application/Scene/SceneView.hpp>
 #include <Application/Scene/SceneModel.hpp>
 
-#include <Application/Lua/lua_interface.hpp>
 #include <vector>
 
 #include <core/core.hpp>
@@ -46,13 +45,12 @@ namespace
   // 864 x 486
 }
 
-namespace Terminal {
 
-class Application
+class application
 {
 public:
 
-  explicit Application()
+  explicit application()
   : m_caffApp("Terminal", width, height, false)
   , m_laptop(4)
   , m_sceneModel()
@@ -76,18 +74,9 @@ public:
     {
       auto &input = m_caffApp.getInput();
     
-      input.onKeyChangeEvent  = std::bind(&Application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
-      input.onTextStreamEvent = std::bind(&Application::onTextStream, this, std::placeholders::_1);
+      input.onKeyChangeEvent  = std::bind(&application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
+      input.onTextStreamEvent = std::bind(&application::onTextStream, this, std::placeholders::_1);
       input.setTextStream(true);
-    }
-
-    // Lua
-    {
-      lua_interface::create_lua_state();
-      lua_interface::register_modules_available_in_lua(&m_laptop, &m_caffApp);
-      lua_interface::register_lua_functions();
-      lua_interface::call_main_lua_file();
-      lua_interface::call_lua_on_loaded();
     }
   }
 
@@ -106,7 +95,6 @@ public:
 
         m_laptop.think(delta_time);
         
-        lua_interface::call_lua_on_update(delta_time);
         m_sceneController.update(delta_time, m_caffApp.getInput());
 
         CaffApp::Dev::FrameBuffer& console_output = m_laptop.render(m_caffApp.getRenderer());
@@ -151,7 +139,6 @@ public:
         const std::string input = m_laptop.get_input(m_laptop.get_current_active_screen());
         
         m_laptop.add_string_to_screen(m_laptop.get_current_active_screen(), input);
-        lua_interface::call_lua_on_command(input);
 
         m_laptop.clear_input(m_laptop.get_current_active_screen());
       }
@@ -172,7 +159,6 @@ private:
 
 };
 
-} // namespace
 
 
 int main(int argc, char **argv)
@@ -187,7 +173,7 @@ int main(int argc, char **argv)
   CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
   CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);
 
-  Terminal::Application app;
+  application app;
   app.start();
 
   return 0;
