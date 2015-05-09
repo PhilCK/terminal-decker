@@ -78,6 +78,10 @@ function localhost.input(screen_id, input_str, args)
     return true
   end
 
+  if(input_str == "dict_hack") then
+    dict_hack.hack(screen_id)
+    return true
+  end
 
   if(input_str == "dict_hack.help") then
     dict_hack.help(screen_id)

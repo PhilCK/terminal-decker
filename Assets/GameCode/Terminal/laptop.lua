@@ -3,7 +3,7 @@
 	--
 	This is the hackers laptop.
 	The laptop can have x connections to other systems (including localhost).
-]]
+]] --
 
 
 require "Terminal/systems/local"
@@ -14,7 +14,7 @@ laptop = {
 }
 
 
--- Make 'n' network connections to the localhost
+-- Make 'n' network connections to the localhost --
 function laptop.reset_connections()
 
   laptop['max_processes'] = terminal.get_number_of_screens()
@@ -27,16 +27,23 @@ function laptop.reset_connections()
 
   end
 
-
 end
 
 
 function laptop.input_str(screen_id, input_str)
 
-  captured = laptop['processes'][screen_id].input(screen_id, input_str, "1")
-
-  if captured then return true end
+  -- If we have a process then pass input --
+  if(type(laptop['processes']) == "table") then
+    if(#laptop['processes'] >= screen_id) then
   
+      captured = laptop['processes'][screen_id].input(screen_id, input_str, "1")
+      
+      if captured then return true end
+      
+    end
+  end
+  
+  -- Tasks --
   if(input_str == "task.help") then
   
     terminal.echo(screen_id, "Tasks Help")
@@ -83,7 +90,7 @@ function laptop.input_str(screen_id, input_str)
 
   end
 
-  -- found nothing, bad request.
+  -- found nothing, bad request. --
   terminal.echo(screen_id, "-- Bad Request --")
 
 end

@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E82219F1AFB429500AA088E /* dict_hack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8221991AFB429500AA088E /* dict_hack.cpp */; };
+		7E8221A01AFB429500AA088E /* terminal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E82219C1AFB429500AA088E /* terminal.cpp */; };
+		7E8221A61AFB463500AA088E /* system_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8221A41AFB463500AA088E /* system_factory.cpp */; };
 		7E8BAC961AF50905002D4B62 /* console_screen_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */; };
+		7E99A17B1AFE6DF00090DB10 /* basic_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A1791AFE6DF00090DB10 /* basic_system.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
@@ -100,8 +104,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7E8221991AFB429500AA088E /* dict_hack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dict_hack.cpp; sourceTree = "<group>"; };
+		7E82219A1AFB429500AA088E /* dict_hack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dict_hack.hpp; sourceTree = "<group>"; };
+		7E82219C1AFB429500AA088E /* terminal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terminal.cpp; sourceTree = "<group>"; };
+		7E82219D1AFB429500AA088E /* terminal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terminal.hpp; sourceTree = "<group>"; };
+		7E8221A41AFB463500AA088E /* system_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = system_factory.cpp; sourceTree = "<group>"; };
+		7E8221A51AFB463500AA088E /* system_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = system_factory.hpp; sourceTree = "<group>"; };
 		7E8BAC941AF50905002D4B62 /* console_screen_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = console_screen_controller.cpp; sourceTree = "<group>"; };
 		7E8BAC951AF50905002D4B62 /* console_screen_controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = console_screen_controller.hpp; sourceTree = "<group>"; };
+		7E99A1791AFE6DF00090DB10 /* basic_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_system.cpp; sourceTree = "<group>"; };
+		7E99A17A1AFE6DF00090DB10 /* basic_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_system.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleFwd.hpp; sourceTree = "<group>"; };
@@ -274,6 +286,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E8221951AFB429500AA088E /* terminal */ = {
+			isa = PBXGroup;
+			children = (
+				7E8221A41AFB463500AA088E /* system_factory.cpp */,
+				7E8221A51AFB463500AA088E /* system_factory.hpp */,
+				7E8221981AFB429500AA088E /* programs */,
+				7E82219C1AFB429500AA088E /* terminal.cpp */,
+				7E82219D1AFB429500AA088E /* terminal.hpp */,
+			);
+			path = terminal;
+			sourceTree = "<group>";
+		};
+		7E8221981AFB429500AA088E /* programs */ = {
+			isa = PBXGroup;
+			children = (
+				7E99A1791AFE6DF00090DB10 /* basic_system.cpp */,
+				7E99A17A1AFE6DF00090DB10 /* basic_system.hpp */,
+				7E8221991AFB429500AA088E /* dict_hack.cpp */,
+				7E82219A1AFB429500AA088E /* dict_hack.hpp */,
+			);
+			path = programs;
+			sourceTree = "<group>";
+		};
 		7EA598DF1AF1545B00800BB4 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +351,7 @@
 		7EA5990C1AF1552600800BB4 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				7E8221951AFB429500AA088E /* terminal */,
 				7EA5990D1AF1552600800BB4 /* Console */,
 				7EA599171AF1552600800BB4 /* Lib */,
 				7EA5991A1AF1552600800BB4 /* Lua */,
@@ -800,12 +836,15 @@
 				7EA59A601AF1553D00800BB4 /* ltable.c in Sources */,
 				7EA59A6D1AF1553D00800BB4 /* image_DXT.c in Sources */,
 				7EA599831AF1552600800BB4 /* FrameBuffer.cpp in Sources */,
+				7E82219F1AFB429500AA088E /* dict_hack.cpp in Sources */,
 				7EA59A711AF1553D00800BB4 /* tinyxml2.cpp in Sources */,
 				7EA599881AF1552600800BB4 /* VertexBuffer.cpp in Sources */,
 				7EA599911AF1552600800BB4 /* Math.cpp in Sources */,
 				7EA599921AF1552600800BB4 /* lighting_manager.cpp in Sources */,
+				7E8221A01AFB429500AA088E /* terminal.cpp in Sources */,
 				7EA59A5F1AF1553D00800BB4 /* lstrlib.c in Sources */,
 				7EA59A651AF1553D00800BB4 /* lundump.c in Sources */,
+				7E99A17B1AFE6DF00090DB10 /* basic_system.cpp in Sources */,
 				7EA59A681AF1553D00800BB4 /* Makefile in Sources */,
 				7EA59A5D1AF1553D00800BB4 /* lstate.c in Sources */,
 				7EA5997E1AF1552600800BB4 /* SceneView.cpp in Sources */,
@@ -816,6 +855,7 @@
 				7EA59A561AF1553D00800BB4 /* lmathlib.c in Sources */,
 				7EA5997F1AF1552600800BB4 /* Application.cpp in Sources */,
 				7EA59A501AF1553D00800BB4 /* ldump.c in Sources */,
+				7E8221A61AFB463500AA088E /* system_factory.cpp in Sources */,
 				7EA59A4D1AF1553D00800BB4 /* ldblib.c in Sources */,
 				7EA599961AF1552600800BB4 /* console_module.cpp in Sources */,
 				7EA5998D1AF1552600800BB4 /* Directories.mm in Sources */,

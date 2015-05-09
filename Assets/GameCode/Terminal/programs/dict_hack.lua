@@ -10,10 +10,15 @@ dict_hack = {}
 
 function dict_hack.hack(screen_id, user_file, terminal_instance_id)
 
-  -- stop user input.
-  -- do spinny thing.
-  -- jump up and down with joy.
-  -- reveal usr and pass word.
+  if(type(dict_hack['processes']) ~= "table") then
+    dict_hack['processes'] = {}
+  end
+  
+  dict_hack['processes'][screen_id] = {
+    processing = true,
+    timer = 0,
+    file = user_file,
+  }
 
 end
 

@@ -35,6 +35,8 @@
 
 #include <Application/Console/console_screen_controller.hpp>
 
+#include <Application/terminal/terminal.hpp>
+
 
 namespace
 {
@@ -113,6 +115,8 @@ public:
         m_sceneView.draw(m_caffApp.getRenderer(), console_output);
       }
 
+      m_terminal.think_systems(delta_time);
+  
       caffcore::think_all_modules();
       caffcore::dispatch_data_notifications();
 
@@ -162,7 +166,9 @@ private:
   SceneView                               m_sceneView;
   SceneController                         m_sceneController;
   
-  console_screen_controller              m_laptop;
+  console_screen_controller               m_laptop;
+  terminal                                m_terminal = terminal(4);
+  
 
 };
 
