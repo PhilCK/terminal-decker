@@ -36,8 +36,9 @@
 
 #include <Application/terminal/terminal.hpp>
 
-#include <SDL_mixer.h>
-#include <SDL2/SDL.h>
+#include <Caffeine/Application/audio/audio_manager.hpp>
+
+
 
 namespace
 {
@@ -45,9 +46,7 @@ namespace
   const uint32_t height = 720;
   // 1280 × 720
   // 864 x 486
-  
-  Mix_Chunk *sound1 = nullptr;
-  Mix_Chunk *sound2 = nullptr;
+
 }
 
 
@@ -66,22 +65,19 @@ public:
 
     // Audio
     {
-      if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
-      {
-          printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
-      }
       
-      const std::string path1 = CaffUtil::GetPathDir() + "Audio/test_1.wav";
-       sound1 = Mix_LoadWAV(path1.c_str());
-      
-             const std::string path2 = CaffUtil::GetPathDir() + "Audio/test_2.wav";
-       sound2 = Mix_LoadWAV(path2.c_str());
-      
-       Mix_SetPosition(0, 270, 100);
-       Mix_PlayChannel(0, sound1, 0 );
-      
-      Mix_SetPosition(1, 270, 100);
-       Mix_PlayChannel(1, sound2, 0 );
+    
+//      const std::string path1 = CaffUtil::GetPathDir() + "Audio/test_1.wav";
+//       sound1 = Mix_LoadWAV(path1.c_str());
+//      
+//             const std::string path2 = CaffUtil::GetPathDir() + "Audio/test_2.wav";
+//       sound2 = Mix_LoadWAV(path2.c_str());
+//      
+//       Mix_SetPosition(0, 270, 100);
+//       Mix_PlayChannel(0, sound1, 0 );
+//      
+//      Mix_SetPosition(1, 270, 100);
+//       Mix_PlayChannel(1, sound2, 0 );
 
     }
 

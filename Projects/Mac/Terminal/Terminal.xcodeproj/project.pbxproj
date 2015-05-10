@@ -15,6 +15,7 @@
 		7E99A1801AFEA5CE0090DB10 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E99A17F1AFEA5CE0090DB10 /* SDL2_mixer.framework */; };
 		7E99A1811AFEA5D10090DB10 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7E99A17F1AFEA5CE0090DB10 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7E99A1881AFEA8140090DB10 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = 7E99A1871AFEA8140090DB10 /* Audio */; };
+		7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
@@ -53,7 +54,6 @@
 		7EA59A751AF1558F00800BB4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EA59A741AF1558F00800BB4 /* SDL2.framework */; };
 		7EA59A771AF1569800800BB4 /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7EA59A741AF1558F00800BB4 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7EA59AD51AF156DF00800BB4 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD01AF156DF00800BB4 /* Data */; };
-		7EA59AD61AF156DF00800BB4 /* GameCode in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD11AF156DF00800BB4 /* GameCode */; };
 		7EA59AD71AF156DF00800BB4 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD21AF156DF00800BB4 /* Models */; };
 		7EA59AD81AF156DF00800BB4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD31AF156DF00800BB4 /* Shaders */; };
 		7EA59AD91AF156DF00800BB4 /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD41AF156DF00800BB4 /* Textures */; };
@@ -86,6 +86,9 @@
 		7E99A17A1AFE6DF00090DB10 /* basic_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_system.hpp; sourceTree = "<group>"; };
 		7E99A17F1AFEA5CE0090DB10 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../Includes/SDL2Mixer/Lib/OSX/SDL2_mixer.framework; sourceTree = "<group>"; };
 		7E99A1871AFEA8140090DB10 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Audio; path = ../../../Assets/Audio; sourceTree = "<group>"; };
+		7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_audio_manager.cpp; sourceTree = "<group>"; };
+		7E99A18B1AFF3D990090DB10 /* audio_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = audio_manager.hpp; sourceTree = "<group>"; };
+		7E99A1931AFF3DF20090DB10 /* audio_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = audio_fwd.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleFwd.hpp; sourceTree = "<group>"; };
@@ -179,7 +182,6 @@
 		7EA59A411AF1553D00800BB4 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
 		7EA59A741AF1558F00800BB4 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Includes/SDL2/Lib/OSX/SDL2.framework; sourceTree = "<group>"; };
 		7EA59AD01AF156DF00800BB4 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = ../../../Assets/Data; sourceTree = "<group>"; };
-		7EA59AD11AF156DF00800BB4 /* GameCode */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameCode; path = ../../../Assets/GameCode; sourceTree = "<group>"; };
 		7EA59AD21AF156DF00800BB4 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = ../../../Assets/Models; sourceTree = "<group>"; };
 		7EA59AD31AF156DF00800BB4 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../../../Assets/Shaders; sourceTree = "<group>"; };
 		7EA59AD41AF156DF00800BB4 /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../Assets/Textures; sourceTree = "<group>"; };
@@ -219,6 +221,16 @@
 				7E82219A1AFB429500AA088E /* dict_hack.hpp */,
 			);
 			path = programs;
+			sourceTree = "<group>";
+		};
+		7E99A1891AFF3D990090DB10 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				7E99A1931AFF3DF20090DB10 /* audio_fwd.hpp */,
+				7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */,
+				7E99A18B1AFF3D990090DB10 /* audio_manager.hpp */,
+			);
+			path = audio;
 			sourceTree = "<group>";
 		};
 		7EA598DF1AF1545B00800BB4 = {
@@ -327,6 +339,7 @@
 		7EA5992A1AF1552600800BB4 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				7E99A1891AFF3D990090DB10 /* audio */,
 				7EA5992B1AF1552600800BB4 /* Application.cpp */,
 				7EA5992C1AF1552600800BB4 /* Application.hpp */,
 				7EA5992D1AF1552600800BB4 /* ApplicationFwd.hpp */,
@@ -541,7 +554,6 @@
 			children = (
 				7E99A1871AFEA8140090DB10 /* Audio */,
 				7EA59AD01AF156DF00800BB4 /* Data */,
-				7EA59AD11AF156DF00800BB4 /* GameCode */,
 				7EA59AD21AF156DF00800BB4 /* Models */,
 				7EA59AD31AF156DF00800BB4 /* Shaders */,
 				7EA59AD41AF156DF00800BB4 /* Textures */,
@@ -623,7 +635,6 @@
 				7EA59AD91AF156DF00800BB4 /* Textures in Resources */,
 				7E99A1881AFEA8140090DB10 /* Audio in Resources */,
 				7EA59AD51AF156DF00800BB4 /* Data in Resources */,
-				7EA59AD61AF156DF00800BB4 /* GameCode in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +682,7 @@
 				7EA5997D1AF1552600800BB4 /* SceneModel.cpp in Sources */,
 				7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */,
 				7EA5997F1AF1552600800BB4 /* Application.cpp in Sources */,
+				7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */,
 				7E8221A61AFB463500AA088E /* system_factory.cpp in Sources */,
 				7EA599961AF1552600800BB4 /* console_module.cpp in Sources */,
 				7EA5998D1AF1552600800BB4 /* Directories.mm in Sources */,
