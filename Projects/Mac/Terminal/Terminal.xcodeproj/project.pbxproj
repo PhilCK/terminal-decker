@@ -16,6 +16,8 @@
 		7E99A1811AFEA5D10090DB10 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7E99A17F1AFEA5CE0090DB10 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7E99A1881AFEA8140090DB10 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = 7E99A1871AFEA8140090DB10 /* Audio */; };
 		7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */; };
+		7E99A1961AFFEDFF0090DB10 /* boot_sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A1941AFFEDFF0090DB10 /* boot_sequence.cpp */; };
+		7E99A19B1AFFF3B70090DB10 /* terminal_screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A1991AFFF3B70090DB10 /* terminal_screen.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
@@ -89,6 +91,12 @@
 		7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_audio_manager.cpp; sourceTree = "<group>"; };
 		7E99A18B1AFF3D990090DB10 /* audio_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = audio_manager.hpp; sourceTree = "<group>"; };
 		7E99A1931AFF3DF20090DB10 /* audio_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = audio_fwd.hpp; sourceTree = "<group>"; };
+		7E99A1941AFFEDFF0090DB10 /* boot_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boot_sequence.cpp; sourceTree = "<group>"; };
+		7E99A1951AFFEDFF0090DB10 /* boot_sequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = boot_sequence.hpp; sourceTree = "<group>"; };
+		7E99A1971AFFF1B60090DB10 /* terminal_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = terminal_fwd.hpp; sourceTree = "<group>"; };
+		7E99A1981AFFF2A20090DB10 /* terminal_module.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = terminal_module.hpp; sourceTree = "<group>"; };
+		7E99A1991AFFF3B70090DB10 /* terminal_screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terminal_screen.cpp; sourceTree = "<group>"; };
+		7E99A19A1AFFF3B70090DB10 /* terminal_screen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terminal_screen.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleFwd.hpp; sourceTree = "<group>"; };
@@ -203,6 +211,10 @@
 		7E8221951AFB429500AA088E /* terminal */ = {
 			isa = PBXGroup;
 			children = (
+				7E99A1991AFFF3B70090DB10 /* terminal_screen.cpp */,
+				7E99A19A1AFFF3B70090DB10 /* terminal_screen.hpp */,
+				7E99A1981AFFF2A20090DB10 /* terminal_module.hpp */,
+				7E99A1971AFFF1B60090DB10 /* terminal_fwd.hpp */,
 				7E8221A41AFB463500AA088E /* system_factory.cpp */,
 				7E8221A51AFB463500AA088E /* system_factory.hpp */,
 				7E8221981AFB429500AA088E /* programs */,
@@ -215,6 +227,8 @@
 		7E8221981AFB429500AA088E /* programs */ = {
 			isa = PBXGroup;
 			children = (
+				7E99A1941AFFEDFF0090DB10 /* boot_sequence.cpp */,
+				7E99A1951AFFEDFF0090DB10 /* boot_sequence.hpp */,
 				7E99A1791AFE6DF00090DB10 /* basic_system.cpp */,
 				7E99A17A1AFE6DF00090DB10 /* basic_system.hpp */,
 				7E8221991AFB429500AA088E /* dict_hack.cpp */,
@@ -676,6 +690,7 @@
 				7EA599881AF1552600800BB4 /* VertexBuffer.cpp in Sources */,
 				7EA599911AF1552600800BB4 /* Math.cpp in Sources */,
 				7EA599921AF1552600800BB4 /* lighting_manager.cpp in Sources */,
+				7E99A19B1AFFF3B70090DB10 /* terminal_screen.cpp in Sources */,
 				7E8221A01AFB429500AA088E /* terminal.cpp in Sources */,
 				7E99A17B1AFE6DF00090DB10 /* basic_system.cpp in Sources */,
 				7EA5997E1AF1552600800BB4 /* SceneView.cpp in Sources */,
@@ -702,6 +717,7 @@
 				7EA5998A1AF1552600800BB4 /* Renderer.cpp in Sources */,
 				7EA59A701AF1553D00800BB4 /* stb_image_aug.c in Sources */,
 				7EA599901AF1552600800BB4 /* Timer.cpp in Sources */,
+				7E99A1961AFFEDFF0090DB10 /* boot_sequence.cpp in Sources */,
 				7EA599951AF1552600800BB4 /* data_core.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

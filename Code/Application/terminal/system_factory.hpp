@@ -8,8 +8,7 @@
 
 enum class system
 {
-  local_host,
-  elevator_control,
+  NONE,
 };
 
 

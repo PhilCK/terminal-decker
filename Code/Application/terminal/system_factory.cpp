@@ -1,5 +1,6 @@
 
 #include <Application/terminal/system_factory.hpp>
+#include <Application/terminal/programs/boot_sequence.hpp>
 #include <Application/terminal/programs/dict_hack.hpp>
 #include <assert.h>
 
@@ -13,14 +14,11 @@ create(const enum system id)
   
   switch(id)
   {
-    case(system::local_host):
-      programs.reserve(5);
-      programs.emplace_back(dictionary_hack());
+    case(system::NONE):
+      programs.reserve(1);
+      programs.emplace_back(boot_sequence());
       break;
   
-      
-    case(system::elevator_control):
-      break;
   
   
     default:
