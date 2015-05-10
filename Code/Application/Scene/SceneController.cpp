@@ -1,7 +1,7 @@
 
 #include <Application/Scene/SceneController.hpp>
 #include <Application/Scene/SceneModel.hpp>
-#include <Caffeine/Application/Input.hpp>
+#include <Caffeine/Application/input.hpp>
 #include <Caffeine/Math/Quaternion.hpp>
 
 
@@ -12,16 +12,16 @@ SceneController::SceneController(SceneModel &model)
 }
 
 
-void SceneController::update(const float dt, const CaffApp::Input &input)
+void SceneController::update(const float dt, const caff_app::input &input)
 {
   // Do we need to change state
   {
-    if(input.getMouseDeltaX() != 0 || input.getMouseDeltaY() != 0)
+    if(input.get_mouse_x_delta() != 0 || input.get_mouse_y_delta() != 0)
     {
       m_controllerState = SceneState::FREEVIEW;
     }
 
-    if(input.isDownOnFrame(CaffApp::KeyID::KB_TAB))
+    if(input.is_down_on_frame(caff_app::key_id::KB_TAB))
     {
       m_controllerState = SceneState::LOCKON_TARGET_0;
       m_currentPitch = 0.3f;
@@ -30,8 +30,8 @@ void SceneController::update(const float dt, const CaffApp::Input &input)
     }
   }
 
-  m_targetYaw   += (static_cast<float>(input.getMouseDeltaX()) * dt);
-  m_targetPitch += (static_cast<float>(input.getMouseDeltaY()) * dt);
+  m_targetYaw   += (static_cast<float>(input.get_mouse_x_delta()) * dt);
+  m_targetPitch += (static_cast<float>(input.get_mouse_y_delta()) * dt);
 
   switch(m_controllerState)
   {

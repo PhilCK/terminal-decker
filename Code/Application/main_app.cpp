@@ -16,7 +16,7 @@
 #include <Caffeine/Application/Renderer/FrameBuffer.hpp>
 #include <Caffeine/Application/Renderer/Device.hpp>
 #include <Caffeine/Application/Renderer/RendererDev.hpp>
-#include <Caffeine/Application/Input.hpp>
+#include <Caffeine/Application/input.hpp>
 
 #include <Application/Console/TextConsoleModel.hpp>
 #include <Application/Console/TextConsoleView.hpp>
@@ -78,9 +78,9 @@ public:
     {
       auto &input = m_caffApp.getInput();
     
-      input.onKeyChangeEvent  = std::bind(&application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
-      input.onTextStreamEvent = std::bind(&application::onTextStream, this, std::placeholders::_1);
-      input.setTextStream(true);
+      input.on_key_change_event  = std::bind(&application::onKeyChange, this, std::placeholders::_1, std::placeholders::_2);
+      input.on_text_stream_event = std::bind(&application::onTextStream, this, std::placeholders::_1);
+      input.set_text_stream(true);
     }
   }
 
@@ -95,7 +95,7 @@ public:
       
       // Update / Render
       {
-        m_caffApp.getInput().setMouseHold(true);
+        m_caffApp.getInput().set_mouse_hold(true);
 
         m_laptop.think(delta_time);
         
@@ -129,16 +129,16 @@ public:
   }
 
 
-  void onKeyChange(const CaffApp::KeyID id, const CaffApp::KeyState state)
+  void onKeyChange(const caff_app::key_id id, const caff_app::key_state state)
   {
-    if(state == CaffApp::KeyState::UP)
+    if(state == caff_app::key_state::UP)
     {
-      if(id == CaffApp::KeyID::KB_BACKSPACE)
+      if(id == caff_app::key_id::KB_BACKSPACE)
       {
         m_laptop.backspace_input(m_laptop.get_current_active_screen());
       }
 
-      if(id == CaffApp::KeyID::KB_ENTER || id == CaffApp::KeyID::KB_RETURN)
+      if(id == caff_app::key_id::KB_ENTER || id == caff_app::key_id::KB_RETURN)
       {
         const std::string input = m_laptop.get_input(m_laptop.get_current_active_screen());
         
@@ -151,7 +151,7 @@ public:
 
 private:
 
-  CaffApp::Application                    m_caffApp;
+  caffeine::application::application                    m_caffApp;
 
   SceneModel                              m_sceneModel;
   SceneView                               m_sceneView;

@@ -25,7 +25,7 @@
 		7EA5997D1AF1552600800BB4 /* SceneModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599251AF1552600800BB4 /* SceneModel.cpp */; };
 		7EA5997E1AF1552600800BB4 /* SceneView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599271AF1552600800BB4 /* SceneView.cpp */; };
 		7EA5997F1AF1552600800BB4 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5992B1AF1552600800BB4 /* Application.cpp */; };
-		7EA599801AF1552600800BB4 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5992E1AF1552600800BB4 /* Input.cpp */; };
+		7EA599801AF1552600800BB4 /* sdl_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA5992E1AF1552600800BB4 /* sdl_input.cpp */; };
 		7EA599811AF1552600800BB4 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599301AF1552600800BB4 /* Model.cpp */; };
 		7EA599821AF1552600800BB4 /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599331AF1552600800BB4 /* Device.cpp */; };
 		7EA599831AF1552600800BB4 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599351AF1552600800BB4 /* FrameBuffer.cpp */; };
@@ -111,8 +111,8 @@
 		7EA5992B1AF1552600800BB4 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		7EA5992C1AF1552600800BB4 /* Application.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		7EA5992D1AF1552600800BB4 /* ApplicationFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ApplicationFwd.hpp; sourceTree = "<group>"; };
-		7EA5992E1AF1552600800BB4 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
-		7EA5992F1AF1552600800BB4 /* Input.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Input.hpp; sourceTree = "<group>"; };
+		7EA5992E1AF1552600800BB4 /* sdl_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_input.cpp; sourceTree = "<group>"; };
+		7EA5992F1AF1552600800BB4 /* input.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = input.hpp; sourceTree = "<group>"; };
 		7EA599301AF1552600800BB4 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		7EA599311AF1552600800BB4 /* Model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
 		7EA599331AF1552600800BB4 /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
@@ -343,8 +343,8 @@
 				7EA5992B1AF1552600800BB4 /* Application.cpp */,
 				7EA5992C1AF1552600800BB4 /* Application.hpp */,
 				7EA5992D1AF1552600800BB4 /* ApplicationFwd.hpp */,
-				7EA5992E1AF1552600800BB4 /* Input.cpp */,
-				7EA5992F1AF1552600800BB4 /* Input.hpp */,
+				7EA5992E1AF1552600800BB4 /* sdl_input.cpp */,
+				7EA5992F1AF1552600800BB4 /* input.hpp */,
 				7EA599301AF1552600800BB4 /* Model.cpp */,
 				7EA599311AF1552600800BB4 /* Model.hpp */,
 				7EA599321AF1552600800BB4 /* Renderer */,
@@ -665,7 +665,7 @@
 				7E8BAC961AF50905002D4B62 /* console_screen_controller.cpp in Sources */,
 				7EA5997C1AF1552600800BB4 /* SceneController.cpp in Sources */,
 				7EA599821AF1552600800BB4 /* Device.cpp in Sources */,
-				7EA599801AF1552600800BB4 /* Input.cpp in Sources */,
+				7EA599801AF1552600800BB4 /* sdl_input.cpp in Sources */,
 				7EA599781AF1552600800BB4 /* UTF8String.cpp in Sources */,
 				7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */,
 				7EA599871AF1552600800BB4 /* Texture.cpp in Sources */,

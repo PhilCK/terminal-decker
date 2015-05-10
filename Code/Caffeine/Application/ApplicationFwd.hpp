@@ -24,5 +24,18 @@ class Mesh;
 } // namespace
 
 
+namespace caffeine {
+namespace application {
+
+class application;
+class window;
+class renderer;
+class input;
+class model;
+class mesh;
+
+} // namespace
+} // namespace
+
 
 #endif // include guard

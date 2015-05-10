@@ -4,16 +4,16 @@
 #include <Caffeine/Application/Window.hpp>
 #include <Caffeine/Application/Renderer.hpp>
 #include <Caffeine/Application/Renderer/Device.hpp>
-#include <Caffeine/Application/Input.hpp>
+#include <Caffeine/Application/input.hpp>
 #include <Caffeine/Common/Utilities/Timer.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
 
 
-namespace Caffeine {
-namespace Application {
+namespace caffeine {
+namespace application {
 
 
-Application::Application(const std::string & title, const uint32_t width, const uint32_t height, const bool isFullscreen)
+application::application(const std::string & title, const uint32_t width, const uint32_t height, const bool isFullscreen)
 : m_window(nullptr)
 , m_renderer(nullptr)
 , m_input(nullptr)
@@ -42,13 +42,13 @@ Application::Application(const std::string & title, const uint32_t width, const 
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
 	
 	// Create Input, Window and Renderer.
-	m_window.reset(new Window(title, width, height, isFullscreen));
-	m_renderer.reset(new Dev::Device(m_window->getSDLWindow()));
-	m_input.reset(new Input());
+	m_window.reset(new CaffApp::Window(title, width, height, isFullscreen));
+	m_renderer.reset(new CaffApp::Dev::Device(m_window->getSDLWindow()));
+	m_input.reset(new caff_app::input());
 }
 
 
-Application::~Application()
+application::~application()
 {
 	m_renderer.release();
 	m_window.release();
@@ -59,13 +59,13 @@ Application::~Application()
 }
 
 
-void Application::startFrame()
+void application::startFrame()
 {
 	m_deltaTime = m_gameTimer.split() * 0.001f;
 	
   // Input
   {
-    m_input->update();
+    m_input->think();
     m_window->update();
   }
 
@@ -81,14 +81,14 @@ void Application::startFrame()
         m_shouldQuit = true;
       }
 
-      m_input->pumpSystemEvent(&sdlEvent);
+      m_input->pump_system_event(&sdlEvent);
       m_window->pumpSystemEvent(&sdlEvent);
     }
   }
 }
 
 
-void Application::endFrame()
+void application::endFrame()
 {
 	// Swap buffer.
 	SDL_GL_SwapWindow(m_window->getSDLWindow());
@@ -97,21 +97,21 @@ void Application::endFrame()
 }
 
 
-Dev::Device & Application::getRenderer() const
+CaffApp::Dev::Device & application::getRenderer() const
 {
   assert(m_renderer);
 	return *m_renderer;
 }
 
 
-Window & Application::getWindow() const
+CaffApp::Window & application::getWindow() const
 {
   assert(m_window);
 	return *m_window;
 }
 
 
-Input & Application::getInput() const
+caffeine::application::input & application::getInput() const
 {
   assert(m_input);
 	return *m_input;

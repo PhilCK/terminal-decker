@@ -185,4 +185,12 @@ namespace CaffEnt	= ::Caffeine::Entity;
 namespace CaffLib	= ::Caffeine::Library;
 namespace CaffGlue  = ::Caffeine::ScriptGlue;
 
+
+namespace caffeine {
+namespace application {}
+}
+
+namespace caff          = ::caffeine;
+namespace caff_app      = ::caffeine::application;
+
 #endif // include guard

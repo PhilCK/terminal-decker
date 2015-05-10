@@ -15,7 +15,7 @@ public:
 
   explicit          SceneController(SceneModel &model);
 
-  void              update(const float dt, const CaffApp::Input &input);
+  void              update(const float dt, const caff_app::input &input);
 
 private:
 

@@ -54,7 +54,7 @@ public:
 private:
 
 
-  friend class CaffApp::Application;
+  friend class caffeine::application::application;
 
   void                  update() {}
   void                  pumpSystemEvent(const void * sysEventData);
