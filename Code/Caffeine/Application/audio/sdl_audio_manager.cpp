@@ -1,3 +1,17 @@
+/*
+  SDL Mixer
+  --
+  This will put every track on a different channel.
+  
+  The positional audio of SDL Mixer isn't great. its pretty much just 2D volume panning. However for simple uses this is fine.
+  
+  Thread safe.
+  
+  Changes are buffered for cache friendlyness, changes will be applied on think method.
+  
+  ISSUES: Does not support moving of ear, and direction yet. This is due to thinking about how to handle its transform as a whole.
+*/
+
 #include <Caffeine/Application/audio/audio_manager.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
 #include <SDL_mixer.h>
@@ -67,6 +81,18 @@ initialize()
   }
   
   return true;
+}
+
+
+void
+think(const float dt)
+{
+  // Update position of audio.
+  for(const auto &sample : audio_sample_tracks)
+  {
+    // Dummy values right now.
+    Mix_SetPosition(sample.channel, 0, 10);
+  }
 }
 
 

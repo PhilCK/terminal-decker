@@ -63,24 +63,6 @@ public:
   {
     m_caffApp.getRenderer().setViewPort(width, height);
 
-    // Audio
-    {
-      
-    
-//      const std::string path1 = CaffUtil::GetPathDir() + "Audio/test_1.wav";
-//       sound1 = Mix_LoadWAV(path1.c_str());
-//      
-//             const std::string path2 = CaffUtil::GetPathDir() + "Audio/test_2.wav";
-//       sound2 = Mix_LoadWAV(path2.c_str());
-//      
-//       Mix_SetPosition(0, 270, 100);
-//       Mix_PlayChannel(0, sound1, 0 );
-//      
-//      Mix_SetPosition(1, 270, 100);
-//       Mix_PlayChannel(1, sound2, 0 );
-
-    }
-
     // Inital Controller
     {
       //m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});

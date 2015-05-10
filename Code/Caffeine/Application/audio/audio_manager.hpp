@@ -12,6 +12,8 @@ namespace audio {
 
 
 bool          initialize();
+void          think(const float dt);
+void          deinitialize();
 
 uint32_t      create_sample(const std::string &filename);
 uint32_t      create_music(const std::string &filename);
@@ -20,6 +22,8 @@ bool          is_sample_valid(const uint32_t id);
 
 void          play_sample(const uint32_t id);
 void          stop_sample(const uint32_t id);
+
+void          set_ear_position(const float x, const float y, const float z);
 
 void          set_sample_position(const uint32_t sample_id, const float x, const float y, const float z);
 
