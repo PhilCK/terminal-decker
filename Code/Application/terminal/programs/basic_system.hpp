@@ -2,7 +2,9 @@
 #define BASIC_SYSTEM_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
 
 
+#include <Application/terminal/terminal_fwd.hpp>
 #include <stdint.h>
+#include <string>
 
 
 namespace sys_opts {
@@ -30,14 +32,19 @@ public:
   void                think();
   void                disconnect();
   
+  inline std::string  connection_msg() const    { return m_connection_msg;    }
+  inline std::string  disconnection_msg() const { return m_disconnection_msg; }
+  
 private:
 
   const uint32_t      m_options = 0;
+  const std::string   m_connection_msg = "connected to localhost";
+  const std::string   m_disconnection_msg = "";
 
 }; // class
 
 
-void on_connection(basic_system &self);
+void on_connection(terminal_controller &controller, basic_system &self);
 
 
 #endif // include guard

@@ -13,9 +13,11 @@
 class terminal_connections
 {
 public:
-
   
-  explicit              terminal_connections(console_screen_controller &screen_controller, const uint32_t max_number_of_systems);
+  
+  explicit              terminal_connections(
+                          console_screen_controller &screen_controller,
+                          const uint32_t max_number_of_systems);
 
   void                  think_systems(const float dt);
   void                  input_string(const std::string &str);

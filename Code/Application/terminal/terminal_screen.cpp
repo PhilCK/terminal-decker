@@ -1,6 +1,5 @@
 #include <Application/terminal/terminal_screen.hpp>
 #include <Application/terminal/system_factory.hpp>
-#include <iostream>
 
 
 terminal_controller::terminal_controller(console_screen_controller &console_controller, terminal_connections &connections, const uint32_t screen_id)
@@ -21,7 +20,14 @@ terminal_controller::add_line_to_screen(const std::vector<uint32_t> &content)
 void
 terminal_controller::blit_screen()
 {
-  std::cout << "blit" << std::endl;
+
+}
+
+
+void
+terminal_controller::clear_screen()
+{
+  m_screen_controller.clear_screen(m_screen_id);
 }
 
 

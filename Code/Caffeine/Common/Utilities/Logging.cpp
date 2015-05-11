@@ -159,3 +159,16 @@ std::vector<std::string> GetLogBuffer()
 
 } // namespace
 } // namespace
+
+
+namespace caffeine {
+namespace utilities {
+
+
+void log_info(const std::string &log)     { CaffUtil::LogInfo(log); }
+void log_warning(const std::string &log)  { CaffUtil::LogWarning(log); }
+void log_error(const std::string &log)    { CaffUtil::LogError(log); }
+
+
+} // namespace
+} // namespace

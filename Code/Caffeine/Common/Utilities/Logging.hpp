@@ -1,6 +1,5 @@
-
-#ifndef CAFFEINE_UTILITIES_LOGGING_INCLUDED
-#define CAFFEINE_UTILITIES_LOGGING_INCLUDED
+#ifndef LOGGING_INCLUDED_18D2F00E_8F34_4331_B37B_9570466A9F3E
+#define LOGGING_INCLUDED_18D2F00E_8F34_4331_B37B_9570466A9F3E
 
 
 /*
@@ -18,6 +17,7 @@
 #include <iostream>
 
 
+// ** DEPRECATED STUFF BELOW ** //
 
 namespace Caffeine {
 namespace Utilities {
@@ -65,6 +65,23 @@ std::vector<std::string> GetLogBuffer();
 
 } // namespace
 } // namespace
+
+
+// ** ABOVE DEPRECATED ** //
+
+
+namespace caffeine {
+namespace utilities {
+
+
+void log_info(const std::string &log);
+void log_warning(const std::string &log);
+void log_error(const std::string &log);
+
+
+} // namespace
+} // namespace
+
 
 
 // Only for use during loading. this is not subject to

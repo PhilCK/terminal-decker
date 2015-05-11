@@ -9,7 +9,8 @@ boot_sequence::boot_sequence()
 }
 
 
-std::vector<uint32_t> boot_sequence::start_boot()
+std::vector<uint32_t>
+boot_sequence::start_boot()
 {
   if(m_current_boot_state != boot_state::OFF)
   {
@@ -24,7 +25,8 @@ std::vector<uint32_t> boot_sequence::start_boot()
 }
 
 
-std::vector<uint32_t> boot_sequence::update_boot(const float dt)
+std::vector<uint32_t>
+boot_sequence::update_boot(const float dt)
 {
   m_boot_timer += dt;
 
@@ -68,7 +70,8 @@ std::vector<uint32_t> boot_sequence::update_boot(const float dt)
 }
 
 
-void on_connection(terminal_controller& controller, boot_sequence &self)
+void
+on_connection(terminal_controller& controller, boot_sequence &self)
 {
   const auto content = self.start_boot();
   
@@ -76,7 +79,15 @@ void on_connection(terminal_controller& controller, boot_sequence &self)
 }
 
 
-void on_think(terminal_controller& controller, boot_sequence &self, const float dt)
+void
+on_disconnection(terminal_controller& controller, boot_sequence &self)
+{
+  controller.clear_screen();
+}
+
+
+void
+on_think(terminal_controller& controller, boot_sequence &self, const float dt)
 {
   const auto content = self.update_boot(dt);
   

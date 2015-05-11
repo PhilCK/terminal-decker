@@ -188,9 +188,11 @@ namespace CaffGlue  = ::Caffeine::ScriptGlue;
 
 namespace caffeine {
 namespace application {}
+namespace utilities {}
 }
 
 namespace caff          = ::caffeine;
 namespace caff_app      = ::caffeine::application;
+namespace caff_util     = ::caffeine::utilities;
 
 #endif // include guard

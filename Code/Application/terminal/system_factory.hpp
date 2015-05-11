@@ -12,6 +12,9 @@ enum class system_id : uint8_t
 {
   NONE,
   LOCAL_HOST,
+  RADIO,
+  RAIL_ADVERT_SYS,
+  DIGITAL_ADVERT_AGENCY,
 };
 
 

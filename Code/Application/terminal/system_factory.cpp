@@ -2,6 +2,7 @@
 #include <Application/terminal/programs/boot_sequence.hpp>
 #include <Application/terminal/programs/dict_hack.hpp>
 #include <Application/terminal/programs/basic_system.hpp>
+#include <Caffeine/Common/Utilities/Logging.hpp>
 #include <assert.h>
 
 
@@ -24,9 +25,22 @@ create(const enum system_id id)
       programs.reserve(1);
       programs.emplace_back(basic_system());
       break;
+      
+    case(system_id::RADIO):
+    
+      break;
+      
+    case(system_id::DIGITAL_ADVERT_AGENCY):
+    
+      break;
+      
+    case(system_id::RAIL_ADVERT_SYS):
+    
+      break;
   
   
     default:
+      caff_util::log_error("Tried to build something that doens't exsit.");
       assert(false);
   };
   

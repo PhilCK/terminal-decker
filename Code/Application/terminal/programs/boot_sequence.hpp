@@ -33,6 +33,7 @@ private:
 
 
 void on_connection(terminal_controller& controller, boot_sequence &self);
+void on_disconnection(terminal_controller& controller, boot_sequence &self);
 void on_think(terminal_controller& controller, boot_sequence &self, const float dt);
 
 
