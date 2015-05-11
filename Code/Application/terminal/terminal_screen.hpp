@@ -25,7 +25,7 @@ private:
 
   console_screen_controller &m_screen_controller;
   terminal_connections      &m_connections;
-  const uint32_t             m_screen_id = 0;
+  const uint32_t            m_screen_id = 0;
 
 }; // class
 

@@ -44,11 +44,12 @@ terminal_connections::think_systems(const float dt)
       on_think(controller, sys.at(i), dt);
     }
     
-    const auto id = m_pending_connections.at(s);
+    auto &id = m_pending_connections.at(s);
     
     if(id != system_id::NONE)
     {
       sys = system_factory::create(id);
+      id = system_id::NONE;
     }
   }
 }
@@ -67,11 +68,12 @@ terminal_connections::input_string(const std::string &str)
       on_input_str(controller, sys.at(i), str);
     }
     
-    const auto id = m_pending_connections.at(s);
+    auto &id = m_pending_connections.at(s);
     
     if(id != system_id::NONE)
     {
       sys = system_factory::create(id);
+      id = system_id::NONE;
     }
   }
 }
