@@ -4,5 +4,6 @@
 class TextConsoleModel;
 class TextConsoleView;
 class TextConsoleController;
+class console_screen_controller;
 
 #endif // include guard

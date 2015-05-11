@@ -3,19 +3,22 @@
 
 
 #include <Application/terminal/terminal.hpp>
+#include <Application/terminal/terminal_module.hpp>
 #include <vector>
+#include <stdint.h>
 
 
-enum class system
+enum class system_id : uint8_t
 {
   NONE,
+  LOCAL_HOST,
 };
 
 
 namespace system_factory
 {
 
-std::vector<detail::terminal_program_interface> create(const enum system system_id);
+std::vector<detail::terminal_program_interface> create(const enum system_id id);
 
 } // namespace
 

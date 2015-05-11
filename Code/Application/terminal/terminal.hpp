@@ -3,25 +3,30 @@
 
 
 #include <Application/terminal/terminal_module.hpp>
+#include <Application/terminal/terminal_fwd.hpp>
+#include <Application/Console/TextConsoleFwd.hpp>
 #include <string>
 #include <stdint.h>
 #include <vector>
 
 
-class terminal
+class terminal_connections
 {
 public:
 
   
-  explicit              terminal(const uint32_t max_number_of_systems);
+  explicit              terminal_connections(console_screen_controller &screen_controller, const uint32_t max_number_of_systems);
 
   void                  think_systems(const float dt);
   void                  input_string(const std::string &str);
+  void                  update_connection(const uint32_t screen, enum system_id id);
   
   
 private:
 
-  std::vector<std::vector<detail::terminal_program_interface>>      m_systems;
+  std::vector<std::vector<detail::terminal_program_interface>>m_systems;
+  std::vector<enum system_id> m_pending_connections;
+  console_screen_controller &m_screen_controller;
 
 }; // class
 

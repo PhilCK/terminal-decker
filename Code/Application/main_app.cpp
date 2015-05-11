@@ -158,7 +158,7 @@ private:
   SceneController                         m_sceneController;
   
   console_screen_controller               m_laptop;
-  terminal                                m_terminal = terminal(4);
+  terminal_connections                    m_terminal = terminal_connections(m_laptop, 4);
   
 
 };

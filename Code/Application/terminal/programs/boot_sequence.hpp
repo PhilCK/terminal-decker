@@ -14,6 +14,7 @@ public:
   explicit                  boot_sequence();
   std::vector<uint32_t>     start_boot();
   std::vector<uint32_t>     update_boot(const float dt);
+  inline bool               is_done() const { return m_current_boot_state == boot_state::FINISHED; }
   
 private:
 
@@ -21,18 +22,18 @@ private:
   {
     OFF,
     START,
-    RUNNING,
+    CHECKING_VOL,
     FINISHED,
   };
   
   boot_state                m_current_boot_state = boot_state::OFF;
-  uint32_t                  m_boot_timer = 0;
+  float                     m_boot_timer = 0;
 
 }; // class
 
 
-void on_connection(terminal_screen& screen, boot_sequence &self);
-void on_think(terminal_screen& screen, boot_sequence &self, const float dt);
+void on_connection(terminal_controller& controller, boot_sequence &self);
+void on_think(terminal_controller& controller, boot_sequence &self, const float dt);
 
 
 #endif // include guard
