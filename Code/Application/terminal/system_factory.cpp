@@ -23,7 +23,7 @@ create(const enum system_id id)
   
     case(system_id::LOCAL_HOST):
       programs.reserve(1);
-      programs.emplace_back(basic_system());
+      programs.emplace_back(basic_system("Connected to localhost:", ""));
       break;
       
     case(system_id::RADIO):

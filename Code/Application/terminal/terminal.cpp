@@ -48,8 +48,22 @@ terminal_connections::think_systems(const float dt)
     
     if(id != system_id::NONE)
     {
+      // Disconnect
+      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      {
+        terminal_controller controller(m_screen_controller, *this, s);
+        on_disconnection(controller, sys.at(i));
+      }
+    
       sys = system_factory::create(id);
       id = system_id::NONE;
+      
+      // Connect to new system
+      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      {
+        terminal_controller controller(m_screen_controller, *this, s);
+        on_connection(controller, sys.at(i));
+      }
     }
   }
 }
@@ -72,8 +86,22 @@ terminal_connections::input_string(const std::string &str)
     
     if(id != system_id::NONE)
     {
+      // Disconnect
+      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      {
+        terminal_controller controller(m_screen_controller, *this, s);
+        on_disconnection(controller, sys.at(i));
+      }
+    
       sys = system_factory::create(id);
       id = system_id::NONE;
+      
+      // Connect to new system
+      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      {
+        terminal_controller controller(m_screen_controller, *this, s);
+        on_connection(controller, sys.at(i));
+      }
     }
   }
 }
