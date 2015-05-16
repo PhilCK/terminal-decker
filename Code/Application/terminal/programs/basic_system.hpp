@@ -26,7 +26,9 @@ class basic_system
 {
 public:
 
-  explicit            basic_system(const std::string &connect_msg, const std::string &disconnect_msg, const uint32_t options = sys_opts::CLEAR | sys_opts::LS | sys_opts::NET);
+  explicit            basic_system(const std::string &connect_msg,
+                                   const std::string &disconnect_msg,
+                                   const uint32_t options = sys_opts::CLEAR | sys_opts::LS | sys_opts::NET);
   
   void                connect();
   void                think();

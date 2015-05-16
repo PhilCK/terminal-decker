@@ -2,7 +2,9 @@
 #include <Application/terminal/terminal_screen.hpp>
 
 
-basic_system::basic_system(const std::string &connect_msg, const std::string &disconnect_msg, const uint32_t options)
+basic_system::basic_system(const std::string &connect_msg,
+                           const std::string &disconnect_msg,
+                           const uint32_t options)
 : m_options(options)
 , m_connection_msg(connect_msg)
 , m_disconnection_msg(disconnect_msg)

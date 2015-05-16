@@ -15,13 +15,13 @@ namespace detail {
 
 
 template<typename T>
-void on_connection(terminal_controller& controller, T &self) { }
+void on_connection(terminal_controller& controller, T &self) {}
 
 template<typename T>
-void on_disconnection(terminal_controller& controller, T &self) { }
+void on_disconnection(terminal_controller& controller, T &self) {}
 
 template<typename T>
-void on_think(terminal_controller& controller, T &self, const float dt) { }
+void on_think(terminal_controller& controller, T &self, const float dt) {}
 
 template<typename T>
 void on_input_str(terminal_controller& controller, T &self, const std::string &input) {}
@@ -71,8 +71,8 @@ private:
     virtual void on_disconnection_(terminal_controller& screen) = 0;
     virtual void on_think_(terminal_controller& screen, const float dt) = 0;
     virtual void on_input_str_(terminal_controller& screen, const std::string &str) = 0;
-
 	};
+
 
 	template<typename T>
 	struct program_model : program_concept

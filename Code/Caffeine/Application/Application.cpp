@@ -1,5 +1,3 @@
-
-
 #include <Caffeine/Application/Application.hpp>
 #include <Caffeine/Application/Window.hpp>
 #include <Caffeine/Application/Renderer.hpp>

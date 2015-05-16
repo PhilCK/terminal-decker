@@ -75,10 +75,12 @@ terminal_connections::input_string(const std::string &str)
   for(uint32_t s = 0; s < m_systems.size(); ++s)
   {
     auto &sys = m_systems.at(s);
+    const uint32_t size_of_systems = static_cast<uint32_t>(sys.size());
+    terminal_controller controller(m_screen_controller, *this, s);
     
-    for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+    // TODO: Looping on to virtual boo!
+    for(uint32_t i = 0; i < size_of_systems; ++i)
     {
-      terminal_controller controller(m_screen_controller, *this, s);
       on_input_str(controller, sys.at(i), str);
     }
     
@@ -87,9 +89,8 @@ terminal_connections::input_string(const std::string &str)
     if(id != system_id::NONE)
     {
       // Disconnect
-      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      for(uint32_t i = 0; i < size_of_systems; ++i)
       {
-        terminal_controller controller(m_screen_controller, *this, s);
         on_disconnection(controller, sys.at(i));
       }
     
@@ -97,9 +98,8 @@ terminal_connections::input_string(const std::string &str)
       id = system_id::NONE;
       
       // Connect to new system
-      for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
+      for(uint32_t i = 0; i < size_of_systems; ++i)
       {
-        terminal_controller controller(m_screen_controller, *this, s);
         on_connection(controller, sys.at(i));
       }
     }

@@ -49,8 +49,8 @@ public:
   
   
   // ** Other ** //
-  void                think(const float dt);
-  CaffApp::Dev::FrameBuffer &                render(CaffApp::Dev::Device &renderer);
+  void                          think(const float dt);
+  CaffApp::Dev::FrameBuffer &   render(CaffApp::Dev::Device &renderer);
   
   
 private:

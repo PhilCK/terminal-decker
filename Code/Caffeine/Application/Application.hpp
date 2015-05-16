@@ -1,5 +1,5 @@
-#ifndef APPLICATION_APPLICATION_INCLUDED_
-#define APPLICATION_APPLICATION_INCLUDED_
+#ifndef APPLICATION_APPLICATION_INCLUDED_E276BA0E_C4CB_46E0_99BF_4858FF5A35FA
+#define APPLICATION_APPLICATION_INCLUDED_E276BA0E_C4CB_46E0_99BF_4858FF5A35FA
 
 
 #include <Caffeine/Common/Platform.hpp>
@@ -42,7 +42,7 @@ private:
 
 	std::unique_ptr<CaffApp::Window>        m_window;
 	std::unique_ptr<CaffApp::Dev::Device>   m_renderer;
-	std::unique_ptr<caff_app::input>         m_input;
+	std::unique_ptr<caff_app::input>        m_input;
 	Caffeine::Utilities::Timer              m_gameTimer;
 	float                                   m_deltaTime   = 0.f;
 	bool                                    m_shouldQuit  = false;

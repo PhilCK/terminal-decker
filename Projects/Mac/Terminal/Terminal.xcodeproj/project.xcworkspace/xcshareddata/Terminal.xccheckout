@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>1452D182-E8E4-4197-A354-B974A69A7803</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Terminal</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2E39D0DBD9238C2EF9DD263252B59A5BA1E6388A</key>
 		<string>https://bitbucket.org/SquidVsShark/terminal.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Projects/Mac/Terminal/Terminal.xcodeproj</string>
+	<string>Projects/Mac/Terminal/Terminal.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2E39D0DBD9238C2EF9DD263252B59A5BA1E6388A</key>
