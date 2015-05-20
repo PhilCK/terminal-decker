@@ -29,3 +29,12 @@ on_connection(terminal_controller& controller, basic_system &self)
     controller.add_line_to_screen(content);
   }
 }
+
+
+void
+on_think(terminal_controller &controller, basic_system &self)
+{
+  
+  
+  
+}

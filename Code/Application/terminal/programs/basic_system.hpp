@@ -47,6 +47,7 @@ private:
 
 
 void on_connection(terminal_controller &controller, basic_system &self);
+void on_think(terminal_controller &controller, basic_system &self);
 
 
 #endif // include guard

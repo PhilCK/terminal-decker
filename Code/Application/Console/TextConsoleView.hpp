@@ -29,7 +29,6 @@ public:
 
 private:
 
-
   CaffApp::Dev::VertexBuffer    m_consoleGridVBO;
   CaffApp::Dev::VertexBuffer    m_postVBO = CaffApp::Dev::VertexBuffer({-1.f, -1.f, 0.f, 0.f, +3.f, -1.f, 2.f, 0.f, -1.f, +3.f, 0.f, 2.f,});
   CaffApp::Dev::VertexFormat    m_consoleGridVF = CaffApp::Dev::VertexFormat({

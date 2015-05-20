@@ -38,6 +38,10 @@
 
 #include <Caffeine/Application/audio/audio_manager.hpp>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 
 
 namespace
@@ -62,6 +66,22 @@ public:
   , m_sceneController(m_sceneModel)
   {
     m_caffApp.getRenderer().setViewPort(width, height);
+    
+    const std::string& pFile = CaffUtil::GetPathDir() + "/Models/unit_cube.obj";
+    
+    Assimp::Importer importer;
+    
+      const aiScene* scene = importer.ReadFile(pFile,
+        aiProcess_CalcTangentSpace       | 
+        aiProcess_Triangulate            |
+        aiProcess_JoinIdenticalVertices  |
+        aiProcess_SortByPType);
+  
+    // If the import failed, report it
+    if( !scene)
+    {
+    
+    }
 
     // Inital Controller
     {
