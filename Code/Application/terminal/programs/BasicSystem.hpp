@@ -46,8 +46,8 @@ private:
 }; // class
 
 
-void on_connection(terminal_controller &controller, basic_system &self);
-void on_think(terminal_controller &controller, basic_system &self);
+void on_connection(TerminalController &controller, basic_system &self);
+void on_think(TerminalController &controller, basic_system &self);
 
 
 #endif // include guard

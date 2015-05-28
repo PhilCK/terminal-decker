@@ -15,16 +15,16 @@ namespace detail {
 
 
 template<typename T>
-void on_connection(terminal_controller& controller, T &self) {}
+void on_connection(TerminalController& controller, T &self) {}
 
 template<typename T>
-void on_disconnection(terminal_controller& controller, T &self) {}
+void on_disconnection(TerminalController& controller, T &self) {}
 
 template<typename T>
-void on_think(terminal_controller& controller, T &self, const float dt) {}
+void on_think(TerminalController& controller, T &self, const float dt) {}
 
 template<typename T>
-void on_input_str(terminal_controller& controller, T &self, const std::string &input) {}
+void on_input_str(TerminalController& controller, T &self, const std::string &input) {}
 
 
 class terminal_program_interface final
@@ -54,10 +54,10 @@ public:
 
 
 	// Module Interface
-	friend void on_connection(terminal_controller& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
-  friend void on_disconnection(terminal_controller& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
-  friend void on_think(terminal_controller& screen, terminal_program_interface &t, const float dt)             { t.object_->on_think_(screen, dt);       }
-  friend void on_input_str(terminal_controller& screen, terminal_program_interface &t, const std::string &str) { t.object_->on_input_str_(screen, str);  }
+	friend void on_connection(TerminalController& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
+  friend void on_disconnection(TerminalController& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
+  friend void on_think(TerminalController& screen, terminal_program_interface &t, const float dt)             { t.object_->on_think_(screen, dt);       }
+  friend void on_input_str(TerminalController& screen, terminal_program_interface &t, const std::string &str) { t.object_->on_input_str_(screen, str);  }
 
 
 private:
@@ -67,10 +67,10 @@ private:
 		virtual ~program_concept() = default;
 		virtual program_concept* copy_() const = 0;
 		
-    virtual void on_connection_(terminal_controller& screen) = 0;
-    virtual void on_disconnection_(terminal_controller& screen) = 0;
-    virtual void on_think_(terminal_controller& screen, const float dt) = 0;
-    virtual void on_input_str_(terminal_controller& screen, const std::string &str) = 0;
+    virtual void on_connection_(TerminalController& screen) = 0;
+    virtual void on_disconnection_(TerminalController& screen) = 0;
+    virtual void on_think_(TerminalController& screen, const float dt) = 0;
+    virtual void on_input_str_(TerminalController& screen, const std::string &str) = 0;
 	};
 
 
@@ -80,10 +80,10 @@ private:
 		program_model(T t) : data_(std::move(t)) {}
 		program_concept* copy_() const { return new program_model(*this); }
 
-		void on_connection_(terminal_controller& screen)                         { on_connection(screen, data_);     }
-    void on_disconnection_(terminal_controller& screen)                      { on_disconnection(screen, data_);  }
-    void on_think_(terminal_controller& screen, const float dt)              { on_think(screen, data_, dt);      }
-    void on_input_str_(terminal_controller& screen, const std::string &str)  { on_input_str(screen, data_, str); }
+		void on_connection_(TerminalController& screen)                         { on_connection(screen, data_);     }
+    void on_disconnection_(TerminalController& screen)                      { on_disconnection(screen, data_);  }
+    void on_think_(TerminalController& screen, const float dt)              { on_think(screen, data_, dt);      }
+    void on_input_str_(TerminalController& screen, const std::string &str)  { on_input_str(screen, data_, str); }
 
 		T data_;
 		

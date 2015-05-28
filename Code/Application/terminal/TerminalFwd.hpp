@@ -6,7 +6,7 @@
 
 
 class terminal_connections;
-class terminal_controller;
+class TerminalController;
 enum class system_id : uint8_t;
 
 

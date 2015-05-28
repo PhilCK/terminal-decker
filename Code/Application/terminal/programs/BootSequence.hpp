@@ -32,9 +32,9 @@ private:
 }; // class
 
 
-void on_connection(terminal_controller& controller, boot_sequence &self);
-void on_disconnection(terminal_controller& controller, boot_sequence &self);
-void on_think(terminal_controller& controller, boot_sequence &self, const float dt);
+void on_connection(TerminalController& controller, boot_sequence &self);
+void on_disconnection(TerminalController& controller, boot_sequence &self);
+void on_think(TerminalController& controller, boot_sequence &self, const float dt);
 
 
 #endif // include guard

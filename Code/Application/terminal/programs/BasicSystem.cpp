@@ -19,7 +19,7 @@ basic_system::think()
 
 
 void
-on_connection(terminal_controller& controller, basic_system &self)
+on_connection(TerminalController& controller, basic_system &self)
 {
   if(!self.connection_msg().empty())
   {
@@ -32,7 +32,7 @@ on_connection(terminal_controller& controller, basic_system &self)
 
 
 void
-on_think(terminal_controller &controller, basic_system &self)
+on_think(TerminalController &controller, basic_system &self)
 {
   
   

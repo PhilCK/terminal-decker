@@ -75,7 +75,7 @@ boot_sequence::update_boot(const float dt)
 
 
 void
-on_connection(terminal_controller& controller, boot_sequence &self)
+on_connection(TerminalController& controller, boot_sequence &self)
 {
   const auto content = self.start_boot();
   
@@ -84,14 +84,14 @@ on_connection(terminal_controller& controller, boot_sequence &self)
 
 
 void
-on_disconnection(terminal_controller& controller, boot_sequence &self)
+on_disconnection(TerminalController& controller, boot_sequence &self)
 {
   controller.clear_screen();
 }
 
 
 void
-on_think(terminal_controller& controller, boot_sequence &self, const float dt)
+on_think(TerminalController& controller, boot_sequence &self, const float dt)
 {
   const auto content = self.update_boot(dt);
   

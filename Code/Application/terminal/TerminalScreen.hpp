@@ -9,11 +9,11 @@
 #include <stdint.h>
 
 
-class terminal_controller
+class TerminalController
 {
 public:
 
-  explicit            terminal_controller(console_screen_controller &console_controller,
+  explicit            TerminalController(console_screen_controller &console_controller,
                                           terminal_connections &connections,
                                           const uint32_t screen_id);
   
