@@ -1,6 +1,6 @@
-#include <Application/terminal/programs/boot_sequence.hpp>
-#include <Application/terminal/terminal_screen.hpp>
-#include <Application/terminal/system_factory.hpp>
+#include <Application/Terminal/Programs/BootSequence.hpp>
+#include <Application/Terminal/TerminalScreen.hpp>
+#include <Application/Terminal/SystemFactory.hpp>
 
 
 boot_sequence::boot_sequence()

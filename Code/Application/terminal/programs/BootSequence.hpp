@@ -2,7 +2,7 @@
 #define BOOT_SEQUENCE_INCLUDED_B73D3BB0_2183_4DF9_9E9B_F67A37A10CDD
 
 
-#include <Application/terminal/terminal_fwd.hpp>
+#include <Application/Terminal/TerminalFwd.hpp>
 #include <stdint.h>
 #include <vector>
 

@@ -2,7 +2,7 @@
 #define TERMINAL_MODULE_INCLUDE_5DFDDB47_FC50_45AD_A2CE_7CCA07047B9E
 
 
-#include <Application/terminal/terminal_screen.hpp>
+#include <Application/Terminal/TerminalScreen.hpp>
 #include <string>
 #include <stdint.h>
 #include <memory>

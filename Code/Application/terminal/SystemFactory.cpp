@@ -1,7 +1,7 @@
-#include <Application/terminal/system_factory.hpp>
-#include <Application/terminal/programs/boot_sequence.hpp>
-#include <Application/terminal/programs/dict_hack.hpp>
-#include <Application/terminal/programs/basic_system.hpp>
+#include <Application/Terminal/SystemFactory.hpp>
+#include <Application/Terminal/Programs/BootSequence.hpp>
+#include <Application/Terminal/Programs/DictHack.hpp>
+#include <Application/Terminal/Programs/BasicSystem.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
 #include <assert.h>
 

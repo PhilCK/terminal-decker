@@ -1,5 +1,5 @@
-#include <Application/terminal/terminal_screen.hpp>
-#include <Application/terminal/system_factory.hpp>
+#include <Application/Terminal/TerminalScreen.hpp>
+#include <Application/Terminal/SystemFactory.hpp>
 
 
 terminal_controller::terminal_controller(console_screen_controller &console_controller, terminal_connections &connections, const uint32_t screen_id)

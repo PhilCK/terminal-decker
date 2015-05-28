@@ -1,7 +1,7 @@
-#include <Application/terminal/terminal.hpp>
-#include <Application/terminal/terminal_screen.hpp>
-#include <Application/terminal/system_factory.hpp>
-#include <Application/terminal/programs/dict_hack.hpp>
+#include <Application/Terminal/Terminal.hpp>
+#include <Application/Terminal/TerminalScreen.hpp>
+#include <Application/Terminal/SystemFactory.hpp>
+#include <Application/Terminal/Programs/DictHack.hpp>
 #include <Application/Console/console_screen_controller.hpp>
 #include <Caffeine/Common/Utilities/Logging.hpp>
 

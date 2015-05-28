@@ -3,7 +3,7 @@
 
 
 #include <Application/Console/console_screen_controller.hpp>
-#include <Application/terminal/terminal_fwd.hpp>
+#include <Application/Terminal/TerminalFwd.hpp>
 #include <vector>
 #include <string>
 #include <stdint.h>

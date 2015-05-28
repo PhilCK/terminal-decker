@@ -1,5 +1,5 @@
 
-#include <Application/terminal/programs/dict_hack.hpp>
+#include <Application/Terminal/Programs/DictHack.hpp>
 #include <iostream>
 
 

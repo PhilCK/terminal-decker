@@ -2,8 +2,8 @@
 #define TERMINAL_INCLUDED_5C68C166_D5E8_4359_8678_4F59ED0CBCFD
 
 
-#include <Application/terminal/terminal_module.hpp>
-#include <Application/terminal/terminal_fwd.hpp>
+#include <Application/Terminal/TerminalModule.hpp>
+#include <Application/Terminal/TerminalFwd.hpp>
 #include <Application/Console/TextConsoleFwd.hpp>
 #include <string>
 #include <stdint.h>

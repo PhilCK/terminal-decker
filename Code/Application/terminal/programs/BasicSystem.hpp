@@ -2,7 +2,7 @@
 #define BASIC_SYSTEM_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
 
 
-#include <Application/terminal/terminal_fwd.hpp>
+#include <Application/Terminal/TerminalFwd.hpp>
 #include <stdint.h>
 #include <string>
 

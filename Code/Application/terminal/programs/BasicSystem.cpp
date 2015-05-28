@@ -1,5 +1,5 @@
-#include <Application/terminal/programs/basic_system.hpp>
-#include <Application/terminal/terminal_screen.hpp>
+#include <Application/Terminal/Programs/BasicSystem.hpp>
+#include <Application/Terminal/TerminalScreen.hpp>
 
 
 basic_system::basic_system(const std::string &connect_msg,
