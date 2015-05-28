@@ -14,19 +14,19 @@ class TerminalController
 public:
 
   explicit            TerminalController(console_screen_controller &console_controller,
-                                          terminal_connections &connections,
+                                          TerminalConnections &connections,
                                           const uint32_t screen_id);
   
   void                add_line_to_screen(const std::vector<uint32_t> &content);
   void                blit_screen();
   void                clear_screen();
   
-  void                connect(const enum system_id connect_sys);
+  void                connect(const enum SystemID connect_sys);
   
 private:
 
   console_screen_controller &m_screen_controller;
-  terminal_connections      &m_connections;
+  TerminalConnections      &m_connections;
   const uint32_t            m_screen_id = 0;
 
 }; // class

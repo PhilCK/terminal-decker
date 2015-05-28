@@ -1,5 +1,5 @@
-#ifndef BASIC_SYSTEM_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
-#define BASIC_SYSTEM_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
+#ifndef BasicSystem_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
+#define BasicSystem_INCLUDED_80D5A361_C361_441B_8948_E35FC591A675
 
 
 #include <Application/Terminal/TerminalFwd.hpp>
@@ -22,11 +22,11 @@ enum ENUM
 } // namespace
 
 
-class basic_system
+class BasicSystem
 {
 public:
 
-  explicit            basic_system(const std::string &connect_msg,
+  explicit            BasicSystem(const std::string &connect_msg,
                                    const std::string &disconnect_msg,
                                    const uint32_t options = sys_opts::CLEAR | sys_opts::LS | sys_opts::NET);
   
@@ -46,8 +46,8 @@ private:
 }; // class
 
 
-void on_connection(TerminalController &controller, basic_system &self);
-void on_think(TerminalController &controller, basic_system &self);
+void on_connection(TerminalController &controller, BasicSystem &self);
+void on_think(TerminalController &controller, BasicSystem &self);
 
 
 #endif // include guard

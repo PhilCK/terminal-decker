@@ -6,16 +6,16 @@
 #include <Caffeine/Common/Utilities/Logging.hpp>
 
 
-terminal_connections::terminal_connections(console_screen_controller &screen_controller, const uint32_t max_number_of_systems)
+TerminalConnections::TerminalConnections(console_screen_controller &screen_controller, const uint32_t max_number_of_systems)
 : m_screen_controller(screen_controller)
-, m_pending_connections(max_number_of_systems, system_id::NONE)
+, m_pending_connections(max_number_of_systems, SystemID::NONE)
 {
   m_systems.reserve(max_number_of_systems);
 
   for(uint32_t i = 0; i < max_number_of_systems; ++i)
   {
     CaffUtil::LogInfo("terminal - Creating inital laptop systems.");
-    m_systems.emplace_back(system_factory::create(system_id::NONE));
+    m_systems.emplace_back(system_factory::create(SystemID::NONE));
   }
   
   for(uint32_t s = 0; s < m_systems.size(); ++s)
@@ -32,7 +32,7 @@ terminal_connections::terminal_connections(console_screen_controller &screen_con
 
 
 void
-terminal_connections::think_systems(const float dt)
+TerminalConnections::think_systems(const float dt)
 {
   for(uint32_t s = 0; s < m_systems.size(); ++s)
   {
@@ -46,7 +46,7 @@ terminal_connections::think_systems(const float dt)
     
     auto &id = m_pending_connections.at(s);
     
-    if(id != system_id::NONE)
+    if(id != SystemID::NONE)
     {
       // Disconnect
       for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
@@ -56,7 +56,7 @@ terminal_connections::think_systems(const float dt)
       }
     
       sys = system_factory::create(id);
-      id = system_id::NONE;
+      id = SystemID::NONE;
       
       // Connect to new system
       for(uint32_t i = 0; i < static_cast<uint32_t>(sys.size()); ++i)
@@ -70,7 +70,7 @@ terminal_connections::think_systems(const float dt)
 
 
 void
-terminal_connections::input_string(const std::string &str)
+TerminalConnections::input_string(const std::string &str)
 {
   for(uint32_t s = 0; s < m_systems.size(); ++s)
   {
@@ -86,7 +86,7 @@ terminal_connections::input_string(const std::string &str)
     
     auto &id = m_pending_connections.at(s);
     
-    if(id != system_id::NONE)
+    if(id != SystemID::NONE)
     {
       // Disconnect
       for(uint32_t i = 0; i < size_of_systems; ++i)
@@ -95,7 +95,7 @@ terminal_connections::input_string(const std::string &str)
       }
     
       sys = system_factory::create(id);
-      id = system_id::NONE;
+      id = SystemID::NONE;
       
       // Connect to new system
       for(uint32_t i = 0; i < size_of_systems; ++i)
@@ -108,7 +108,7 @@ terminal_connections::input_string(const std::string &str)
 
 
 void
-terminal_connections::update_connection(const uint32_t screen, enum system_id id)
+TerminalConnections::update_connection(const uint32_t screen, enum SystemID id)
 {
   m_pending_connections.at(screen) = id;
 }

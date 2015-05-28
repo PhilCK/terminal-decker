@@ -7,11 +7,11 @@
 #include <stdint.h>
 
 
-class dictionary_hack
+class DictionaryHack
 {
 public:
 
-  explicit                dictionary_hack();
+  explicit                DictionaryHack();
   
   void                    hack();
   void                    help();
@@ -26,9 +26,9 @@ private:
 }; // class
 
 
-void on_connection(dictionary_hack &self);
-void on_think(dictionary_hack &self, const float dt);
-void on_input_str(dictionary_hack &self, const std::string &input);
+void on_connection(DictionaryHack &self);
+void on_think(DictionaryHack &self, const float dt);
+void on_input_str(DictionaryHack &self, const std::string &input);
 
 
 #endif // include guard

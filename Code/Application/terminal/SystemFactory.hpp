@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 
-enum class system_id : uint8_t
+enum class SystemID : uint8_t
 {
   NONE,
   LOCAL_HOST,
@@ -21,7 +21,7 @@ enum class system_id : uint8_t
 namespace system_factory
 {
 
-std::vector<detail::terminal_program_interface> create(const enum system_id id);
+std::vector<detail::TerminalProgramInterface> create(const enum SystemID id);
 
 } // namespace
 

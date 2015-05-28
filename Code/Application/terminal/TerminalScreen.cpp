@@ -2,7 +2,7 @@
 #include <Application/Terminal/SystemFactory.hpp>
 
 
-TerminalController::TerminalController(console_screen_controller &console_controller, terminal_connections &connections, const uint32_t screen_id)
+TerminalController::TerminalController(console_screen_controller &console_controller, TerminalConnections &connections, const uint32_t screen_id)
 : m_screen_controller(console_controller)
 , m_connections(connections)
 , m_screen_id(screen_id)
@@ -32,7 +32,7 @@ TerminalController::clear_screen()
 
 
 void
-TerminalController::connect(const enum system_id connect_sys)
+TerminalController::connect(const enum SystemID connect_sys)
 {
   m_connections.update_connection(m_screen_id, connect_sys);
 }

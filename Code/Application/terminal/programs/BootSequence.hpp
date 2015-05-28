@@ -1,5 +1,5 @@
-#ifndef BOOT_SEQUENCE_INCLUDED_B73D3BB0_2183_4DF9_9E9B_F67A37A10CDD
-#define BOOT_SEQUENCE_INCLUDED_B73D3BB0_2183_4DF9_9E9B_F67A37A10CDD
+#ifndef BootSequence_INCLUDED_B73D3BB0_2183_4DF9_9E9B_F67A37A10CDD
+#define BootSequence_INCLUDED_B73D3BB0_2183_4DF9_9E9B_F67A37A10CDD
 
 
 #include <Application/Terminal/TerminalFwd.hpp>
@@ -7,11 +7,11 @@
 #include <vector>
 
 
-class boot_sequence
+class BootSequence
 {
 public:
 
-  explicit                  boot_sequence();
+  explicit                  BootSequence();
   std::vector<uint32_t>     start_boot();
   std::vector<uint32_t>     update_boot(const float dt);
   inline bool               is_done() const { return m_current_boot_state == boot_state::FINISHED; }
@@ -32,9 +32,9 @@ private:
 }; // class
 
 
-void on_connection(TerminalController& controller, boot_sequence &self);
-void on_disconnection(TerminalController& controller, boot_sequence &self);
-void on_think(TerminalController& controller, boot_sequence &self, const float dt);
+void on_connection(TerminalController& controller, BootSequence &self);
+void on_disconnection(TerminalController& controller, BootSequence &self);
+void on_think(TerminalController& controller, BootSequence &self, const float dt);
 
 
 #endif // include guard

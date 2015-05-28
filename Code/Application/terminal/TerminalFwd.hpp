@@ -5,9 +5,9 @@
 #include <stdint.h>
 
 
-class terminal_connections;
+class TerminalConnections;
 class TerminalController;
-enum class system_id : uint8_t;
+enum class SystemID : uint8_t;
 
 
 #endif // include guard

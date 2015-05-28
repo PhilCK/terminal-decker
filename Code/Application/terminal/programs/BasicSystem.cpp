@@ -2,7 +2,7 @@
 #include <Application/Terminal/TerminalScreen.hpp>
 
 
-basic_system::basic_system(const std::string &connect_msg,
+BasicSystem::BasicSystem(const std::string &connect_msg,
                            const std::string &disconnect_msg,
                            const uint32_t options)
 : m_options(options)
@@ -13,13 +13,13 @@ basic_system::basic_system(const std::string &connect_msg,
 
 
 void
-basic_system::think()
+BasicSystem::think()
 {
 }
 
 
 void
-on_connection(TerminalController& controller, basic_system &self)
+on_connection(TerminalController& controller, BasicSystem &self)
 {
   if(!self.connection_msg().empty())
   {
@@ -32,7 +32,7 @@ on_connection(TerminalController& controller, basic_system &self)
 
 
 void
-on_think(TerminalController &controller, basic_system &self)
+on_think(TerminalController &controller, BasicSystem &self)
 {
   
   

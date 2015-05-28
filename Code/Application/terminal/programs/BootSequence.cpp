@@ -3,14 +3,14 @@
 #include <Application/Terminal/SystemFactory.hpp>
 
 
-boot_sequence::boot_sequence()
+BootSequence::BootSequence()
 {
   
 }
 
 
 std::vector<uint32_t>
-boot_sequence::start_boot()
+BootSequence::start_boot()
 {
   if(m_current_boot_state != boot_state::OFF)
   {
@@ -26,7 +26,7 @@ boot_sequence::start_boot()
 
 
 std::vector<uint32_t>
-boot_sequence::update_boot(const float dt)
+BootSequence::update_boot(const float dt)
 {
   m_boot_timer += dt;
 
@@ -75,7 +75,7 @@ boot_sequence::update_boot(const float dt)
 
 
 void
-on_connection(TerminalController& controller, boot_sequence &self)
+on_connection(TerminalController& controller, BootSequence &self)
 {
   const auto content = self.start_boot();
   
@@ -84,14 +84,14 @@ on_connection(TerminalController& controller, boot_sequence &self)
 
 
 void
-on_disconnection(TerminalController& controller, boot_sequence &self)
+on_disconnection(TerminalController& controller, BootSequence &self)
 {
   controller.clear_screen();
 }
 
 
 void
-on_think(TerminalController& controller, boot_sequence &self, const float dt)
+on_think(TerminalController& controller, BootSequence &self, const float dt)
 {
   const auto content = self.update_boot(dt);
   
@@ -102,6 +102,6 @@ on_think(TerminalController& controller, boot_sequence &self, const float dt)
   
   if(self.is_done())
   {
-    controller.connect(system_id::LOCAL_HOST);
+    controller.connect(SystemID::LOCAL_HOST);
   }
 }

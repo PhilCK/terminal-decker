@@ -3,26 +3,26 @@
 #include <iostream>
 
 
-dictionary_hack::dictionary_hack()
+DictionaryHack::DictionaryHack()
 {
 }
 
 
 void
-dictionary_hack::hack()
+DictionaryHack::hack()
 {
 }
 
 
 void
-on_connection(dictionary_hack &self)
+on_connection(DictionaryHack &self)
 {
   
 }
 
 
 void
-on_think(dictionary_hack &self, const float dt)
+on_think(DictionaryHack &self, const float dt)
 {
 
 }

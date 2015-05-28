@@ -9,32 +9,32 @@
 namespace system_factory {
 
 
-std::vector<detail::terminal_program_interface>
-create(const enum system_id id)
+std::vector<detail::TerminalProgramInterface>
+create(const enum SystemID id)
 {
-  std::vector<detail::terminal_program_interface> programs;
+  std::vector<detail::TerminalProgramInterface> programs;
   
   switch(id)
   {
-    case(system_id::NONE):
+    case(SystemID::NONE):
       programs.reserve(1);
-      programs.emplace_back(boot_sequence());
+      programs.emplace_back(BootSequence());
       break;
   
-    case(system_id::LOCAL_HOST):
+    case(SystemID::LOCAL_HOST):
       programs.reserve(1);
-      programs.emplace_back(basic_system("Connected to localhost:", ""));
+      programs.emplace_back(BasicSystem("Connected to localhost:", ""));
       break;
       
-    case(system_id::RADIO):
+    case(SystemID::RADIO):
     
       break;
       
-    case(system_id::DIGITAL_ADVERT_AGENCY):
+    case(SystemID::DIGITAL_ADVERT_AGENCY):
     
       break;
       
-    case(system_id::RAIL_ADVERT_SYS):
+    case(SystemID::RAIL_ADVERT_SYS):
     
       break;
   

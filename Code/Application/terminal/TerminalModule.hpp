@@ -27,37 +27,37 @@ template<typename T>
 void on_input_str(TerminalController& controller, T &self, const std::string &input) {}
 
 
-class terminal_program_interface final
+class TerminalProgramInterface final
 {
 public:
 
 	template<typename T>
-	terminal_program_interface(T t) : object_(new program_model<T>(t)) { std::cout << "ctor" << std::endl; }
+	TerminalProgramInterface(T t) : object_(new ProgramModel<T>(t)) { std::cout << "ctor" << std::endl; }
 
-	terminal_program_interface(const terminal_program_interface& a) : object_(a.object_->copy_()) {std::cout << "copy" << std::endl; }
+	TerminalProgramInterface(const TerminalProgramInterface& a) : object_(a.object_->copy_()) {std::cout << "copy" << std::endl; }
 
-	terminal_program_interface(terminal_program_interface&&) = default;
+	TerminalProgramInterface(TerminalProgramInterface&&) = default;
 
-	terminal_program_interface& operator=(const terminal_program_interface& a)
+	TerminalProgramInterface& operator=(const TerminalProgramInterface& a)
 	{
 		std::cout << "ass" << std::endl; 
-		terminal_program_interface tmp(a);
+		TerminalProgramInterface tmp(a);
 		*this = std::move(tmp);
 		return *this;
 	}
 
 #ifdef __APPLE__
-    terminal_program_interface& operator=(terminal_program_interface&&) noexcept = default;
+    TerminalProgramInterface& operator=(TerminalProgramInterface&&) noexcept = default;
 #else
-	terminal_program_interface& operator=(terminal_program_interface&&) {} /*noexcept = default;*/
+	TerminalProgramInterface& operator=(TerminalProgramInterface&&) {} /*noexcept = default;*/
 #endif
 
 
 	// Module Interface
-	friend void on_connection(TerminalController& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
-  friend void on_disconnection(TerminalController& screen, terminal_program_interface &t)                        { t.object_->on_connection_(screen);    }
-  friend void on_think(TerminalController& screen, terminal_program_interface &t, const float dt)             { t.object_->on_think_(screen, dt);       }
-  friend void on_input_str(TerminalController& screen, terminal_program_interface &t, const std::string &str) { t.object_->on_input_str_(screen, str);  }
+	friend void on_connection(TerminalController& screen, TerminalProgramInterface &t)                        { t.object_->on_connection_(screen);    }
+  friend void on_disconnection(TerminalController& screen, TerminalProgramInterface &t)                        { t.object_->on_connection_(screen);    }
+  friend void on_think(TerminalController& screen, TerminalProgramInterface &t, const float dt)             { t.object_->on_think_(screen, dt);       }
+  friend void on_input_str(TerminalController& screen, TerminalProgramInterface &t, const std::string &str) { t.object_->on_input_str_(screen, str);  }
 
 
 private:
@@ -75,10 +75,10 @@ private:
 
 
 	template<typename T>
-	struct program_model : program_concept
+	struct ProgramModel : program_concept
 	{
-		program_model(T t) : data_(std::move(t)) {}
-		program_concept* copy_() const { return new program_model(*this); }
+		ProgramModel(T t) : data_(std::move(t)) {}
+		program_concept* copy_() const { return new ProgramModel(*this); }
 
 		void on_connection_(TerminalController& screen)                         { on_connection(screen, data_);     }
     void on_disconnection_(TerminalController& screen)                      { on_disconnection(screen, data_);  }

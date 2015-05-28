@@ -6,12 +6,12 @@
 #include <stdint.h>
 
 
-namespace terminal
+namespace Terminal
 {
 
 uint32_t              create_terminal(const uint32_t width, const uint32_t height);
-void                  push_content_to_terminal(const uint32_t terminal_id, std::vector<uint32_t> &content);
-void                  push_content_to_overlay(const uint32_t terminal_id, std::vector<uint32_t> &content);
+void                  push_content_to_terminal(const uint32_tTerminalID, std::vector<uint32_t> &content);
+void                  push_content_to_overlay(const uint32_tTerminalID, std::vector<uint32_t> &content);
 void                  remove_content(const uint32_t id);
 void                  clear_content(const uint32_t id);
 std::vector<float>    get_terminal_data(const uint32_t id);
