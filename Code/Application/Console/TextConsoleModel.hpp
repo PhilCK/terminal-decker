@@ -64,7 +64,7 @@ private:
   std::vector<float>          m_characterProperties;
   mutable std::mutex          m_modelMutex;
   std::string                 m_input                 = "";
-  std::string                 m_inputPrompt           = ">> ";
+  std::string                 m_inputPrompt           = "#> ";
   std::size_t                 m_currentBufferPosition = 0;
   uint32_t                    m_charSize              = 0; // Width and Height store.
   uint32_t                    m_numberOfCharsInData   = 0; // TODO: Remove, and figure number based on data!

@@ -28,10 +28,6 @@
 
 #include <vector>
 
-#include <core/core.hpp>
-#include <core/data_core.hpp>
-#include <modules/console/console_module.hpp>
-
 #include <Application/Console/console_screen_controller.hpp>
 
 #include <Application/terminal/terminal.hpp>
@@ -128,9 +124,6 @@ public:
       }
 
       m_terminal.think_systems(delta_time);
-  
-      caffcore::think_all_modules();
-      caffcore::dispatch_data_notifications();
 
       m_caffApp.endFrame();
     }
@@ -143,9 +136,6 @@ public:
 
     static std::string dataStr;
     dataStr = str;
-
-    caffcore::DataNode data{0,0,&dataStr[0], sizeof(char) * dataStr.length()};
-    caffcore::add_data_to_core(data);
   }
 
 
@@ -187,12 +177,6 @@ private:
 
 int main(int argc, char **argv)
 {
-  // Core
-  caffcore::push_new_module(ConsoleModule());
-  
-  caffcore::register_all_modules();
-  caffcore::start_all_modules();
-
   // Logging
   CaffUtil::SetLogLevel(CaffUtil::LogLevel::ERROR_LOG | CaffUtil::LogLevel::INFO_LOG | CaffUtil::LogLevel::WARNING_LOG);
   CaffUtil::SetOutputLogTargets(CaffUtil::LogOutput::CONSOLE);

@@ -19,7 +19,7 @@ boot_sequence::start_boot()
 
   m_current_boot_state = boot_state::START;
   
-  const std::string boot = "powering up ...";
+  const std::string boot = "powering up ...\n";
   std::vector<uint32_t> content(std::begin(boot), std::end(boot));
   return content;
 }
@@ -38,6 +38,10 @@ boot_sequence::update_boot(const float dt)
       {
         m_current_boot_state = boot_state::CHECKING_VOL;
       }
+      
+      const std::string boot = ".";
+      std::vector<uint32_t> content(std::begin(boot), std::end(boot));
+      //return content;
     
       break;
     }
