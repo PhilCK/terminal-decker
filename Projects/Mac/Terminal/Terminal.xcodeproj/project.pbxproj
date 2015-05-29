@@ -50,9 +50,8 @@
 		7EA59AD71AF156DF00800BB4 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD21AF156DF00800BB4 /* Models */; };
 		7EA59AD81AF156DF00800BB4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD31AF156DF00800BB4 /* Shaders */; };
 		7EA59AD91AF156DF00800BB4 /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD41AF156DF00800BB4 /* Textures */; };
+		7EBAC4661B188C0100B7CA2B /* TerminalBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */; };
 		7EF5D4DC1B16F18F000DC88B /* UTF8String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4DA1B16F18F000DC88B /* UTF8String.cpp */; };
-		7EF5D4E51B16F5E7000DC88B /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4DF1B16F5E7000DC88B /* buffer.cpp */; };
-		7EF5D4EA1B16FA3C000DC88B /* terminal_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4E81B16FA3C000DC88B /* terminal_impl.cpp */; };
 		7EF5D4EC1B178CD2000DC88B /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */; };
 		7EF5D5111B178F5C000DC88B /* BasicSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D5031B178F5C000DC88B /* BasicSystem.cpp */; };
 		7EF5D5121B178F5C000DC88B /* BootSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D5051B178F5C000DC88B /* BootSequence.cpp */; };
@@ -169,14 +168,10 @@
 		7EA59AD21AF156DF00800BB4 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = ../../../Assets/Models; sourceTree = "<group>"; };
 		7EA59AD31AF156DF00800BB4 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../../../Assets/Shaders; sourceTree = "<group>"; };
 		7EA59AD41AF156DF00800BB4 /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../Assets/Textures; sourceTree = "<group>"; };
+		7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerminalBuffer.cpp; path = Programs/TerminalBuffer.cpp; sourceTree = "<group>"; };
+		7EBAC4651B188C0100B7CA2B /* TerminalBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TerminalBuffer.hpp; path = Programs/TerminalBuffer.hpp; sourceTree = "<group>"; };
 		7EF5D4DA1B16F18F000DC88B /* UTF8String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8String.cpp; sourceTree = "<group>"; };
 		7EF5D4DB1B16F18F000DC88B /* UTF8String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8String.hpp; sourceTree = "<group>"; };
-		7EF5D4DF1B16F5E7000DC88B /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
-		7EF5D4E01B16F5E7000DC88B /* buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffer.hpp; sourceTree = "<group>"; };
-		7EF5D4E41B16F5E7000DC88B /* terminal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terminal.hpp; sourceTree = "<group>"; };
-		7EF5D4E71B16F9BB000DC88B /* terminal_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = terminal_fwd.hpp; sourceTree = "<group>"; };
-		7EF5D4E81B16FA3C000DC88B /* terminal_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terminal_impl.cpp; sourceTree = "<group>"; };
-		7EF5D4E91B16FA3C000DC88B /* terminal_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terminal_impl.hpp; sourceTree = "<group>"; };
 		7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainApp.cpp; sourceTree = "<group>"; };
 		7EF5D5031B178F5C000DC88B /* BasicSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicSystem.cpp; sourceTree = "<group>"; };
 		7EF5D5041B178F5C000DC88B /* BasicSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicSystem.hpp; sourceTree = "<group>"; };
@@ -260,7 +255,6 @@
 			children = (
 				7EF5D5011B178F5C000DC88B /* Terminal */,
 				7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */,
-				7EF5D4DD1B16F5E7000DC88B /* terminal_module */,
 				7EF5D4D91B16F18F000DC88B /* Lib */,
 				7EA5990D1AF1552600800BB4 /* Console */,
 				7EA599211AF1552600800BB4 /* Scene */,
@@ -506,38 +500,11 @@
 			path = Lib;
 			sourceTree = "<group>";
 		};
-		7EF5D4DD1B16F5E7000DC88B /* terminal_module */ = {
-			isa = PBXGroup;
-			children = (
-				7EF5D4DE1B16F5E7000DC88B /* impl */,
-				7EF5D4E31B16F5E7000DC88B /* interface */,
-			);
-			path = terminal_module;
-			sourceTree = "<group>";
-		};
-		7EF5D4DE1B16F5E7000DC88B /* impl */ = {
-			isa = PBXGroup;
-			children = (
-				7EF5D4E81B16FA3C000DC88B /* terminal_impl.cpp */,
-				7EF5D4E91B16FA3C000DC88B /* terminal_impl.hpp */,
-				7EF5D4E71B16F9BB000DC88B /* terminal_fwd.hpp */,
-				7EF5D4DF1B16F5E7000DC88B /* buffer.cpp */,
-				7EF5D4E01B16F5E7000DC88B /* buffer.hpp */,
-			);
-			path = impl;
-			sourceTree = "<group>";
-		};
-		7EF5D4E31B16F5E7000DC88B /* interface */ = {
-			isa = PBXGroup;
-			children = (
-				7EF5D4E41B16F5E7000DC88B /* terminal.hpp */,
-			);
-			path = interface;
-			sourceTree = "<group>";
-		};
 		7EF5D5011B178F5C000DC88B /* Terminal */ = {
 			isa = PBXGroup;
 			children = (
+				7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */,
+				7EBAC4651B188C0100B7CA2B /* TerminalBuffer.hpp */,
 				7EF5D5021B178F5C000DC88B /* Programs */,
 				7EF5D5091B178F5C000DC88B /* SystemFactory.cpp */,
 				7EF5D50A1B178F5C000DC88B /* SystemFactory.hpp */,
@@ -664,6 +631,7 @@
 				7EA59A6D1AF1553D00800BB4 /* image_DXT.c in Sources */,
 				7EA599831AF1552600800BB4 /* FrameBuffer.cpp in Sources */,
 				7EF5D5121B178F5C000DC88B /* BootSequence.cpp in Sources */,
+				7EBAC4661B188C0100B7CA2B /* TerminalBuffer.cpp in Sources */,
 				7EA59A711AF1553D00800BB4 /* tinyxml2.cpp in Sources */,
 				7EF5D5131B178F5C000DC88B /* DictHack.cpp in Sources */,
 				7EF5D5111B178F5C000DC88B /* BasicSystem.cpp in Sources */,
@@ -677,7 +645,6 @@
 				7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */,
 				7EA5997F1AF1552600800BB4 /* Application.cpp in Sources */,
 				7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */,
-				7EF5D4EA1B16FA3C000DC88B /* terminal_impl.cpp in Sources */,
 				7EF5D5161B178F5C000DC88B /* TerminalScreen.cpp in Sources */,
 				7EF5D4DC1B16F18F000DC88B /* UTF8String.cpp in Sources */,
 				7EA5998D1AF1552600800BB4 /* Directories.mm in Sources */,
@@ -696,7 +663,6 @@
 				7EA5998A1AF1552600800BB4 /* Renderer.cpp in Sources */,
 				7EA59A701AF1553D00800BB4 /* stb_image_aug.c in Sources */,
 				7EA599901AF1552600800BB4 /* Timer.cpp in Sources */,
-				7EF5D4E51B16F5E7000DC88B /* buffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
