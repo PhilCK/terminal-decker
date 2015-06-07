@@ -21,13 +21,13 @@ public:
 
   void                  think_systems(const float dt);
   void                  input_string(const std::string &str);
-  void                  update_connection(const uint32_t screen, enum SystemID id);
+  void                  update_connection(const uint32_t screen, enum class SystemID id);
   
   
 private:
 
   std::vector<std::vector<detail::TerminalProgramInterface>>m_systems;
-  std::vector<enum SystemID> m_pending_connections;
+  std::vector<enum class SystemID> m_pending_connections;
   console_screen_controller &m_screen_controller;
 
 }; // class

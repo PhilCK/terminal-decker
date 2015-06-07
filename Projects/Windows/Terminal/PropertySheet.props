@@ -12,7 +12,7 @@
   <PropertyGroup>
     <OutDir>$(BinDir)$(Configuration)\</OutDir>
     <IncludePath>$(AppCodeDir);$(CodeDir);$(IncludeDir)Glew/Include/;$(IncludeDir)Dirent/Include/;$(IncludeDir)SDL2/Include/;$(IncludeDir)Soil/Include/;$(IncludeDir);$(IncludeDir)Selene/Include/;$(IncludeDir)Lua/Include/;$(IncludeDir)TinyXML2/Include/;$(IncludePath)</IncludePath>
-    <LibraryPath>$(IncludeDir)SDL2/Lib/Win32/;$(IncludeDir)Glew/Lib/Win32/;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(IncludeDir)SDL2/Lib/Win32/;$(IncludeDir)Glew/Lib/Win32/;$(IncludeDir)Assimp/Lib/Win/;$(LibraryPath)</LibraryPath>
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
   </PropertyGroup>

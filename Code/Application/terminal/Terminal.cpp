@@ -108,7 +108,7 @@ TerminalConnections::input_string(const std::string &str)
 
 
 void
-TerminalConnections::update_connection(const uint32_t screen, enum SystemID id)
+TerminalConnections::update_connection(const uint32_t screen, enum class SystemID id)
 {
   m_pending_connections.at(screen) = id;
 }

@@ -34,9 +34,9 @@
 
 #include <Caffeine/Application/audio/audio_manager.hpp>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include <assimp/Include/assimp/Importer.hpp>
+//#include <assimp/Include/assimp/scene.h>
+//#include <assimp/Include/assimp/postprocess.h>
 
 
 
@@ -65,20 +65,20 @@ public:
     
     const std::string& pFile = CaffUtil::GetPathDir() + "/Models/unit_cube.obj";
     
-    Assimp::Importer importer;
+    /*Assimp::Importer importer;
     
       const aiScene* scene = importer.ReadFile(pFile,
         aiProcess_CalcTangentSpace       | 
         aiProcess_Triangulate            |
         aiProcess_JoinIdenticalVertices  |
-        aiProcess_SortByPType);
+        aiProcess_SortByPType);*/
   
     // If the import failed, report it
-    if( !scene)
+    /*if( !scene)
     {
     
     }
-
+	*/
     // Inital Controller
     {
       //m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});

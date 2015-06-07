@@ -32,7 +32,7 @@ TerminalController::clear_screen()
 
 
 void
-TerminalController::connect(const enum SystemID connect_sys)
+TerminalController::connect(const enum class SystemID connect_sys)
 {
   m_connections.update_connection(m_screen_id, connect_sys);
 }

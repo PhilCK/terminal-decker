@@ -36,7 +36,7 @@ public:
 
 	TerminalProgramInterface(const TerminalProgramInterface& a) : object_(a.object_->copy_()) {std::cout << "copy" << std::endl; }
 
-	TerminalProgramInterface(TerminalProgramInterface&&) = default;
+	//TerminalProgramInterface(TerminalProgramInterface&&) = default;
 
 	TerminalProgramInterface& operator=(const TerminalProgramInterface& a)
 	{

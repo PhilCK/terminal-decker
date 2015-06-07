@@ -21,7 +21,7 @@ enum class SystemID : uint8_t
 namespace system_factory
 {
 
-std::vector<detail::TerminalProgramInterface> create(const enum SystemID id);
+std::vector<detail::TerminalProgramInterface> create(const enum class SystemID id);
 
 } // namespace
 
