@@ -14,6 +14,10 @@
 		7E99A1811AFEA5D10090DB10 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7E99A17F1AFEA5CE0090DB10 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7E99A1881AFEA8140090DB10 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = 7E99A1871AFEA8140090DB10 /* Audio */; };
 		7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */; };
+		7EA440811B1C3BAB0031664E /* Laptop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4407F1B1C3BAB0031664E /* Laptop.cpp */; };
+		7EA440841B1C3C5F0031664E /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA440821B1C3C5F0031664E /* Buffer.cpp */; };
+		7EA4408B1B1D6F440031664E /* Network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA440861B1D6F440031664E /* Network.cpp */; };
+		7EA4408C1B1D6F440031664E /* Local.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA440891B1D6F440031664E /* Local.cpp */; };
 		7EA599751AF1552600800BB4 /* TextConsoleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599111AF1552600800BB4 /* TextConsoleModel.cpp */; };
 		7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599131AF1552600800BB4 /* TextConsoleView.cpp */; };
 		7EA599771AF1552600800BB4 /* TextDataParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EA599151AF1552600800BB4 /* TextDataParse.cpp */; };
@@ -51,6 +55,7 @@
 		7EA59AD81AF156DF00800BB4 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD31AF156DF00800BB4 /* Shaders */; };
 		7EA59AD91AF156DF00800BB4 /* Textures in Resources */ = {isa = PBXBuildFile; fileRef = 7EA59AD41AF156DF00800BB4 /* Textures */; };
 		7EBAC4661B188C0100B7CA2B /* TerminalBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */; };
+		7EBAC4691B1A4F4A00B7CA2B /* TerminalRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EBAC4671B1A4F4A00B7CA2B /* TerminalRenderer.cpp */; };
 		7EF5D4DC1B16F18F000DC88B /* UTF8String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4DA1B16F18F000DC88B /* UTF8String.cpp */; };
 		7EF5D4EC1B178CD2000DC88B /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */; };
 		7EF5D5111B178F5C000DC88B /* BasicSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5D5031B178F5C000DC88B /* BasicSystem.cpp */; };
@@ -85,6 +90,16 @@
 		7E99A18A1AFF3D990090DB10 /* sdl_audio_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_audio_manager.cpp; sourceTree = "<group>"; };
 		7E99A18B1AFF3D990090DB10 /* audio_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = audio_manager.hpp; sourceTree = "<group>"; };
 		7E99A1931AFF3DF20090DB10 /* audio_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = audio_fwd.hpp; sourceTree = "<group>"; };
+		7EA4407F1B1C3BAB0031664E /* Laptop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Laptop.cpp; sourceTree = "<group>"; };
+		7EA440801B1C3BAB0031664E /* Laptop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Laptop.hpp; sourceTree = "<group>"; };
+		7EA440821B1C3C5F0031664E /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
+		7EA440831B1C3C5F0031664E /* Buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Buffer.hpp; sourceTree = "<group>"; };
+		7EA440861B1D6F440031664E /* Network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Network.cpp; sourceTree = "<group>"; };
+		7EA440871B1D6F440031664E /* Network.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Network.hpp; sourceTree = "<group>"; };
+		7EA440891B1D6F440031664E /* Local.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Local.cpp; sourceTree = "<group>"; };
+		7EA4408A1B1D6F440031664E /* Local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Local.hpp; sourceTree = "<group>"; };
+		7EA4408D1B1D73120031664E /* NetworkFwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NetworkFwd.hpp; sourceTree = "<group>"; };
+		7EA4408E1B1D73120031664E /* NetworkModule.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NetworkModule.hpp; sourceTree = "<group>"; };
 		7EA598E81AF1545B00800BB4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA598EC1AF1545B00800BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EA599101AF1552600800BB4 /* TextConsoleFwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextConsoleFwd.hpp; sourceTree = "<group>"; };
@@ -170,6 +185,8 @@
 		7EA59AD41AF156DF00800BB4 /* Textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Textures; path = ../../../Assets/Textures; sourceTree = "<group>"; };
 		7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerminalBuffer.cpp; path = Programs/TerminalBuffer.cpp; sourceTree = "<group>"; };
 		7EBAC4651B188C0100B7CA2B /* TerminalBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TerminalBuffer.hpp; path = Programs/TerminalBuffer.hpp; sourceTree = "<group>"; };
+		7EBAC4671B1A4F4A00B7CA2B /* TerminalRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerminalRenderer.cpp; sourceTree = "<group>"; };
+		7EBAC4681B1A4F4A00B7CA2B /* TerminalRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TerminalRenderer.hpp; sourceTree = "<group>"; };
 		7EF5D4DA1B16F18F000DC88B /* UTF8String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8String.cpp; sourceTree = "<group>"; };
 		7EF5D4DB1B16F18F000DC88B /* UTF8String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8String.hpp; sourceTree = "<group>"; };
 		7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainApp.cpp; sourceTree = "<group>"; };
@@ -213,6 +230,38 @@
 			path = audio;
 			sourceTree = "<group>";
 		};
+		7EA4407E1B1C3BAB0031664E /* Laptop */ = {
+			isa = PBXGroup;
+			children = (
+				7EA440821B1C3C5F0031664E /* Buffer.cpp */,
+				7EA440831B1C3C5F0031664E /* Buffer.hpp */,
+				7EA4407F1B1C3BAB0031664E /* Laptop.cpp */,
+				7EA440801B1C3BAB0031664E /* Laptop.hpp */,
+			);
+			path = Laptop;
+			sourceTree = "<group>";
+		};
+		7EA440851B1D6F440031664E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7EA4408D1B1D73120031664E /* NetworkFwd.hpp */,
+				7EA4408E1B1D73120031664E /* NetworkModule.hpp */,
+				7EA440861B1D6F440031664E /* Network.cpp */,
+				7EA440871B1D6F440031664E /* Network.hpp */,
+				7EA440881B1D6F440031664E /* Systems */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7EA440881B1D6F440031664E /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				7EA440891B1D6F440031664E /* Local.cpp */,
+				7EA4408A1B1D6F440031664E /* Local.hpp */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
 		7EA598DF1AF1545B00800BB4 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +302,8 @@
 		7EA5990C1AF1552600800BB4 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				7EA440851B1D6F440031664E /* Network */,
+				7EA4407E1B1C3BAB0031664E /* Laptop */,
 				7EF5D5011B178F5C000DC88B /* Terminal */,
 				7EF5D4EB1B178CD2000DC88B /* MainApp.cpp */,
 				7EF5D4D91B16F18F000DC88B /* Lib */,
@@ -503,6 +554,8 @@
 		7EF5D5011B178F5C000DC88B /* Terminal */ = {
 			isa = PBXGroup;
 			children = (
+				7EBAC4671B1A4F4A00B7CA2B /* TerminalRenderer.cpp */,
+				7EBAC4681B1A4F4A00B7CA2B /* TerminalRenderer.hpp */,
 				7EBAC4641B188C0100B7CA2B /* TerminalBuffer.cpp */,
 				7EBAC4651B188C0100B7CA2B /* TerminalBuffer.hpp */,
 				7EF5D5021B178F5C000DC88B /* Programs */,
@@ -636,17 +689,22 @@
 				7EF5D5131B178F5C000DC88B /* DictHack.cpp in Sources */,
 				7EF5D5111B178F5C000DC88B /* BasicSystem.cpp in Sources */,
 				7EA599881AF1552600800BB4 /* VertexBuffer.cpp in Sources */,
+				7EBAC4691B1A4F4A00B7CA2B /* TerminalRenderer.cpp in Sources */,
 				7EA599911AF1552600800BB4 /* Math.cpp in Sources */,
 				7EA599921AF1552600800BB4 /* lighting_manager.cpp in Sources */,
 				7EF5D4EC1B178CD2000DC88B /* MainApp.cpp in Sources */,
 				7EA5997E1AF1552600800BB4 /* SceneView.cpp in Sources */,
 				7EF5D5151B178F5C000DC88B /* Terminal.cpp in Sources */,
+				7EA440811B1C3BAB0031664E /* Laptop.cpp in Sources */,
 				7EA5997D1AF1552600800BB4 /* SceneModel.cpp in Sources */,
 				7EA599761AF1552600800BB4 /* TextConsoleView.cpp in Sources */,
+				7EA4408C1B1D6F440031664E /* Local.cpp in Sources */,
 				7EA5997F1AF1552600800BB4 /* Application.cpp in Sources */,
 				7E99A1901AFF3D990090DB10 /* sdl_audio_manager.cpp in Sources */,
+				7EA440841B1C3C5F0031664E /* Buffer.cpp in Sources */,
 				7EF5D5161B178F5C000DC88B /* TerminalScreen.cpp in Sources */,
 				7EF5D4DC1B16F18F000DC88B /* UTF8String.cpp in Sources */,
+				7EA4408B1B1D6F440031664E /* Network.cpp in Sources */,
 				7EA5998D1AF1552600800BB4 /* Directories.mm in Sources */,
 				7EA5998E1AF1552600800BB4 /* Logging.cpp in Sources */,
 				7EA599811AF1552600800BB4 /* Model.cpp in Sources */,

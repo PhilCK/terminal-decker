@@ -38,15 +38,17 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <Application/Laptop/Laptop.hpp>
+#include <Application/Network/Network.hpp>
+
 
 
 namespace
 {
-  const uint32_t width = 1280;
-  const uint32_t height = 720;
+  const uint32_t width = 960;
+  const uint32_t height = 540;
   // 1280 × 720
   // 864 x 486
-
 }
 
 
@@ -64,6 +66,9 @@ public:
     m_caffApp.getRenderer().setViewPort(width, height);
     
     const std::string& pFile = CaffUtil::GetPathDir() + "/Models/unit_cube.obj";
+    
+    auto content = std::vector<uint32_t>({1,2,3,4,5,6,7});
+    m_laptopControl.add_content(content);
     
     Assimp::Importer importer;
     
@@ -105,6 +110,9 @@ public:
   {
     while(!m_caffApp.shouldQuit())
     {
+      const auto &data = m_laptopControl.get_active_buffer().get_data();
+    
+    
       m_caffApp.startFrame();
 
       const float delta_time = m_caffApp.getDeltaTime();
@@ -112,7 +120,8 @@ public:
       // Update / Render
       {
         m_caffApp.getInput().set_mouse_hold(true);
-
+        
+        m_network.think(delta_time);
         m_laptop.think(delta_time);
         
         m_sceneController.update(delta_time, m_caffApp.getInput());
@@ -161,13 +170,15 @@ public:
 
 private:
 
-  caffeine::application::application                    m_caffApp;
+  caffeine::application::application     m_caffApp;
 
-  SceneModel                              m_sceneModel;
-  SceneView                               m_sceneView;
-  SceneController                         m_sceneController;
+  SceneModel                             m_sceneModel;
+  SceneView                              m_sceneView;
+  SceneController                        m_sceneController;
   
-  console_screen_controller               m_laptop;
+  console_screen_controller              m_laptop;
+  Laptop                                 m_laptopControl;
+  Network                                m_network;
   TerminalConnections                    m_terminal = TerminalConnections(m_laptop, 4);
   
 

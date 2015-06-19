@@ -1,0 +1,14 @@
+#ifndef TERMINAL_RENDERER_INCLUDED_D5795CAD_709A_45B1_8147_5620CF8A160B
+#define TERMINAL_RENDERER_INCLUDED_D5795CAD_709A_45B1_8147_5620CF8A160B
+
+
+namespace TerminalRenderer {
+
+
+
+
+
+} // include guard
+
+
+#endif // include guard
