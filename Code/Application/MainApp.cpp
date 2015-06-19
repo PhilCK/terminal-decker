@@ -37,6 +37,9 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+//#include <assimp/Include/assimp/Importer.hpp>
+//#include <assimp/Include/assimp/scene.h>
+//#include <assimp/Include/assimp/postprocess.h>
 
 #include <Application/Laptop/Laptop.hpp>
 #include <Application/Network/Network.hpp>
@@ -80,10 +83,12 @@ public:
   
     // If the import failed, report it
     if( !scene)
+    /*if( !scene)
     {
     
     }
 
+	*/
     // Inital Controller
     {
       //m_textConsoleController.addContentToBuffer({32,32,32,32,32,9554,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9552,9557});

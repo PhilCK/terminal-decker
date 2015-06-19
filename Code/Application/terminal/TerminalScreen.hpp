@@ -21,7 +21,7 @@ public:
   void                blit_screen();
   void                clear_screen();
   
-  void                connect(const enum SystemID connect_sys);
+  void                connect(const enum class SystemID connect_sys);
   
 private:
 

@@ -10,7 +10,7 @@ namespace system_factory {
 
 
 std::vector<detail::TerminalProgramInterface>
-create(const enum SystemID id)
+create(const enum class SystemID id)
 {
   std::vector<detail::TerminalProgramInterface> programs;
   
